@@ -1,12 +1,12 @@
-import React from 'react';
+import { Outlet } from 'react-router-dom';
 import './App.css';
-import { MainPage } from './components/MainPage';
+import { Header } from './components/Header';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header"></header>
-      <MainPage />
+      <Header />
+      <Outlet />
     </div>
   );
 }
