@@ -1,0 +1,41 @@
+.Card {
+  width: 350px;
+  background-color: #eae2b7;
+  color: #003049;
+  text-align: right;
+}
+
+.Card__main-img {
+  margin: 0;
+}
+
+.Card__main-img img {
+  width: 100%;
+}
+
+.Card__main-img h3 {
+  padding: 1rem;
+  font-size: 1.3rem;
+  margin: 0;
+  background-color: #d62828;
+  color: white;
+}
+
+.Card__main-img figcaption {
+  padding: 1rem;
+  font-size: 0.8rem;
+}
+
+.Card__description {
+  background-color: #fcbf49;
+  padding: 1rem;
+  color: white;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.Card__links {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-around;
+}
