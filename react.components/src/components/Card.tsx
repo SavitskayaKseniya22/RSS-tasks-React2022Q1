@@ -3,6 +3,7 @@ import emailImg from '../assets/svg/mail.svg';
 import phoneImg from '../assets/svg/phone.svg';
 import linkImg from '../assets/svg/forward-next-arrow.svg';
 import tempImgHouse from '../assets/svg/temp-house.jpg';
+import likeImg from '../assets/svg/like.svg';
 
 import './card.css';
 
@@ -30,7 +31,7 @@ export class Card extends React.Component<CardProps> {
           <a href={'tel:' + this.props.phone} className="Card__phone">
             <img src={phoneImg} alt="call me" />
           </a>
-          <a href={'emailto:' + this.props.email} className="Card__email">
+          <a href={'mailto:' + this.props.email} className="Card__email">
             <img src={emailImg} alt="email me" />
           </a>
           <a
@@ -41,6 +42,9 @@ export class Card extends React.Component<CardProps> {
           >
             <img src={linkImg} alt="go to site" />
           </a>
+          <button className="Card__mark-like">
+            <img src={likeImg} alt="like" />
+          </button>
         </div>
       </li>
     );
