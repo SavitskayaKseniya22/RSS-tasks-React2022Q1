@@ -1,8 +1,9 @@
 .SearchInput {
-  width: 350px;
+  max-width: 50%;
   box-sizing: border-box;
   padding: 1rem 3rem 1rem 1rem;
   border: 3px solid #555b6e;
   background: #faf9f9 url('../assets/svg/search.svg') no-repeat center right 1rem;
   font-size: 1.5rem;
+  margin-left: auto;
 }

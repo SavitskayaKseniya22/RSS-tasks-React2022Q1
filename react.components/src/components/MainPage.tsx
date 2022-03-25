@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from './Card';
 import { SearchInput } from './SearchInput';
+import './mainPage.css';
 
 export class MainPage extends React.Component {
   constructor(props: string) {
@@ -8,10 +9,15 @@ export class MainPage extends React.Component {
   }
   render() {
     return (
-      <div>
-        <Card />
+      <main>
         <SearchInput />
-      </div>
+        <ul className="Card-list">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+        </ul>
+      </main>
     );
   }
 }
