@@ -14,7 +14,8 @@ main > * {
   row-gap: 2rem;
   column-gap: 2rem;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
+  flex-wrap: wrap;
 }
 
 main > *:nth-child(odd) {

@@ -25,7 +25,12 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
   render() {
     return (
       <div>
-        <input className="SearchInput" value={this.state.input} onChange={this.handleChange} />
+        <input
+          className="SearchInput"
+          value={this.state.input}
+          onChange={this.handleChange}
+          placeholder="search new home"
+        />
       </div>
     );
   }

@@ -16,6 +16,9 @@ export class MainPage extends React.Component {
           <Card />
           <Card />
           <Card />
+          <Card />
+          <Card />
+          <Card />
         </ul>
       </main>
     );

@@ -14,3 +14,12 @@ ul {
   list-style: none;
   margin: 0;
 }
+
+.empty-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10rem;
+  text-decoration: overline;
+  color: #89b0ae;
+}

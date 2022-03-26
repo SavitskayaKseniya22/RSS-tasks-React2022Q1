@@ -24,10 +24,17 @@ reportWebVitals();
 render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />}>
-        <Route path="home" element={<MainPage />} />
+      <Route element={<App />}>
+        <Route path="/" element={<MainPage />} />
         <Route path="about-us" element={<AboutUs />} />
-        <Route path="*" element={<div>404</div>} />
+        <Route
+          path="*"
+          element={
+            <div className="empty-page">
+              <span>404</span>
+            </div>
+          }
+        />
       </Route>
     </Routes>
   </BrowserRouter>,

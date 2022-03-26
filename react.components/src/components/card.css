@@ -3,6 +3,7 @@
   background-color: #faf9f9;
   color: #003049;
   text-align: right;
+  flex-shrink: 0;
 }
 
 .Card__main-img {
