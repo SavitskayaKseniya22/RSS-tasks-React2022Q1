@@ -46,3 +46,11 @@
   border: none;
   cursor: pointer;
 }
+
+.favorite-add {
+  background-color: #e63946;
+}
+
+button {
+  padding: 0;
+}
