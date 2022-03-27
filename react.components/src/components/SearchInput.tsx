@@ -26,7 +26,8 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
     return (
       <div>
         <input
-          className="SearchInput"
+          data-testid="search-input"
+          className="Search-input"
           value={this.state.input}
           onChange={this.handleChange}
           placeholder="search new home"
