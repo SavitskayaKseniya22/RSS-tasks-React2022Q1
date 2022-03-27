@@ -4,8 +4,6 @@ import phoneImg from '../assets/svg/phone.svg';
 import linkImg from '../assets/svg/forward-next-arrow.svg';
 import tempImgHouse from '../assets/svg/temp-house.jpg';
 import likeImg from '../assets/svg/like.svg';
-import likeImgFavorite from '../assets/svg/like-favorite.svg';
-
 import './card.css';
 
 export class Card extends React.Component<CardProps, { isFavorite: boolean }> {
@@ -24,13 +22,13 @@ export class Card extends React.Component<CardProps, { isFavorite: boolean }> {
     this.setState((state) => ({
       isFavorite: !state.isFavorite,
     }));
-    (e.target as HTMLButtonElement).classList.toggle('favorite-add');
+    (e.currentTarget as HTMLButtonElement).classList.toggle('favorite-add');
   }
 
   render() {
     return (
-      <li className="Card">
-        <figure className="Card__main-img">
+      <li className="Card" data-testid="card-item">
+        <figure className="Card__main-img" data-testid="card-item__short-card">
           <img src={this.props.img} alt="lot img" />
           <h3>
             <strong>{this.props.name}</strong>
@@ -39,8 +37,10 @@ export class Card extends React.Component<CardProps, { isFavorite: boolean }> {
             <i>{this.props.adress}</i>
           </figcaption>
         </figure>
-        <p className="Card__description">{this.props.description}</p>
-        <div className="Card__links">
+        <p className="Card__description" data-testid="card-item__description">
+          {this.props.description}
+        </p>
+        <div className="Card__links" data-testid="card-item__links">
           <a href={'tel:' + this.props.phone} className="Card__phone">
             <img src={phoneImg} alt="call me" />
           </a>
@@ -55,7 +55,11 @@ export class Card extends React.Component<CardProps, { isFavorite: boolean }> {
           >
             <img src={linkImg} alt="go to site" />
           </a>
-          <button className="Card__mark-like" onClick={this.handleClick}>
+          <button
+            className="Card__mark-like"
+            onClick={this.handleClick}
+            data-testid="card__mark-like"
+          >
             <img src={likeImg} alt="like" />
           </button>
         </div>
