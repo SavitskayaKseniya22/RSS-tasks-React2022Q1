@@ -23,4 +23,14 @@ test('check save value', () => {
   Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
   unmount();
   expect(window.localStorage.setItem).toHaveBeenCalledWith('searchValue', 'text input');
+  expect(window.localStorage.getItem('searchValue')).toBe('text input');
+});
+
+test('check restore value', () => {
+  render(<SearchInput />);
+  const search = screen.getByTestId('search-input') as HTMLInputElement;
+  jest.spyOn(Object.getPrototypeOf(window.localStorage), 'setItem');
+  Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
+  window.localStorage.setItem('searchValue', 'text input');
+  expect(search.value).toBe(window.localStorage.getItem('searchValue'));
 });
