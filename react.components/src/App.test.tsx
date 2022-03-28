@@ -1,13 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
-test('check app page appearance', () => {
+test('check 404 page', () => {
   render(
-    <BrowserRouter>
+    <MemoryRouter initialEntries={['/test']}>
       <App />
-    </BrowserRouter>
+    </MemoryRouter>
   );
-  const app = screen.getByTestId('app');
-  expect(app).toMatchSnapshot();
+  expect(screen.getByText(/404/i)).toBeInTheDocument();
 });
