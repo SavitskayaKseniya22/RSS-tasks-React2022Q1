@@ -6,9 +6,9 @@ import tempImgHouse from '../assets/svg/temp-house.jpg';
 import likeImg from '../assets/svg/like.svg';
 import './card.css';
 
-export class Card extends React.Component<CardProps, { isFavorite: boolean }> {
+export class Card extends React.Component<{ houseItem: CardProps }, { isFavorite: boolean }> {
   static defaultProps: CardProps;
-  constructor(props: CardProps) {
+  constructor(props: { houseItem: CardProps }) {
     super(props);
 
     this.state = {
@@ -29,40 +29,41 @@ export class Card extends React.Component<CardProps, { isFavorite: boolean }> {
     return (
       <li className="Card" data-testid="card-item">
         <figure className="Card__main-img" data-testid="card-item__short-card">
-          <img src={this.props.img} alt="lot img" />
+          <img src={this.props.houseItem.img} alt="lot img" />
           <h3>
-            <strong>{this.props.name}</strong>
+            <strong>{this.props.houseItem.name}</strong>
           </h3>
           <figcaption>
-            <i>{this.props.adress}</i>
+            <i>{this.props.houseItem.adress}</i>
           </figcaption>
         </figure>
         <p className="Card__description" data-testid="card-item__description">
-          {this.props.description}
+          {this.props.houseItem.description}
         </p>
+        <span className="Card__price">{this.props.houseItem.price}</span>
         <div className="Card__links" data-testid="card-item__links">
-          <a href={'tel:' + this.props.phone} className="Card__phone">
+          <a href={'tel:' + this.props.houseItem.phone} className="Card__phone">
             <img src={phoneImg} alt="call me" />
           </a>
-          <a href={'mailto:' + this.props.email} className="Card__email">
+          <a href={'mailto:' + this.props.houseItem.email} className="Card__email">
             <img src={emailImg} alt="email me" />
           </a>
           <a
-            href={this.props.link}
+            href={this.props.houseItem.link}
             target="_blank"
             className="Card__link-to-order"
             rel="noreferrer"
           >
             <img src={linkImg} alt="go to site" />
           </a>
-          <button
-            className="Card__mark-like"
-            onClick={this.handleClick}
-            data-testid="card__mark-like"
-          >
-            <img src={likeImg} alt="like" />
-          </button>
         </div>
+        <button
+          className="Card__mark-like"
+          onClick={this.handleClick}
+          data-testid="card__mark-like"
+        >
+          <img src={likeImg} alt="like" />
+        </button>
       </li>
     );
   }
@@ -74,9 +75,10 @@ Card.defaultProps = {
   name: 'Ut enim ad minim veniam',
   description:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  link: '#',
-  email: '',
-  phone: '',
+  link: 'https://www.google.com/',
+  email: 'zapeppebraco-8159@yopmail.com',
+  phone: '(606) 476-8863',
+  price: '550 000$',
 };
 
 interface CardProps {
@@ -87,4 +89,5 @@ interface CardProps {
   link?: string;
   email?: string;
   phone?: string;
+  price?: string;
 }

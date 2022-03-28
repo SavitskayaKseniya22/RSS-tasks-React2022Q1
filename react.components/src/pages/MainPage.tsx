@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from '../components/Card';
 import { SearchInput } from '../components/SearchInput';
 import './mainPage.css';
+import { data } from '../data';
 
 export class MainPage extends React.Component {
   constructor(props: string) {
@@ -12,13 +13,9 @@ export class MainPage extends React.Component {
       <main data-testid="main-page">
         <SearchInput />
         <ul className="Card-list" data-testid="card-list">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {data.map((elem, index) => (
+            <Card key={index} houseItem={elem} />
+          ))}
         </ul>
       </main>
     );
