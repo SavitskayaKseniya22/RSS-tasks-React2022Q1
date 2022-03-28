@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`check AboutUs page appearance 1`] = `
+<div
+  data-testid="about-us"
+>
+  <h1>
+    about us
+  </h1>
+</div>
+`;

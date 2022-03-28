@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`check footer appearance 1`] = `
+<footer
+  class="Footer"
+  data-testid="footer"
+>
+  <div>
+    <a
+      href="https://rs.school/js/"
+      rel="noreferrer"
+      target="_blank"
+    >
+      <img
+        alt="logo"
+        src="rs-school-js.svg"
+        width="100"
+      />
+    </a>
+  </div>
+  <div>
+    <a
+      href="https://github.com/SavitskayaKseniya22"
+      rel="noreferrer"
+      target="_blank"
+    >
+      made by Kseniya Savitskaya
+    </a>
+  </div>
+  <div>
+    © 2022
+  </div>
+</footer>
+`;

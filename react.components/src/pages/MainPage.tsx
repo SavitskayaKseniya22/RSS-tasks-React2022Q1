@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card } from './Card';
-import { SearchInput } from './SearchInput';
+import { Card } from '../Card';
+import { SearchInput } from '../SearchInput';
 import './mainPage.css';
 
 export class MainPage extends React.Component {

@@ -6,7 +6,7 @@ export class AboutUs extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div data-testid="about-us">
         <h1>about us</h1>
       </div>
     );
