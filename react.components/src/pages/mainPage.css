@@ -16,6 +16,7 @@ main > * {
   justify-content: center;
   padding: 1rem;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 main > *:nth-child(odd) {

@@ -14,7 +14,11 @@ export class MainPage extends React.Component {
         <SearchInput />
         <ul className="Card-list" data-testid="card-list">
           {data.map((elem, index) => (
-            <Card key={index} houseItem={elem} />
+            <Card
+              key={index}
+              houseItem={elem}
+              img={require(`./../assets/svg/houses/${elem.name}.jpg`)}
+            />
           ))}
         </ul>
       </main>

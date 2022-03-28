@@ -6,9 +6,12 @@ import tempImgHouse from '../assets/svg/temp-house.jpg';
 import likeImg from '../assets/svg/like.svg';
 import './card.css';
 
-export class Card extends React.Component<{ houseItem: CardProps }, { isFavorite: boolean }> {
-  static defaultProps: CardProps;
-  constructor(props: { houseItem: CardProps }) {
+export class Card extends React.Component<
+  { houseItem: CardProps; img: string },
+  { isFavorite: boolean }
+> {
+  static defaultProps: { houseItem: CardProps; img: string };
+  constructor(props: { houseItem: CardProps; img: string }) {
     super(props);
 
     this.state = {
@@ -29,7 +32,7 @@ export class Card extends React.Component<{ houseItem: CardProps }, { isFavorite
     return (
       <li className="Card" data-testid="card-item">
         <figure className="Card__main-img" data-testid="card-item__short-card">
-          <img src={this.props.houseItem.img} alt="lot img" />
+          <img src={this.props.img} alt="lot img" />
           <h3>
             <strong>{this.props.houseItem.name}</strong>
           </h3>
@@ -70,19 +73,20 @@ export class Card extends React.Component<{ houseItem: CardProps }, { isFavorite
 }
 
 Card.defaultProps = {
+  houseItem: {
+    adress: '3014 Tree Frog Lane, Lenexa, Missouri',
+    name: 'Ut enim ad minim veniam',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    link: 'https://www.google.com/',
+    email: 'zapeppebraco-8159@yopmail.com',
+    phone: '(606) 476-8863',
+    price: '550 000$',
+  },
   img: tempImgHouse,
-  adress: '3014 Tree Frog Lane, Lenexa, Missouri',
-  name: 'Ut enim ad minim veniam',
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  link: 'https://www.google.com/',
-  email: 'zapeppebraco-8159@yopmail.com',
-  phone: '(606) 476-8863',
-  price: '550 000$',
 };
 
 interface CardProps {
-  img?: string;
   adress?: string;
   name?: string;
   description?: string;
