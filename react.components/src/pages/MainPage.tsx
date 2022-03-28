@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card } from '../Card';
-import { SearchInput } from '../SearchInput';
+import { Card } from '../components/Card';
+import { SearchInput } from '../components/SearchInput';
 import './mainPage.css';
 
 export class MainPage extends React.Component {
@@ -9,9 +9,9 @@ export class MainPage extends React.Component {
   }
   render() {
     return (
-      <main>
+      <main data-testid="main-page">
         <SearchInput />
-        <ul className="Card-list">
+        <ul className="Card-list" data-testid="card-list">
           <Card />
           <Card />
           <Card />
