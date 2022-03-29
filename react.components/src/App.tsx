@@ -4,6 +4,7 @@ import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { AboutUs } from './pages/AboutUs';
 import { MainPage } from './pages/MainPage';
+import { MyAds } from './pages/MyAds';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Footer />
       <Outlet />
       <Routes>
+        <Route path="/my-ads" element={<MyAds />} />
         <Route path="/" element={<MainPage />} />
         <Route path="about-us" element={<AboutUs />} />
         <Route

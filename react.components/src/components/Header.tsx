@@ -23,6 +23,13 @@ export class Header extends React.Component {
         >
           about us
         </NavLink>
+        <NavLink
+          data-testid="my-ads__link"
+          className={({ isActive }) => (isActive ? 'active-link' : 'inActiveLink')}
+          to="/my-ads"
+        >
+          my ads
+        </NavLink>
       </header>
     );
   }
