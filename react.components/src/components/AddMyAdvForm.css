@@ -1,0 +1,55 @@
+.add-adv {
+  width: 50%;
+  margin: 0 auto;
+  background-color: #ffd6ba;
+  display: flex;
+  align-items: center;
+  row-gap: 1rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+}
+
+.add-adv > label {
+  display: flex;
+  justify-content: space-between;
+  row-gap: 2rem;
+  column-gap: 2rem;
+  padding: 1rem;
+  align-items: center;
+}
+
+h3 {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.add-adv input {
+  width: 80%;
+  border: 2px solid #555b6e;
+  padding: 0.5rem;
+  flex-grow: 1;
+}
+
+.price {
+  display: flex;
+}
+
+button,
+input[type='checkbox'],
+label,
+input[type='radio'],
+select {
+  cursor: pointer;
+}
+
+.big-field {
+  width: 100%;
+}
+
+.small-field {
+  width: 33%;
+}
+
+.middle-field {
+  width: 50%;
+}
