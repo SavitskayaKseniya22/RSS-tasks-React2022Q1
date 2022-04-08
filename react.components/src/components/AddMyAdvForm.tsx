@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import './AddMyAdvForm.css';
 
-export class AddAdv extends React.Component {
+export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
   title: React.RefObject<HTMLInputElement>;
   description: React.RefObject<HTMLInputElement>;
   tel: React.RefObject<HTMLInputElement>;
@@ -14,10 +14,12 @@ export class AddAdv extends React.Component {
   currency: React.RefObject<HTMLSelectElement>;
   submit: React.RefObject<HTMLInputElement>;
 
-  constructor(props: string) {
+  constructor(props: Record<string, never>) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.validation = this.validation.bind(this);
+    this.resetValidation = this.resetValidation.bind(this);
     this.title = React.createRef();
     this.description = React.createRef();
     this.tel = React.createRef();
@@ -29,29 +31,43 @@ export class AddAdv extends React.Component {
     this.ready = React.createRef();
     this.currency = React.createRef();
     this.submit = React.createRef();
+    this.state = { isValidTitle: null };
   }
 
   handleSubmit(event: FormEvent<HTMLFormElement>) {
-    alert(
-      'Отправленное имя: ' +
-        this.title.current?.value +
-        ' ' +
-        this.tel.current?.value +
-        ' ' +
-        this.email.current?.value +
-        ' ' +
-        this.area.current?.value +
-        ' ' +
-        this.description.current?.value +
-        ' '
-    );
-
     event.preventDefault();
+    this.validation();
   }
 
   handleInput(event: FormEvent<HTMLInputElement>) {
     event.preventDefault();
     this.submit!.current!.removeAttribute('disabled');
+    const name = (event.target as HTMLInputElement).getAttribute('name') as string;
+    this.resetValidation(name);
+  }
+
+  validation() {
+    if (/[A-Za-z0-9\s]{6,}/.test(this.title.current?.value as string)) {
+      this.setState({ isValidTitle: true });
+    } else {
+      this.setState({ isValidTitle: false });
+    }
+  }
+
+  resetValidation(input: string) {
+    switch (input) {
+      case 'title':
+        this.setState((state) => ({
+          isValidTitle: state.isValidTitle || !state.isValidTitle,
+        }));
+        break;
+
+      case 'value2':
+        break;
+
+      default:
+        break;
+    }
   }
 
   render() {
@@ -60,14 +76,14 @@ export class AddAdv extends React.Component {
         <form className="add-adv" onSubmit={this.handleSubmit}>
           <label className="big-field">
             <h3>Title:</h3>
-            <input
-              type="text"
-              name="name"
-              ref={this.title}
-              pattern="[A-Za-z0-9\s]{6,}"
-              required
-              onInput={this.handleInput}
-            />
+            <input type="text" name="title" ref={this.title} onInput={this.handleInput} />
+            {
+              <span id="title-error">
+                {this.state.isValidTitle === false
+                  ? 'Please enter a valid title. String must contain at least 6 characters.'
+                  : ''}
+              </span>
+            }
           </label>
 
           <label className="big-field">
@@ -77,41 +93,28 @@ export class AddAdv extends React.Component {
               name="description"
               ref={this.description}
               pattern="[A-Za-z0-9\s]{10,}"
-              required
             />
           </label>
 
           <label className="middle-field">
             <h3>Tel:</h3>
-            <input type="tel" name="tel" ref={this.tel} pattern="[0-9\s-]{5,}" required />
+            <input type="tel" name="tel" ref={this.tel} pattern="[0-9\s-]{5,}" />
           </label>
 
           <label className="middle-field">
             <h3>E-mail:</h3>
-            <input type="email" name="email" id="" ref={this.email} required />
+            <input type="email" name="email" id="" ref={this.email} />
           </label>
 
           <label className="small-field">
             <h3>Area (&#13217;):</h3>
-            <input
-              type="number"
-              name="area"
-              ref={this.area}
-              pattern="^[0-9]*[.,]?[0-9]+$"
-              required
-            />
+            <input type="number" name="area" ref={this.area} pattern="^[0-9]*[.,]?[0-9]+$" />
           </label>
 
           <label className="small-field">
             <h3>Price:</h3>
             <div className="price">
-              <input
-                type="number"
-                name=""
-                ref={this.price}
-                pattern="^[0-9]*[.,]?[0-9]+$"
-                required
-              />
+              <input type="number" name="" ref={this.price} pattern="^[0-9]*[.,]?[0-9]+$" />
               <select name="currency" ref={this.currency}>
                 <option value="$">$</option>
                 <option value="€">€</option>
@@ -153,4 +156,8 @@ export class AddAdv extends React.Component {
       </div>
     );
   }
+}
+
+interface FormTypes {
+  isValidTitle: boolean | null;
 }
