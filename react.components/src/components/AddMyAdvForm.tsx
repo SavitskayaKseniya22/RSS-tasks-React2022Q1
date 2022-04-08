@@ -13,6 +13,8 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
   ready: React.RefObject<HTMLInputElement>;
   currency: React.RefObject<HTMLSelectElement>;
   submit: React.RefObject<HTMLInputElement>;
+  fileInput: React.RefObject<HTMLInputElement>;
+  imgUrl: string | undefined;
 
   constructor(props: Record<string, never>) {
     super(props);
@@ -31,6 +33,7 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
     this.ready = React.createRef();
     this.currency = React.createRef();
     this.submit = React.createRef();
+    this.fileInput = React.createRef();
     this.state = {
       isValidTitle: null,
       isValidDescription: null,
@@ -39,6 +42,7 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
       isValidArea: null,
       isValidPrice: null,
       isValidDate: null,
+      isValidFile: null,
     };
   }
 
@@ -57,10 +61,9 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
   }
 
   validation() {
-    let isCorrect = false;
+    let isCorrect = true;
     if (/^[A-Za-z0-9\s]{6,}$/.test(this.title.current?.value as string)) {
       this.setState({ isValidTitle: true });
-      isCorrect = true;
     } else {
       this.setState({ isValidTitle: false });
       isCorrect = false;
@@ -68,7 +71,6 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
 
     if (/^[A-Za-z0-9\s]{10,}$/.test(this.description.current?.value as string)) {
       this.setState({ isValidDescription: true });
-      isCorrect = true;
     } else {
       this.setState({ isValidDescription: false });
       isCorrect = false;
@@ -76,7 +78,6 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
 
     if (/^[0-9\s-]{5,}$/.test(this.tel.current?.value as string)) {
       this.setState({ isValidTel: true });
-      isCorrect = true;
     } else {
       this.setState({ isValidTel: false });
       isCorrect = false;
@@ -84,7 +85,6 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
 
     if (/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(this.email.current?.value as string)) {
       this.setState({ isValidEmail: true });
-      isCorrect = true;
     } else {
       this.setState({ isValidEmail: false });
       isCorrect = false;
@@ -92,7 +92,6 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
 
     if (/^[0-9]*[.,]?[0-9]+$/.test(this.area.current?.value as string)) {
       this.setState({ isValidArea: true });
-      isCorrect = true;
     } else {
       this.setState({ isValidArea: false });
       isCorrect = false;
@@ -100,7 +99,6 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
 
     if (/^[0-9]*[.,]?[0-9]+$/.test(this.price.current?.value as string)) {
       this.setState({ isValidPrice: true });
-      isCorrect = true;
     } else {
       this.setState({ isValidPrice: false });
       isCorrect = false;
@@ -108,9 +106,16 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
 
     if (new Date(this.date.current?.value as string) > new Date()) {
       this.setState({ isValidDate: true });
-      isCorrect = true;
     } else {
       this.setState({ isValidDate: false });
+      isCorrect = false;
+    }
+
+    if (this.fileInput.current?.files?.length) {
+      this.imgUrl = URL.createObjectURL(this.fileInput.current?.files[0]);
+      this.setState({ isValidFile: true });
+    } else {
+      this.setState({ isValidFile: false });
       isCorrect = false;
     }
 
@@ -155,6 +160,11 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
       case 'date':
         this.setState((state) => ({
           isValidDate: state.isValidDate || !state.isValidDate,
+        }));
+        break;
+      case 'img':
+        this.setState((state) => ({
+          isValidFile: state.isValidFile || !state.isValidFile,
         }));
         break;
 
@@ -269,7 +279,12 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
 
           <label className="big-field">
             <h3>Add images:</h3>
-            <input type="file" name="img" />
+            <input type="file" name="img" ref={this.fileInput} onInput={this.handleInput} />
+            {
+              <span id="img-error">
+                {this.state.isValidFile === false ? 'Please choose an img' : ''}
+              </span>
+            }
           </label>
 
           <input
@@ -293,4 +308,5 @@ interface FormTypes {
   isValidArea: boolean | null;
   isValidPrice: boolean | null;
   isValidDate: boolean | null;
+  isValidFile: boolean | null;
 }
