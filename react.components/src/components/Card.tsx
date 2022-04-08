@@ -86,7 +86,7 @@ Card.defaultProps = {
   img: tempImgHouse,
 };
 
-interface CardProps {
+export interface CardProps {
   adress?: string;
   name?: string;
   description?: string;
@@ -94,4 +94,9 @@ interface CardProps {
   email?: string;
   phone?: string;
   price?: string;
+  date?: string;
+  area?: string;
+  type?: string;
+  isReady?: string;
+  currency?: string;
 }

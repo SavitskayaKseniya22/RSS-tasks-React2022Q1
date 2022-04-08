@@ -1,5 +1,6 @@
 import React, { FormEvent } from 'react';
 import './AddMyAdvForm.css';
+import { Card, CardProps } from './Card';
 
 export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
   title: React.RefObject<HTMLInputElement>;
@@ -14,7 +15,7 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
   currency: React.RefObject<HTMLSelectElement>;
   submit: React.RefObject<HTMLInputElement>;
   fileInput: React.RefObject<HTMLInputElement>;
-  imgUrl: string | undefined;
+  object: CardProps | undefined;
 
   constructor(props: Record<string, never>) {
     super(props);
@@ -43,6 +44,8 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
       isValidPrice: null,
       isValidDate: null,
       isValidFile: null,
+      savedCards: [],
+      savedImages: [],
     };
   }
 
@@ -50,6 +53,22 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
     event.preventDefault();
     if (!this.validation()) {
       this.submit!.current!.setAttribute('disabled', 'true');
+    } else {
+      this.object = {
+        name: this.title.current?.value,
+        description: this.description.current?.value,
+        email: this.email.current?.value,
+        phone: this.tel.current?.value,
+        price: this.price.current?.value,
+        date: this.date.current?.value,
+        area: this.area.current?.value,
+        type: this.type.current?.value,
+        isReady: this.ready.current?.value,
+        currency: this.currency.current?.value,
+      };
+      this.setState({
+        savedCards: [...this.state.savedCards, this.object],
+      });
     }
   }
 
@@ -112,7 +131,10 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
     }
 
     if (this.fileInput.current?.files?.length) {
-      this.imgUrl = URL.createObjectURL(this.fileInput.current?.files[0]);
+      const imgUrl = URL.createObjectURL(this.fileInput.current?.files[0]);
+      this.setState({
+        savedImages: [...this.state.savedImages, imgUrl],
+      });
       this.setState({ isValidFile: true });
     } else {
       this.setState({ isValidFile: false });
@@ -295,6 +317,9 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
             disabled
           />
         </form>
+        {this.state.savedCards.map((elem, index) => (
+          <Card key={index} houseItem={elem} img={this.state.savedImages[index]} />
+        ))}
       </div>
     );
   }
@@ -309,4 +334,6 @@ interface FormTypes {
   isValidPrice: boolean | null;
   isValidDate: boolean | null;
   isValidFile: boolean | null;
+  savedCards: CardProps[];
+  savedImages: string[];
 }
