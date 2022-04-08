@@ -53,3 +53,8 @@ select {
 .middle-field {
   width: 50%;
 }
+
+.submit-button:disabled{
+  background-color: #3b2312;
+  
+}

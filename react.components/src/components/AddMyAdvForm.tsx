@@ -12,9 +12,12 @@ export class AddAdv extends React.Component {
   type: React.RefObject<HTMLInputElement>;
   ready: React.RefObject<HTMLInputElement>;
   currency: React.RefObject<HTMLSelectElement>;
+  submit: React.RefObject<HTMLInputElement>;
+
   constructor(props: string) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInput = this.handleInput.bind(this);
     this.title = React.createRef();
     this.description = React.createRef();
     this.tel = React.createRef();
@@ -25,6 +28,7 @@ export class AddAdv extends React.Component {
     this.type = React.createRef();
     this.ready = React.createRef();
     this.currency = React.createRef();
+    this.submit = React.createRef();
   }
 
   handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -45,39 +49,69 @@ export class AddAdv extends React.Component {
     event.preventDefault();
   }
 
+  handleInput(event: FormEvent<HTMLInputElement>) {
+    event.preventDefault();
+    this.submit!.current!.removeAttribute('disabled');
+  }
+
   render() {
     return (
       <div data-testid="add-adv">
         <form className="add-adv" onSubmit={this.handleSubmit}>
           <label className="big-field">
             <h3>Title:</h3>
-            <input type="text" name="name" ref={this.title} />
+            <input
+              type="text"
+              name="name"
+              ref={this.title}
+              pattern="[A-Za-z0-9\s]{6,}"
+              required
+              onInput={this.handleInput}
+            />
           </label>
 
           <label className="big-field">
             <h3>Description:</h3>
-            <input type="text" name="description" ref={this.description} />
+            <input
+              type="text"
+              name="description"
+              ref={this.description}
+              pattern="[A-Za-z0-9\s]{10,}"
+              required
+            />
           </label>
 
           <label className="middle-field">
             <h3>Tel:</h3>
-            <input type="tel" name="tel" ref={this.tel} />
+            <input type="tel" name="tel" ref={this.tel} pattern="[0-9\s-]{5,}" required />
           </label>
 
           <label className="middle-field">
             <h3>E-mail:</h3>
-            <input type="email" name="email" id="" ref={this.email} />
+            <input type="email" name="email" id="" ref={this.email} required />
           </label>
 
           <label className="small-field">
             <h3>Area (&#13217;):</h3>
-            <input type="number" name="area" ref={this.area} />
+            <input
+              type="number"
+              name="area"
+              ref={this.area}
+              pattern="^[0-9]*[.,]?[0-9]+$"
+              required
+            />
           </label>
 
           <label className="small-field">
             <h3>Price:</h3>
             <div className="price">
-              <input type="number" name="" ref={this.price} />
+              <input
+                type="number"
+                name=""
+                ref={this.price}
+                pattern="^[0-9]*[.,]?[0-9]+$"
+                required
+              />
               <select name="currency" ref={this.currency}>
                 <option value="$">$</option>
                 <option value="€">€</option>
@@ -108,7 +142,13 @@ export class AddAdv extends React.Component {
             <input type="file" name="img" />
           </label>
 
-          <input type="submit" value="Отправить" />
+          <input
+            type="submit"
+            className="submit-button"
+            value="Отправить"
+            ref={this.submit}
+            disabled
+          />
         </form>
       </div>
     );
