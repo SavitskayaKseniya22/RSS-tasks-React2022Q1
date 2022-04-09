@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card } from '../components/Card';
-import { SearchInput } from '../components/SearchInput';
+import { Card } from '../../components/card/Card';
 import './mainPage.css';
-import { data } from '../data';
+import { data } from '../../data';
+import { SearchInput } from '../../components/searchInput/SearchInput';
 
 export class MainPage extends React.Component {
   constructor(props: string) {
@@ -17,7 +17,7 @@ export class MainPage extends React.Component {
             <Card
               key={index}
               houseItem={elem}
-              img={require(`./../assets/svg/houses/${elem.name}.jpg`)}
+              img={require(`./../../assets/svg/houses/${elem.name}.jpg`)}
             />
           ))}
         </ul>

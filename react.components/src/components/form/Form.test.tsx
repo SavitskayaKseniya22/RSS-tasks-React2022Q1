@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { AddAdv } from './AddMyAdvForm';
+import { Form } from './Form';
 
 test('check form appearance', () => {
-  render(<AddAdv />);
+  render(<Form />);
   const adPage = screen.getByTestId('advertisements');
   expect(adPage).toHaveClass('advertisements');
   const formAd = screen.getByTestId('form-ad');
@@ -10,14 +10,14 @@ test('check form appearance', () => {
 });
 
 test('check input title work', () => {
-  render(<AddAdv />);
+  render(<Form />);
   const title = screen.getByTestId('title') as HTMLInputElement;
   fireEvent.input(title, { target: { value: 'text input' } });
   expect(title.value).toEqual('text input');
 });
 
 test('check handleinput title work', () => {
-  render(<AddAdv />);
+  render(<Form />);
   const title = screen.getByTestId('title') as HTMLInputElement;
   const submit = screen.getByTestId('form-submit') as HTMLInputElement;
   expect(submit.disabled).toEqual(true);
@@ -26,7 +26,7 @@ test('check handleinput title work', () => {
 });
 
 test('check title error work', () => {
-  render(<AddAdv />);
+  render(<Form />);
   const title = screen.getByTestId('title') as HTMLInputElement;
   const submit = screen.getByTestId('form-submit') as HTMLInputElement;
   expect(submit.disabled).toEqual(true);

@@ -1,9 +1,9 @@
 import React from 'react';
-import emailImg from '../assets/svg/mail.svg';
-import phoneImg from '../assets/svg/phone.svg';
-import linkImg from '../assets/svg/forward-next-arrow.svg';
-import tempImgHouse from '../assets/svg/temp-house.jpg';
-import likeImg from '../assets/svg/like.svg';
+import emailImg from '../../assets/svg/mail.svg';
+import phoneImg from '../../assets/svg/phone.svg';
+import linkImg from '../../assets/svg/forward-next-arrow.svg';
+import tempImgHouse from '../../assets/svg/temp-house.jpg';
+import likeImg from '../../assets/svg/like.svg';
 import './card.css';
 
 export class Card extends React.Component<

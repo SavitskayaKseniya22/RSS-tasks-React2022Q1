@@ -3,7 +3,7 @@
   box-sizing: border-box;
   padding: 0.7rem 3rem 0.7rem 0.7rem;
   border: 2px solid #555b6e;
-  background: #faf9f9 url('../assets/svg/search.svg') no-repeat center right 1rem;
+  background: #faf9f9 url('../../assets/svg/search.svg') no-repeat center right 1rem;
   font-size: 1.3rem;
   margin-left: auto;
 }

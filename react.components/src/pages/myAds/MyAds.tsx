@@ -1,6 +1,6 @@
 import React from 'react';
-import { AddAdv } from '../components/AddMyAdvForm';
-import './myAdds.css';
+import { Form } from '../../components/form/Form';
+import './myAds.css';
 
 export class MyAds extends React.Component {
   constructor(props: string) {
@@ -10,7 +10,7 @@ export class MyAds extends React.Component {
     return (
       <div data-testid="my-ads" className="my-ads">
         <h1>my advertisements</h1>
-        <AddAdv />
+        <Form />
       </div>
     );
   }

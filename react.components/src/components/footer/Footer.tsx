@@ -1,6 +1,6 @@
 import React from 'react';
 import './footer.css';
-import logo from '../assets/svg/rs-school-js.svg';
+import logo from '../../assets/svg/rs-school-js.svg';
 
 export class Footer extends React.Component {
   constructor(props: string) {

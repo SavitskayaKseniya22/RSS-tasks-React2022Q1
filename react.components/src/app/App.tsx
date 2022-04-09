@@ -1,10 +1,10 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Footer } from './components/Footer';
-import { Header } from './components/Header';
-import { AboutUs } from './pages/AboutUs';
-import { MainPage } from './pages/MainPage';
-import { MyAds } from './pages/MyAds';
+import { MainPage } from '../pages/mainPage/MainPage';
+import { MyAds } from '../pages/myAds/MyAds';
+import { AboutUs } from '../pages/aboutUs/AboutUs';
+import { Header } from '../components/header/Header';
+import { Footer } from '../components/footer/Footer';
 
 function App() {
   return (

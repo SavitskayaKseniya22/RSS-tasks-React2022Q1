@@ -217,9 +217,7 @@ exports[`check form appearance 1`] = `
         value="send"
       />
     </form>
-    <div
-      class="adds-list"
-    />
+    <div />
   </div>
 </div>
 `;

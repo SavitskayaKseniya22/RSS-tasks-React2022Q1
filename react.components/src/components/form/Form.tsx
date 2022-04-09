@@ -1,9 +1,9 @@
 import React, { FormEvent } from 'react';
-import './AddMyAdvForm.css';
-import { Card, CardProps } from './Card';
-import { CardList } from './CardList';
+import './form.css';
+import { CardProps } from '../card/Card';
+import { CardList } from '../cardList/CardList';
 
-export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
+export class Form extends React.Component<Record<string, never>, FormTypes> {
   title: React.RefObject<HTMLInputElement>;
   description: React.RefObject<HTMLInputElement>;
   tel: React.RefObject<HTMLInputElement>;
