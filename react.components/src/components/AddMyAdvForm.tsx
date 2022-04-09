@@ -16,6 +16,7 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
   submit: React.RefObject<HTMLInputElement>;
   fileInput: React.RefObject<HTMLInputElement>;
   object: CardProps | undefined;
+  form: React.RefObject<HTMLFormElement>;
 
   constructor(props: Record<string, never>) {
     super(props);
@@ -35,6 +36,7 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
     this.currency = React.createRef();
     this.submit = React.createRef();
     this.fileInput = React.createRef();
+    this.form = React.createRef();
     this.state = {
       isValidTitle: null,
       isValidDescription: null,
@@ -66,9 +68,18 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
         isReady: this.ready.current?.value,
         currency: this.currency.current?.value,
       };
+      if (this.fileInput.current?.files?.length) {
+        const imgUrl = URL.createObjectURL(this.fileInput.current?.files[0]);
+        this.setState({
+          savedImages: [...this.state.savedImages, imgUrl],
+        });
+      }
+
       this.setState({
         savedCards: [...this.state.savedCards, this.object],
       });
+
+      this.form.current?.reset();
     }
   }
 
@@ -131,10 +142,6 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
     }
 
     if (this.fileInput.current?.files?.length) {
-      const imgUrl = URL.createObjectURL(this.fileInput.current?.files[0]);
-      this.setState({
-        savedImages: [...this.state.savedImages, imgUrl],
-      });
       this.setState({ isValidFile: true });
     } else {
       this.setState({ isValidFile: false });
@@ -197,16 +204,20 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
 
   render() {
     return (
-      <div data-testid="add-adv">
-        <form className="add-adv" onSubmit={this.handleSubmit} noValidate>
+      <div data-testid="advertisements" className="advertisements">
+        <form className="add-adv" onSubmit={this.handleSubmit} noValidate ref={this.form}>
           <label className="big-field">
             <h3>Title:</h3>
-            <input type="text" name="title" ref={this.title} onInput={this.handleInput} />
+            <input
+              type="text"
+              name="title"
+              ref={this.title}
+              onInput={this.handleInput}
+              placeholder="Please enter a valid title. String must contain at least 6 characters."
+            />
             {
-              <span id="title-error">
-                {this.state.isValidTitle === false
-                  ? 'Please enter a valid title. String must contain at least 6 characters.'
-                  : ''}
+              <span id="title-error" className="error-note">
+                <strong>{this.state.isValidTitle === false ? 'Title too short' : ''}</strong>
               </span>
             }
           </label>
@@ -218,44 +229,61 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
               name="description"
               ref={this.description}
               onInput={this.handleInput}
+              placeholder="Please enter a valid description. String must contain at least 10 characters."
             />
             {
-              <span id="description-error">
-                {this.state.isValidDescription === false
-                  ? 'Please enter a valid description. String must contain at least 10 characters.'
-                  : ''}
+              <span id="description-error" className="error-note">
+                <strong>
+                  {this.state.isValidDescription === false ? 'Description too short' : ''}
+                </strong>
               </span>
             }
           </label>
 
           <label className="middle-field">
             <h3>Tel:</h3>
-            <input type="tel" name="tel" ref={this.tel} onInput={this.handleInput} />
+            <input
+              type="tel"
+              name="tel"
+              ref={this.tel}
+              onInput={this.handleInput}
+              placeholder="Please enter a valid number. Number must contain at least 5 digits."
+            />
             {
-              <span id="tel-error">
-                {this.state.isValidTel === false
-                  ? 'Please enter a valid number. Number must contain at least 5 digits.'
-                  : ''}
+              <span id="tel-error" className="error-note">
+                <strong>{this.state.isValidTel === false ? 'Invalid phone number' : ''}</strong>
               </span>
             }
           </label>
 
           <label className="middle-field">
             <h3>E-mail:</h3>
-            <input type="email" name="email" ref={this.email} onInput={this.handleInput} />
+            <input
+              type="email"
+              name="email"
+              ref={this.email}
+              onInput={this.handleInput}
+              placeholder="Please enter a valid email"
+            />
             {
-              <span id="email-error">
-                {this.state.isValidEmail === false ? 'Please enter a valid email' : ''}
+              <span id="email-error" className="error-note">
+                <strong>{this.state.isValidEmail === false ? 'Invalid email' : ''}</strong>
               </span>
             }
           </label>
 
           <label className="small-field">
             <h3>Area (&#13217;):</h3>
-            <input type="number" name="area" ref={this.area} onInput={this.handleInput} />
+            <input
+              type="number"
+              name="area"
+              ref={this.area}
+              onInput={this.handleInput}
+              placeholder="Enter the area of the house"
+            />
             {
-              <span id="area-error">
-                {this.state.isValidArea === false ? 'Please enter a valid number' : ''}
+              <span id="area-error" className="error-note">
+                <strong>{this.state.isValidArea === false ? 'Invalid number' : ''}</strong>
               </span>
             }
           </label>
@@ -263,38 +291,54 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
           <label className="small-field">
             <h3>Price:</h3>
             <div className="price">
-              <input type="number" name="price" ref={this.price} onInput={this.handleInput} />
-              {
-                <span id="price-error">
-                  {this.state.isValidPrice === false ? 'Please enter a valid number' : ''}
-                </span>
-              }
+              <input
+                type="number"
+                name="price"
+                ref={this.price}
+                onInput={this.handleInput}
+                placeholder="Enter price"
+              />
               <select name="currency" ref={this.currency} defaultValue="₽">
-                <option value="$">$</option>
-                <option value="€">€</option>
-                <option value="€">₽</option>
+                <option value="$">&#36;</option>
+                <option value="€">&#8364;</option>
+                <option value="₽">&#8381;</option>
               </select>
             </div>
+            {
+              <span id="price-error" className="error-note">
+                <strong>
+                  {this.state.isValidPrice === false ? 'Please enter a valid number' : ''}
+                </strong>
+              </span>
+            }
           </label>
           <label className="small-field">
-            <h3>Date:</h3>
+            <h3>Date of construction:</h3>
             <input type="date" name="date" ref={this.date} onInput={this.handleInput} />
             {
-              <span id="date-error">
-                {this.state.isValidDate === false ? 'Please enter a valid date' : ''}
+              <span id="date-error" className="error-note">
+                <strong>
+                  {this.state.isValidDate === false ? 'Please enter a valid date' : ''}
+                </strong>
               </span>
             }
           </label>
 
-          <label className="small-field">
-            <h3>Sale:</h3>
+          <div className="middle-field ad-type">
+            <h3>Type of ad:</h3>
+
             <input type="radio" id="sale" name="typeAdd" value="sale" defaultChecked />
-          </label>
-          <label className="small-field">
-            <h3>Rent:</h3>
+            <label className="switcher" htmlFor="sale">
+              <span>Sale</span>
+            </label>
+
             <input type="radio" id="rent" name="typeAdd" value="rent" />
-          </label>
-          <label className="small-field">
+            <label className="switcher" htmlFor="rent">
+              <span>Rent</span>
+            </label>
+          </div>
+
+          <label className="middle-field">
             <h3>Ready for use</h3>
             <input type="checkbox" name="ready" ref={this.ready} />
           </label>
@@ -303,23 +347,19 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
             <h3>Add images:</h3>
             <input type="file" name="img" ref={this.fileInput} onInput={this.handleInput} />
             {
-              <span id="img-error">
-                {this.state.isValidFile === false ? 'Please choose an img' : ''}
+              <span id="img-error" className="error-note">
+                <strong>{this.state.isValidFile === false ? 'Please choose an img' : ''}</strong>
               </span>
             }
           </label>
 
-          <input
-            type="submit"
-            className="submit-button"
-            value="Отправить"
-            ref={this.submit}
-            disabled
-          />
+          <input type="submit" className="submit-button" value="send" ref={this.submit} disabled />
         </form>
-        {this.state.savedCards.map((elem, index) => (
-          <Card key={index} houseItem={elem} img={this.state.savedImages[index]} />
-        ))}
+        <div className="adds-list">
+          {this.state.savedCards.map((elem, index) => (
+            <Card key={index} houseItem={elem} img={this.state.savedImages[index]} />
+          ))}
+        </div>
       </div>
     );
   }
