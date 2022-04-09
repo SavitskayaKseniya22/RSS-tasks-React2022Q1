@@ -94,14 +94,14 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
 
   validation() {
     let isCorrect = true;
-    if (/^[A-Za-z0-9\s]{6,}$/.test(this.title.current?.value as string)) {
+    if (/^[A-Za-z0-9\s\.,]{6,}$/.test(this.title.current?.value as string)) {
       this.setState({ isValidTitle: true });
     } else {
       this.setState({ isValidTitle: false });
       isCorrect = false;
     }
 
-    if (/^[A-Za-z0-9\s]{10,}$/.test(this.description.current?.value as string)) {
+    if (/^[A-Za-z0-9\s\.,]{10,}$/.test(this.description.current?.value as string)) {
       this.setState({ isValidDescription: true });
     } else {
       this.setState({ isValidDescription: false });
@@ -156,47 +156,28 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
   resetValidation(input: string) {
     switch (input) {
       case 'title':
-        this.setState((state) => ({
-          isValidTitle: state.isValidTitle || !state.isValidTitle,
-        }));
+        this.setState({ isValidTitle: true });
         break;
-
       case 'description':
-        this.setState((state) => ({
-          isValidDescription: state.isValidDescription || !state.isValidDescription,
-        }));
+        this.setState({ isValidDescription: true });
         break;
-
       case 'tel':
-        this.setState((state) => ({
-          isValidTel: state.isValidTel || !state.isValidTel,
-        }));
+        this.setState({ isValidTel: true });
         break;
-
       case 'email':
-        this.setState((state) => ({
-          isValidEmail: state.isValidEmail || !state.isValidEmail,
-        }));
+        this.setState({ isValidEmail: true });
         break;
       case 'area':
-        this.setState((state) => ({
-          isValidArea: state.isValidArea || !state.isValidArea,
-        }));
+        this.setState({ isValidArea: true });
         break;
       case 'price':
-        this.setState((state) => ({
-          isValidPrice: state.isValidPrice || !state.isValidPrice,
-        }));
+        this.setState({ isValidPrice: true });
         break;
       case 'date':
-        this.setState((state) => ({
-          isValidDate: state.isValidDate || !state.isValidDate,
-        }));
+        this.setState({ isValidDate: true });
         break;
       case 'img':
-        this.setState((state) => ({
-          isValidFile: state.isValidFile || !state.isValidFile,
-        }));
+        this.setState({ isValidFile: true });
         break;
 
       default:
@@ -219,7 +200,9 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
             />
             {
               <span id="title-error" className="error-note">
-                <strong>{this.state.isValidTitle === false ? 'Title too short' : ''}</strong>
+                <strong>
+                  {this.state.isValidTitle === false ? 'Too short or wrong title' : ''}
+                </strong>
               </span>
             }
           </label>
@@ -236,7 +219,7 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
             {
               <span id="description-error" className="error-note">
                 <strong>
-                  {this.state.isValidDescription === false ? 'Description too short' : ''}
+                  {this.state.isValidDescription === false ? 'Too short or wrong description' : ''}
                 </strong>
               </span>
             }
@@ -308,9 +291,7 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
             </div>
             {
               <span id="price-error" className="error-note">
-                <strong>
-                  {this.state.isValidPrice === false ? 'Please enter a valid number' : ''}
-                </strong>
+                <strong>{this.state.isValidPrice === false ? 'Invalid number' : ''}</strong>
               </span>
             }
           </label>
@@ -319,9 +300,7 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
             <input type="date" name="date" ref={this.date} onInput={this.handleInput} />
             {
               <span id="date-error" className="error-note">
-                <strong>
-                  {this.state.isValidDate === false ? 'Please enter a valid date' : ''}
-                </strong>
+                <strong>{this.state.isValidDate === false ? 'Invalid date' : ''}</strong>
               </span>
             }
           </label>
