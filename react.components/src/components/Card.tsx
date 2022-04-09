@@ -31,19 +31,33 @@ export class Card extends React.Component<
   render() {
     return (
       <li className="Card" data-testid="card-item">
-        <figure className="Card__main-img" data-testid="card-item__short-card">
-          <img src={this.props.img} alt="lot img" />
-          <h3>
-            <strong>{this.props.houseItem.name}</strong>
-          </h3>
-          <figcaption>
-            <i>{this.props.houseItem.adress}</i>
-          </figcaption>
-        </figure>
-        <p className="Card__description" data-testid="card-item__description">
-          {this.props.houseItem.description}
+        <img src={this.props.img} alt="lot img" />
+        <h3>
+          <strong>{this.props.houseItem.name}</strong>
+        </h3>
+        <div className="Card__adress">
+          <i>{this.props.houseItem.adress}</i>
+        </div>
+        <div className="Card__description" data-testid="card-item__description">
+          <p className="Card__description_text">{this.props.houseItem.description}</p>
+        </div>
+        <p>
+          Date of construction: <span className="Card__date">{this.props.houseItem.date}</span>{' '}
         </p>
-        <span className="Card__price">{this.props.houseItem.price}</span>
+        <span className="Card__price">
+          {this.props.houseItem.price}
+          {this.props.houseItem.currency}
+        </span>
+        <span className="Card__area">{this.props.houseItem.area}&#13217;</span>
+
+        <span className="Card__type">{this.props.houseItem.type}</span>
+
+        {this.props.houseItem.isReady ? (
+          <span className="Card__ready Card__ready_ok">Ready to use &#10003;</span>
+        ) : (
+          <span className="Card__ready Card__ready_wait">Need to wait &#10007;</span>
+        )}
+
         <div className="Card__links" data-testid="card-item__links">
           <a href={'tel:' + this.props.houseItem.phone} className="Card__phone">
             <img src={phoneImg} alt="call me" />
@@ -82,6 +96,11 @@ Card.defaultProps = {
     email: 'zapeppebraco-8159@yopmail.com',
     phone: '(606) 476-8863',
     price: '550 000$',
+    date: '2000-01-01',
+    area: '100',
+    type: 'sale',
+    isReady: true,
+    currency: '$',
   },
   img: tempImgHouse,
 };
@@ -97,6 +116,6 @@ export interface CardProps {
   date?: string;
   area?: string;
   type?: string;
-  isReady?: string;
+  isReady?: boolean;
   currency?: string;
 }

@@ -10,13 +10,14 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
   area: React.RefObject<HTMLInputElement>;
   price: React.RefObject<HTMLInputElement>;
   date: React.RefObject<HTMLInputElement>;
-  type: React.RefObject<HTMLInputElement>;
   ready: React.RefObject<HTMLInputElement>;
   currency: React.RefObject<HTMLSelectElement>;
   submit: React.RefObject<HTMLInputElement>;
   fileInput: React.RefObject<HTMLInputElement>;
   object: CardProps | undefined;
   form: React.RefObject<HTMLFormElement>;
+  typeSale: React.RefObject<HTMLInputElement>;
+  typeRent: React.RefObject<HTMLInputElement>;
 
   constructor(props: Record<string, never>) {
     super(props);
@@ -31,12 +32,13 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
     this.area = React.createRef();
     this.price = React.createRef();
     this.date = React.createRef();
-    this.type = React.createRef();
     this.ready = React.createRef();
     this.currency = React.createRef();
     this.submit = React.createRef();
     this.fileInput = React.createRef();
     this.form = React.createRef();
+    this.typeSale = React.createRef();
+    this.typeRent = React.createRef();
     this.state = {
       isValidTitle: null,
       isValidDescription: null,
@@ -64,8 +66,8 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
         price: this.price.current?.value,
         date: this.date.current?.value,
         area: this.area.current?.value,
-        type: this.type.current?.value,
-        isReady: this.ready.current?.value,
+        type: this.typeSale.current?.checked ? 'sale' : 'rent',
+        isReady: this.ready.current?.checked,
         currency: this.currency.current?.value,
       };
       if (this.fileInput.current?.files?.length) {
@@ -134,7 +136,7 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
       isCorrect = false;
     }
 
-    if (new Date(this.date.current?.value as string) > new Date()) {
+    if (new Date(this.date.current?.value as string) < new Date()) {
       this.setState({ isValidDate: true });
     } else {
       this.setState({ isValidDate: false });
@@ -298,7 +300,7 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
                 onInput={this.handleInput}
                 placeholder="Enter price"
               />
-              <select name="currency" ref={this.currency} defaultValue="₽">
+              <select name="currency" ref={this.currency} defaultValue="$">
                 <option value="$">&#36;</option>
                 <option value="€">&#8364;</option>
                 <option value="₽">&#8381;</option>
@@ -327,12 +329,19 @@ export class AddAdv extends React.Component<Record<string, never>, FormTypes> {
           <div className="middle-field ad-type">
             <h3>Type of ad:</h3>
 
-            <input type="radio" id="sale" name="typeAdd" value="sale" defaultChecked />
+            <input
+              type="radio"
+              id="sale"
+              name="typeAdd"
+              value="sale"
+              defaultChecked
+              ref={this.typeSale}
+            />
             <label className="switcher" htmlFor="sale">
               <span>Sale</span>
             </label>
 
-            <input type="radio" id="rent" name="typeAdd" value="rent" />
+            <input type="radio" id="rent" name="typeAdd" value="rent" ref={this.typeRent} />
             <label className="switcher" htmlFor="rent">
               <span>Rent</span>
             </label>

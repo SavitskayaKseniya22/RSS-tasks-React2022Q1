@@ -5,39 +5,45 @@
   text-align: right;
   flex-shrink: 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.Card > *{
+  padding: 1rem;
 }
 
 .Card__main-img {
   margin: 0;
 }
 
-.Card__main-img img {
+.Card img {
   width: 100%;
+  padding: 0;
 }
 
-.Card__main-img h3 {
-  padding: 1rem;
+.Card h3 {
+  
   font-size: 1.3rem;
   margin: 0;
   background-color: #555b6e;
   color: white;
 }
 
-.Card__main-img figcaption {
-  padding: 1rem;
+.Card__adress {
   font-size: 0.8rem;
 }
 
 .Card__description {
   background-color: #89b0ae;
-  padding: 1rem;
   color: white;
   margin: 0;
-  font-size: 1rem;
 }
 
+
+
 .Card__links {
-  padding: 1rem;
+  
   display: flex;
   justify-content: space-around;
 }
@@ -46,15 +52,12 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-}
-
-.Card__mark-like {
   position: absolute;
   top: 1rem;
   left: 1rem;
   padding: 0;
-  width: 3rem;
-  height: 3rem;
+  width: 3.5rem;
+  height: 3.5rem;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 50%;
 }
@@ -68,13 +71,52 @@
   height: 80%;
 }
 
-.Card__price {
+span{
   display: block;
-  padding: 0.5rem;
+}
+
+p{
+  margin: 0;
+}
+
+.Card__price {
   background-color: #e63946;
   color: white;
   font-size: 1.5rem;
   position: absolute;
-  top: 1rem;
+  top: 3rem;
   right: -1rem;
 }
+
+.Card__area{
+  font-size: 1.5rem;
+  background-color: #003049;
+  color: white;
+}
+
+.Card__date{
+  color: #003049;
+  font-weight: bold;
+
+}
+
+.Card__ready_ok{
+  background-color: #BEE3DB;
+}
+
+.Card__ready_wait{
+  background-color: #FFD6BA;
+}
+
+.Card__type{
+  font-size: 2rem;
+  font-weight: bold;
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  color: white;
+  background-color: #003049;
+
+}
+
+
