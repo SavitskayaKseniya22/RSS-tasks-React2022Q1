@@ -1,8 +1,5 @@
-import tempImgHouse from './assets/svg/temp-house.jpg';
-
 export const data = [
   {
-    img: tempImgHouse,
     adress: '3014 Tree Frog Lane, Lenexa, Missouri',
     name: 'Realy big house',
     description:
@@ -18,7 +15,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '4902 Marcella Ave, Laredo, Texas(TX), 78041',
     name: 'Small house for small family',
     description:
@@ -34,7 +30,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '555 Roark Ln, Vicco, Kentucky(KY), 41773',
     name: 'Nice view house',
     description:
@@ -50,7 +45,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '8211 Woodview Drive, Onalaska, Wisconsin(WI), 54650',
     name: 'Scary ghost house',
     description:
@@ -66,7 +60,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '3406 Vinton St, Hopewell, Virginia(VA), 23860',
     name: 'Nice home for retirees',
     description:
@@ -82,7 +75,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '8211 Woodview Drive, Onalaska, Wisconsin(WI), 54650',
     name: 'Scary ghost house',
     description:
@@ -98,7 +90,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '3406 Vinton St, Hopewell, Virginia(VA), 23860',
     name: 'Nice home for retirees',
     description:
@@ -114,7 +105,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '2240 Pinehurst Rd, Snellville, Georgia(GA), 30078',
     name: 'Poor and broken house',
     description:
@@ -131,7 +121,6 @@ export const data = [
   },
 
   {
-    img: tempImgHouse,
     adress: '555 Roark Ln, Vicco, Kentucky(KY), 41773',
     name: 'Nice view house',
     description:
@@ -147,7 +136,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '8211 Woodview Drive, Onalaska, Wisconsin(WI), 54650',
     name: 'Scary ghost house',
     description:
@@ -163,7 +151,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '3406 Vinton St, Hopewell, Virginia(VA), 23860',
     name: 'Nice home for retirees',
     description:
@@ -179,7 +166,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '2240 Pinehurst Rd, Snellville, Georgia(GA), 30078',
     name: 'Poor and broken house',
     description:
@@ -195,7 +181,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '555 Roark Ln, Vicco, Kentucky(KY), 41773',
     name: 'Nice view house',
     description:
@@ -211,7 +196,6 @@ export const data = [
     currency: '$',
   },
   {
-    img: tempImgHouse,
     adress: '2240 Pinehurst Rd, Snellville, Georgia(GA), 30078',
     name: 'Poor and broken house',
     description:

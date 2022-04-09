@@ -10,8 +10,6 @@ test('check card appearance', () => {
 test('check card content', () => {
   render(<Card />);
   const card = screen.getByTestId('card-item');
-  const shortCard = screen.getByTestId('card-item__short-card');
-  expect(card).toContainElement(shortCard);
   const cardDescription = screen.getByTestId('card-item__description');
   expect(card).toContainElement(cardDescription);
   const cardLinks = screen.getByTestId('card-item__links');

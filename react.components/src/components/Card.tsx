@@ -49,7 +49,6 @@ export class Card extends React.Component<
           {this.props.houseItem.currency}
         </span>
         <span className="Card__area">{this.props.houseItem.area}&#13217;</span>
-
         <span className="Card__type">{this.props.houseItem.type}</span>
 
         {this.props.houseItem.isReady ? (

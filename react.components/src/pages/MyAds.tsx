@@ -8,7 +8,7 @@ export class MyAds extends React.Component {
   }
   render() {
     return (
-      <div data-testid="my-adds" className="my-adds">
+      <div data-testid="my-ads" className="my-ads">
         <h1>my advertisements</h1>
         <AddAdv />
       </div>
