@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MainPage } from './MainPage';
-import { data } from '../../data';
+import { data } from '../../mockedData';
 
 test('check MainPage page appearance', () => {
   render(<MainPage />);

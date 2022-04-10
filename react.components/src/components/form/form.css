@@ -16,10 +16,11 @@
   background-color: rgba(190, 227, 219, 0.2);
 }
 
-.adds-list{
+.ads-list{
   column-gap: 2rem;
   row-gap: 2rem;
   justify-content: center;
+  width: 80%;
 }
 
 .add-adv > * {

@@ -36,9 +36,9 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
     this.currency = React.createRef();
     this.submit = React.createRef();
     this.fileInput = React.createRef();
-    this.form = React.createRef();
     this.typeSale = React.createRef();
     this.typeRent = React.createRef();
+    this.form = React.createRef();
     this.state = {
       isValidTitle: null,
       isValidDescription: null,
@@ -70,7 +70,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
       };
 
       if (this.fileInput.current?.files?.length) {
-        const imgUrl = URL.createObjectURL(this.fileInput.current?.files[0]);
+        const imgUrl = window.URL.createObjectURL(this.fileInput.current?.files[0]);
         this.setState({
           savedImages: [...this.state.savedImages, imgUrl],
         });
@@ -82,8 +82,6 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
 
       this.form.current?.reset();
     }
-    console.log(this.state.savedCards);
-    console.log(this.state.savedImages);
     this.submit!.current!.setAttribute('disabled', 'true');
   }
 
@@ -158,28 +156,28 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
   resetError(input: string) {
     switch (input) {
       case 'title':
-        this.setState({ isValidTitle: true });
+        this.setState({ isValidTitle: null });
         break;
       case 'description':
-        this.setState({ isValidDescription: true });
+        this.setState({ isValidDescription: null });
         break;
       case 'tel':
-        this.setState({ isValidTel: true });
+        this.setState({ isValidTel: null });
         break;
       case 'email':
-        this.setState({ isValidEmail: true });
+        this.setState({ isValidEmail: null });
         break;
       case 'area':
-        this.setState({ isValidArea: true });
+        this.setState({ isValidArea: null });
         break;
       case 'price':
-        this.setState({ isValidPrice: true });
+        this.setState({ isValidPrice: null });
         break;
       case 'date':
-        this.setState({ isValidDate: true });
+        this.setState({ isValidDate: null });
         break;
       case 'img':
-        this.setState({ isValidFile: true });
+        this.setState({ isValidFile: null });
         break;
 
       default:
@@ -200,7 +198,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
           <label className="big-field">
             <h3>Title:</h3>
             <input
-              data-testid="title"
+              data-testid="form__title"
               type="text"
               name="title"
               ref={this.title}
@@ -208,7 +206,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
               placeholder="Please enter a valid title. String must contain at least 6 characters."
             />
             {
-              <span className="error-note" data-testid="title-error">
+              <span className="error-note" data-testid="form__title-error">
                 {this.state.isValidTitle === false ? 'Too short or wrong title' : ''}
               </span>
             }
@@ -217,6 +215,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
           <label className="big-field">
             <h3>Description:</h3>
             <input
+              data-testid="form__description"
               type="text"
               name="description"
               ref={this.description}
@@ -224,7 +223,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
               placeholder="Please enter a valid description. String must contain at least 10 characters."
             />
             {
-              <span className="error-note">
+              <span className="error-note" data-testid="form__description-error">
                 {this.state.isValidDescription === false ? 'Too short or wrong description' : ''}
               </span>
             }
@@ -233,6 +232,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
           <label className="middle-field">
             <h3>Tel:</h3>
             <input
+              data-testid="form__tel"
               type="tel"
               name="tel"
               ref={this.tel}
@@ -240,7 +240,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
               placeholder="Please enter a valid number. Number must contain at least 5 digits."
             />
             {
-              <span className="error-note">
+              <span className="error-note" data-testid="form__tel-error">
                 {this.state.isValidTel === false ? 'Invalid phone number' : ''}
               </span>
             }
@@ -249,6 +249,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
           <label className="middle-field">
             <h3>E-mail:</h3>
             <input
+              data-testid="form__email"
               type="email"
               name="email"
               ref={this.email}
@@ -256,7 +257,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
               placeholder="Please enter a valid email"
             />
             {
-              <span className="error-note">
+              <span className="error-note" data-testid="form__email-error">
                 {this.state.isValidEmail === false ? 'Invalid email' : ''}
               </span>
             }
@@ -265,6 +266,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
           <label className="small-field">
             <h3>Area (&#13217;):</h3>
             <input
+              data-testid="form__area"
               type="number"
               name="area"
               ref={this.area}
@@ -272,7 +274,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
               placeholder="Enter the area of the house"
             />
             {
-              <span className="error-note">
+              <span className="error-note" data-testid="form__error">
                 {this.state.isValidArea === false ? 'Invalid number' : ''}
               </span>
             }
@@ -282,6 +284,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
             <h3>Price:</h3>
             <div className="price">
               <input
+                data-testid="form__price"
                 type="number"
                 name="price"
                 ref={this.price}
@@ -295,16 +298,22 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
               </select>
             </div>
             {
-              <span id="price-error" className="error-note">
+              <span id="price-error" className="error-note" data-testid="form__price-error">
                 {this.state.isValidPrice === false ? 'Invalid number' : ''}
               </span>
             }
           </label>
           <label className="small-field">
             <h3>Date of construction:</h3>
-            <input type="date" name="date" ref={this.date} onInput={this.handleInput} />
+            <input
+              type="date"
+              name="date"
+              ref={this.date}
+              onInput={this.handleInput}
+              data-testid="form__date"
+            />
             {
-              <span className="error-note">
+              <span className="error-note" data-testid="form__date-error">
                 {this.state.isValidDate === false ? 'Invalid date' : ''}
               </span>
             }
@@ -338,16 +347,22 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
 
           <label className="big-field">
             <h3>Add images:</h3>
-            <input type="file" name="img" ref={this.fileInput} onInput={this.handleInput} />
+            <input
+              type="file"
+              name="img"
+              ref={this.fileInput}
+              onInput={this.handleInput}
+              data-testid="form__file"
+            />
             {
-              <span className="error-note">
+              <span className="error-note" data-testid="form__file-error">
                 {this.state.isValidFile === false ? 'Please choose an img' : ''}
               </span>
             }
           </label>
 
           <input
-            data-testid="form-submit"
+            data-testid="form__submit"
             type="submit"
             className="submit-button"
             value="send"

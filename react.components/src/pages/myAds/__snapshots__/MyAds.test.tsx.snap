@@ -24,14 +24,14 @@ exports[`check form appearance 1`] = `
           Title:
         </h3>
         <input
-          data-testid="title"
+          data-testid="form__title"
           name="title"
           placeholder="Please enter a valid title. String must contain at least 6 characters."
           type="text"
         />
         <span
           class="error-note"
-          data-testid="title-error"
+          data-testid="form__title-error"
         />
       </label>
       <label
@@ -41,12 +41,14 @@ exports[`check form appearance 1`] = `
           Description:
         </h3>
         <input
+          data-testid="form__description"
           name="description"
           placeholder="Please enter a valid description. String must contain at least 10 characters."
           type="text"
         />
         <span
           class="error-note"
+          data-testid="form__description-error"
         />
       </label>
       <label
@@ -56,12 +58,14 @@ exports[`check form appearance 1`] = `
           Tel:
         </h3>
         <input
+          data-testid="form__tel"
           name="tel"
           placeholder="Please enter a valid number. Number must contain at least 5 digits."
           type="tel"
         />
         <span
           class="error-note"
+          data-testid="form__tel-error"
         />
       </label>
       <label
@@ -71,12 +75,14 @@ exports[`check form appearance 1`] = `
           E-mail:
         </h3>
         <input
+          data-testid="form__email"
           name="email"
           placeholder="Please enter a valid email"
           type="email"
         />
         <span
           class="error-note"
+          data-testid="form__email-error"
         />
       </label>
       <label
@@ -86,12 +92,14 @@ exports[`check form appearance 1`] = `
           Area (㎡):
         </h3>
         <input
+          data-testid="form__area"
           name="area"
           placeholder="Enter the area of the house"
           type="number"
         />
         <span
           class="error-note"
+          data-testid="form__error"
         />
       </label>
       <label
@@ -104,6 +112,7 @@ exports[`check form appearance 1`] = `
           class="price"
         >
           <input
+            data-testid="form__price"
             name="price"
             placeholder="Enter price"
             type="number"
@@ -131,6 +140,7 @@ exports[`check form appearance 1`] = `
         </div>
         <span
           class="error-note"
+          data-testid="form__price-error"
           id="price-error"
         />
       </label>
@@ -141,11 +151,13 @@ exports[`check form appearance 1`] = `
           Date of construction:
         </h3>
         <input
+          data-testid="form__date"
           name="date"
           type="date"
         />
         <span
           class="error-note"
+          data-testid="form__date-error"
         />
       </label>
       <div
@@ -202,22 +214,27 @@ exports[`check form appearance 1`] = `
           Add images:
         </h3>
         <input
+          data-testid="form__file"
           name="img"
           type="file"
         />
         <span
           class="error-note"
+          data-testid="form__file-error"
         />
       </label>
       <input
         class="submit-button"
-        data-testid="form-submit"
+        data-testid="form__submit"
         disabled=""
         type="submit"
         value="send"
       />
     </form>
-    <div />
+    <div
+      class="ads-list"
+      data-testid="Cardlist"
+    />
   </div>
 </div>
 `;

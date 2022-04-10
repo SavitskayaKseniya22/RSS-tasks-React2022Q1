@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from '../../components/card/Card';
 import './mainPage.css';
-import { data } from '../../data';
+import { data } from '../../mockedData';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 
 export class MainPage extends React.Component {
