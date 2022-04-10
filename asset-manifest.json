@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/savitskayakseniya22-REACT2022Q1/React.Forms/static/css/main.3a8b6681.css",
-    "main.js": "/savitskayakseniya22-REACT2022Q1/React.Forms/static/js/main.261ab85a.js",
+    "main.js": "/savitskayakseniya22-REACT2022Q1/React.Forms/static/js/main.f635d7ff.js",
     "static/media/Realy big house.jpg": "/savitskayakseniya22-REACT2022Q1/React.Forms/static/media/Realy big house.b60ace5038ebd840388d.jpg",
     "static/media/Poor and broken house.jpg": "/savitskayakseniya22-REACT2022Q1/React.Forms/static/media/Poor and broken house.704e9065a34bfcb4ae5b.jpg",
     "static/media/Scary ghost house.jpg": "/savitskayakseniya22-REACT2022Q1/React.Forms/static/media/Scary ghost house.a9679d8b55df3cef748a.jpg",
@@ -17,10 +17,10 @@
     "index.html": "/savitskayakseniya22-REACT2022Q1/React.Forms/index.html",
     "static/media/mail.svg": "/savitskayakseniya22-REACT2022Q1/React.Forms/static/media/mail.6af286ccc1ec8c30c5e461f1e4d42440.svg",
     "main.3a8b6681.css.map": "/savitskayakseniya22-REACT2022Q1/React.Forms/static/css/main.3a8b6681.css.map",
-    "main.261ab85a.js.map": "/savitskayakseniya22-REACT2022Q1/React.Forms/static/js/main.261ab85a.js.map"
+    "main.f635d7ff.js.map": "/savitskayakseniya22-REACT2022Q1/React.Forms/static/js/main.f635d7ff.js.map"
   },
   "entrypoints": [
     "static/css/main.3a8b6681.css",
-    "static/js/main.261ab85a.js"
+    "static/js/main.f635d7ff.js"
   ]
 }
