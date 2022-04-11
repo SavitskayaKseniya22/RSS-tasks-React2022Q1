@@ -1,0 +1,21 @@
+.Card-list{
+  flex-flow: column wrap;
+  align-content: center;
+  max-height: 1200px;
+  max-width: 100vw;
+
+}
+
+.item{
+  width: 12%;
+  
+}
+
+.item:nth-of-type(4n+1) { order: 1; }
+.item:nth-of-type(4n+2) { order: 2; }
+.item:nth-of-type(4n+3) { order: 3; }
+.item:nth-of-type(4n)   { order: 4; }
+
+.item>img{
+  width: 100%;
+}

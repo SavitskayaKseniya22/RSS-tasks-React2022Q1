@@ -1,4 +1,5 @@
 import React from 'react';
+import './responseItem.css';
 
 export class ResponseItem extends React.Component<ResponseItemType, { isOpen: boolean }> {
   constructor(props: ResponseItemType) {
@@ -18,7 +19,7 @@ export class ResponseItem extends React.Component<ResponseItemType, { isOpen: bo
 
   render() {
     return (
-      <div>
+      <li className="item">
         <img
           className="item__img_preview"
           src={this.props.src}
@@ -26,7 +27,7 @@ export class ResponseItem extends React.Component<ResponseItemType, { isOpen: bo
           onClick={this.handleClick}
         />
         {this.state.isOpen ? (
-          <div>
+          <div className="item__popup">
             <ul>
               <li className="item__img_container">
                 <img src={this.props.src} alt="main pic" />
@@ -43,7 +44,7 @@ export class ResponseItem extends React.Component<ResponseItemType, { isOpen: bo
         ) : (
           ''
         )}
-      </div>
+      </li>
     );
   }
 }
