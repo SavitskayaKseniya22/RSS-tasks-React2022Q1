@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
 import './searchInput.css';
 
 export class ResponseItem extends React.Component<ResponseItemType, { isOpen: null | boolean }> {
@@ -18,10 +18,12 @@ export class ResponseItem extends React.Component<ResponseItemType, { isOpen: nu
         </div>
         {this.state.isOpen ?? (
           <ul>
-            <li id="item__name"></li>
-            <li id="item__description"></li>
-            <li id="item__author"></li>
-            <li id="item__fullsize"></li>
+            <li id="item__description">{this.props.description}</li>
+            <li id="item__author">{this.props.author}</li>
+            <li id="item__fullsize">{this.props.link}</li>
+            <li id="item__size">
+              {this.props.width}*{this.props.height}
+            </li>
           </ul>
         )}
       </div>
@@ -29,10 +31,11 @@ export class ResponseItem extends React.Component<ResponseItemType, { isOpen: nu
   }
 }
 
-interface ResponseItemType {
+export interface ResponseItemType {
   src: string;
-  name: string;
   description: string;
   author: string;
   link: string;
+  height: string;
+  width: string;
 }
