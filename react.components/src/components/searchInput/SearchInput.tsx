@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import './searchInput.css';
 
 export class SearchInput extends React.Component<SearchInputProps, SearchInputState> {
@@ -11,9 +11,6 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
     this.handleChange = this.handleChange.bind(this);
     this.search = React.createRef();
     this.data = [];
-    this.state = {
-      input: window.localStorage.getItem('searchValue') || '',
-    };
   }
   async handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -25,6 +22,7 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
     const res = await fetch(url);
     const response = await res.json();
     this.data = this.getShortData(response);
+    this.props.handleResponse(this.data);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -42,14 +40,12 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
     return result;
   }
 
-  handleChange(e: { target: { value: string } }) {
-    this.setState({
-      input: e.target.value,
-    });
+  handleChange(e: ChangeEvent<HTMLInputElement>) {
+    this.props.handleChange(e.target.value);
   }
 
   componentWillUnmount() {
-    window.localStorage.setItem('searchValue', this.state.input);
+    window.localStorage.setItem('searchValue', this.props.value);
   }
 
   render() {
@@ -58,7 +54,7 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
         <input
           data-testid="search-input"
           className="Search-input"
-          value={this.state.input}
+          value={this.props.value}
           onChange={this.handleChange}
           ref={this.search}
           placeholder="search new home"
@@ -69,9 +65,11 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
 }
 
 interface SearchInputState {
-  input: string;
+  value: string;
 }
 
 interface SearchInputProps {
-  data?: string;
+  value: string;
+  handleChange: (value: string) => void;
+  handleResponse: (value: string[][]) => void;
 }
