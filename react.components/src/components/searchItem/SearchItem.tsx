@@ -1,8 +1,8 @@
 import React from 'react';
-import './responseItem.css';
+import './searchItem.css';
 
-export class ResponseItem extends React.Component<ResponseItemType, { isOpen: boolean }> {
-  constructor(props: ResponseItemType) {
+export class SearchItem extends React.Component<SearchItemType, { isOpen: boolean }> {
+  constructor(props: SearchItemType) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
 
@@ -28,14 +28,14 @@ export class ResponseItem extends React.Component<ResponseItemType, { isOpen: bo
       <li className="item">
         <img
           className="item__img_preview"
-          src={this.props.item.src}
+          src={this.props.item.src as string}
           alt="main pic"
           onClick={this.handleClick}
         />
         {this.state.isOpen ? (
           <div className="item__popup_container" onClick={this.handleClick}>
             <div className="item__popup">
-              <img src={this.props.item.src} alt="main pic" />
+              <img src={this.props.item.src as string} alt="main pic" />
               <ul>
                 <li className="item__description">
                   <h2>{this.props.item.description}</h2>
@@ -68,10 +68,18 @@ export class ResponseItem extends React.Component<ResponseItemType, { isOpen: bo
                   {this.props.item.width}*{this.props.item.height}
                 </li>
                 <li className="item__links">
-                  <a href={this.props.item.link} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={this.props.item.link as string}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Fullsize &#8690;
                   </a>
-                  <a href={this.props.item.unsplashLink} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={this.props.item.unsplashLink as string}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Unsplash &#8690;
                   </a>
                 </li>
@@ -89,19 +97,19 @@ export class ResponseItem extends React.Component<ResponseItemType, { isOpen: bo
   }
 }
 
-export interface ResponseItemType {
-  item: ResponseItemTypeFull;
+export interface SearchItemType {
+  item: SearchItemDetailType;
 }
 
-export interface ResponseItemTypeFull {
-  src: string;
-  description: string;
-  author: string;
-  link: string;
-  height: string;
-  width: string;
-  portfolio: string;
-  location: string;
-  likes: string;
-  unsplashLink: string;
+export interface SearchItemDetailType {
+  src: string | null;
+  description: string | null;
+  author: string | null;
+  link: string | null;
+  height: number | null;
+  width: number | null;
+  portfolio: string | null;
+  location: string | null;
+  likes: number | null;
+  unsplashLink: string | null;
 }

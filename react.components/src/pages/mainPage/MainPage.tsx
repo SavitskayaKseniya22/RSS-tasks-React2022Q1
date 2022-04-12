@@ -1,16 +1,18 @@
 import React from 'react';
 import './mainPage.css';
 import { SearchInput } from '../../components/searchInput/SearchInput';
-import { ResponseItem, ResponseItemTypeFull } from '../../components/responseItem/ResponseItem';
+import { SearchItem, SearchItemDetailType } from '../../components/searchItem/SearchItem';
 
 export class MainPage extends React.Component<Record<string, never>, MainPageType> {
   constructor(props: Record<string, never>) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
+    this.handleDownload = this.handleDownload.bind(this);
     this.state = {
       value: window.localStorage.getItem('searchValue') || '',
       response: [],
+      isDownloading: null,
     };
   }
 
@@ -20,9 +22,15 @@ export class MainPage extends React.Component<Record<string, never>, MainPageTyp
     });
   }
 
-  handleResponse(value: ResponseItemTypeFull[]) {
+  handleResponse(value: SearchItemDetailType[]) {
     this.setState({
       response: value,
+    });
+  }
+
+  handleDownload(value: boolean) {
+    this.setState({
+      isDownloading: value,
     });
   }
 
@@ -33,11 +41,19 @@ export class MainPage extends React.Component<Record<string, never>, MainPageTyp
           value={this.state.value}
           handleChange={this.handleChange}
           handleResponse={this.handleResponse}
+          handleDownload={this.handleDownload}
         />
-        {this.state.response.length ? (
+        {this.state.isDownloading ? (
+          <div>
+            <strong>looking for pictures</strong>
+          </div>
+        ) : (
+          ''
+        )}
+        {this.state.response.length && !this.state.isDownloading ? (
           <ul className="Card-list" data-testid="card-list">
             {this.state.response.map((elem, index) => (
-              <ResponseItem key={index} item={elem} />
+              <SearchItem key={index} item={elem} />
             ))}
           </ul>
         ) : (
@@ -50,5 +66,6 @@ export class MainPage extends React.Component<Record<string, never>, MainPageTyp
 
 interface MainPageType {
   value: string;
-  response: ResponseItemTypeFull[];
+  response: SearchItemDetailType[];
+  isDownloading: null | boolean;
 }
