@@ -1,9 +1,10 @@
 import React, { ChangeEvent, FormEvent } from 'react';
+import { ResponseItemTypeFull } from '../responseItem/ResponseItem';
 import './searchInput.css';
 
 export class SearchInput extends React.Component<SearchInputProps, SearchInputState> {
   search: React.RefObject<HTMLInputElement>;
-  data: string[][];
+  data: ResponseItemTypeFull[];
 
   constructor(props: SearchInputProps) {
     super(props);
@@ -21,21 +22,32 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
     const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&per_page=20&query=${value}`;
     const res = await fetch(url);
     const response = await res.json();
+    console.log(response);
     this.data = this.getShortData(response);
     this.props.handleResponse(this.data);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getShortData(response: { results: any[] }): string[][] {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result = response.results.map((item: any): string[] => [
-      item.urls.regular,
-      item.alt_description,
-      item.urls.full,
-      item.user.username,
-      item.width,
-      item.height,
-    ]);
+  getShortData(response: { results: any[] }): ResponseItemTypeFull[] {
+    const result: ResponseItemTypeFull[] = response.results.map(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (item: any): ResponseItemTypeFull => {
+        const obj: ResponseItemTypeFull = {
+          src: item.urls.regular,
+          description: item.alt_description,
+          link: item.urls.full,
+          author: item.user.username,
+          portfolio: item.user.portfolio_url,
+          location: item.user.location,
+          width: item.width,
+          height: item.height,
+          likes: item.likes,
+          unsplashLink: item.links.html,
+        };
+
+        return obj;
+      }
+    );
 
     return result;
   }
@@ -71,5 +83,5 @@ interface SearchInputState {
 interface SearchInputProps {
   value: string;
   handleChange: (value: string) => void;
-  handleResponse: (value: string[][]) => void;
+  handleResponse: (value: ResponseItemTypeFull[]) => void;
 }

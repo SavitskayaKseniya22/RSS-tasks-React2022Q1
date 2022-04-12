@@ -19,3 +19,49 @@
 .item>img{
   width: 100%;
 }
+.item__popup_container{
+  width: 100vw;
+  height: 100vh;
+  background-color: hsla(0, 0%, 0%, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.item__popup{
+  position: fixed;
+  width: 60vw;
+  background-color: white;
+  top: 20vh;
+  left: 20vw;
+  padding: 2rem;
+  display: flex;
+  column-gap: 1rem;
+  align-items:flex-start;
+  justify-content: space-between;
+
+}
+
+.item__popup img{
+  width: 30%;
+  flex-shrink: 0;
+}
+
+.item__popup ul{
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+  justify-content: space-between;
+  flex-grow: 1;
+
+}
+
+.item__close{
+  cursor: pointer;
+}
+
+.item__links{
+  display: flex;
+  justify-content: space-around;
+}
