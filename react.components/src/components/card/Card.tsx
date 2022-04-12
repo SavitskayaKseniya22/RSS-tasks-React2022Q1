@@ -5,6 +5,7 @@ import linkImg from '../../assets/svg/forward-next-arrow.svg';
 import tempImgHouse from '../../assets/svg/temp-house.jpg';
 import likeImg from '../../assets/svg/like.svg';
 import './card.css';
+import { CardProps } from '../../interfaces';
 
 export class Card extends React.Component<
   { houseItem: CardProps; img: string },
@@ -103,18 +104,3 @@ Card.defaultProps = {
   },
   img: tempImgHouse,
 };
-
-export interface CardProps {
-  adress?: string;
-  name?: string;
-  description?: string;
-  link?: string;
-  email?: string;
-  phone?: string;
-  price?: string;
-  date?: string;
-  area?: string;
-  type?: string;
-  isReady?: boolean;
-  currency?: string;
-}

@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import './form.css';
-import { CardProps } from '../card/Card';
 import { CardList } from '../cardList/CardList';
+import { FormTypes } from '../../interfaces';
 
 export class Form extends React.Component<Record<string, never>, FormTypes> {
   title: React.RefObject<HTMLInputElement>;
@@ -374,17 +374,4 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
       </div>
     );
   }
-}
-
-interface FormTypes {
-  isValidTitle: boolean | null;
-  isValidDescription: boolean | null;
-  isValidTel: boolean | null;
-  isValidEmail: boolean | null;
-  isValidArea: boolean | null;
-  isValidPrice: boolean | null;
-  isValidDate: boolean | null;
-  isValidFile: boolean | null;
-  savedCards: CardProps[];
-  savedImages: string[];
 }

@@ -1,5 +1,11 @@
 import React, { ChangeEvent, FormEvent } from 'react';
-import { SearchItemDetailType } from '../searchItem/SearchItem';
+import {
+  SearchInputProps,
+  SearchInputState,
+  ResponseItemType,
+  SearchItemDetailType,
+  ResponseType,
+} from '../../interfaces';
 import './searchInput.css';
 
 export class SearchInput extends React.Component<SearchInputProps, SearchInputState> {
@@ -20,13 +26,16 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
   async getApiResponse(value: string) {
     this.props.handleResponse([]);
     this.props.handleDownload(true);
-    const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&per_page=20&query=${value}`;
-    const res = await fetch(url);
-    const response = await res.json();
-    this.data = this.getShortData(response);
-    console.log(this.data);
-    this.props.handleResponse(this.data);
-    this.props.handleDownload(false);
+    try {
+      const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&per_page=20&query=${value}`;
+      const res = await fetch(url);
+      const response = await res.json();
+      this.data = this.getShortData(response);
+      this.props.handleResponse(this.data);
+      this.props.handleDownload(false);
+    } catch (error) {
+      this.props.handleDownload(false, true);
+    }
   }
 
   getShortData(response: ResponseType): SearchItemDetailType[] {
@@ -77,93 +86,4 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
       </form>
     );
   }
-}
-
-interface SearchInputState {
-  value: string;
-}
-
-interface SearchInputProps {
-  value: string;
-  handleChange: (value: string) => void;
-  handleResponse: (value: SearchItemDetailType[]) => void;
-  handleDownload: (value: boolean) => void;
-}
-
-interface ResponseType {
-  total: number;
-  total_pages: number;
-  results: ResponseItemType[];
-}
-
-interface ResponseItemType {
-  id: string;
-  created_at: string;
-  updated_at: string;
-  promoted_at: string;
-  width: number;
-  height: number;
-  color: string | null;
-  blur_hash: string | null;
-  description: string | null;
-  alt_description: string | null;
-  urls: {
-    raw: string | null;
-    full: string | null;
-    regular: string | null;
-    small: string | null;
-    thumb: string | null;
-    small_s3: string | null;
-  };
-  links: {
-    self: string | null;
-    html: string | null;
-    download: string | null;
-    download_location: string | null;
-  };
-  categories: string[];
-  likes: number;
-  liked_by_user: boolean;
-  current_user_collections: string[];
-  sponsorship: string | null;
-  topic_submissions: `Record<string, never>`;
-  user: {
-    id: string | null;
-    updated_at: string | null;
-    username: string | null;
-    name: string | null;
-    first_name: string | null;
-    last_name: string | null;
-    twitter_username: string | null;
-    portfolio_url: string | null;
-    bio: string | null;
-    location: string | null;
-    links: {
-      self: string | null;
-      html: string | null;
-      photos: string | null;
-      likes: string | null;
-      portfolio: string | null;
-      following: string | null;
-      followers: string | null;
-    };
-    profile_image: {
-      small: string | null;
-      medium: string | null;
-      large: string | null;
-    };
-    instagram_username: string | null;
-    total_collections: number;
-    total_likes: number;
-    total_photos: number;
-    accepted_tos: boolean;
-    for_hire: boolean;
-    social: {
-      instagram_username: string | null;
-      portfolio_url: string | null;
-      twitter_username: string | null;
-      paypal_email: string | null;
-    };
-  };
-  tags: string[];
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { SearchItemType } from '../../interfaces';
 import './searchItem.css';
 
 export class SearchItem extends React.Component<SearchItemType, { isOpen: boolean }> {
@@ -38,10 +39,11 @@ export class SearchItem extends React.Component<SearchItemType, { isOpen: boolea
               <img src={this.props.item.src as string} alt="main pic" />
               <ul>
                 <li className="item__description">
-                  <h2>{this.props.item.description}</h2>
+                  <h2>{this.props.item.description || 'Nice picture'}</h2>
                 </li>
+
                 <li className="item__likes">
-                  <h2>&#9825; {this.props.item.likes}</h2>
+                  <h2>&#9825; {this.props.item.likes || '0'}</h2>
                 </li>
                 <li className="item__author">
                   <h3>Author:</h3> <hr />
@@ -54,19 +56,16 @@ export class SearchItem extends React.Component<SearchItemType, { isOpen: boolea
                   )}
                 </li>
 
-                {this.props.item.location ? (
-                  <li className="item__location">
-                    <h3>Location:</h3> <hr />
-                    {this.props.item.location}
-                  </li>
-                ) : (
-                  ''
-                )}
+                <li className="item__location">
+                  <h3>Location:</h3> <hr />
+                  {this.props.item.location || 'Unknown'}
+                </li>
 
                 <li className="item__size">
                   <h3>Size:</h3> <hr />
-                  {this.props.item.width}*{this.props.item.height}
+                  {this.props.item.width || 'Unknown'}*{this.props.item.height || 'Unknown'}
                 </li>
+
                 <li className="item__links">
                   <a
                     href={this.props.item.link as string}
@@ -95,21 +94,4 @@ export class SearchItem extends React.Component<SearchItemType, { isOpen: boolea
       </li>
     );
   }
-}
-
-export interface SearchItemType {
-  item: SearchItemDetailType;
-}
-
-export interface SearchItemDetailType {
-  src: string | null;
-  description: string | null;
-  author: string | null;
-  link: string | null;
-  height: number | null;
-  width: number | null;
-  portfolio: string | null;
-  location: string | null;
-  likes: number | null;
-  unsplashLink: string | null;
 }

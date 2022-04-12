@@ -1,7 +1,8 @@
 import React from 'react';
 import './mainPage.css';
 import { SearchInput } from '../../components/searchInput/SearchInput';
-import { SearchItem, SearchItemDetailType } from '../../components/searchItem/SearchItem';
+import { SearchItem } from '../../components/searchItem/SearchItem';
+import { MainPageType, SearchItemDetailType } from '../../interfaces';
 
 export class MainPage extends React.Component<Record<string, never>, MainPageType> {
   constructor(props: Record<string, never>) {
@@ -12,7 +13,9 @@ export class MainPage extends React.Component<Record<string, never>, MainPageTyp
     this.state = {
       value: window.localStorage.getItem('searchValue') || '',
       response: [],
-      isDownloading: null,
+      isDownloading: false,
+      isSearchOver: false,
+      isError: false,
     };
   }
 
@@ -28,13 +31,38 @@ export class MainPage extends React.Component<Record<string, never>, MainPageTyp
     });
   }
 
-  handleDownload(value: boolean) {
+  handleDownload(value: boolean, error?: boolean) {
     this.setState({
       isDownloading: value,
+      isSearchOver: !value,
     });
+
+    if (error) {
+      this.setState({
+        isError: true,
+      });
+    }
   }
 
   render() {
+    let activeBlock;
+    if (this.state.isDownloading) {
+      activeBlock = <p className="empty-search active-search"></p>;
+    } else if (this.state.isError) {
+      activeBlock = <p className="empty-search">something went wrong</p>;
+    } else if (this.state.response.length) {
+      activeBlock = (
+        <ul className="Card-list" data-testid="card-list">
+          {this.state.response.map((elem, index) => (
+            <SearchItem key={index} item={elem} />
+          ))}
+        </ul>
+      );
+    } else if (!this.state.response.length && this.state.isSearchOver) {
+      activeBlock = <p className="empty-search">no images found</p>;
+    } else if (!this.state.response.length && !this.state.isSearchOver) {
+      activeBlock = <p className="empty-search">search for something</p>;
+    }
     return (
       <main data-testid="main-page">
         <SearchInput
@@ -43,29 +71,9 @@ export class MainPage extends React.Component<Record<string, never>, MainPageTyp
           handleResponse={this.handleResponse}
           handleDownload={this.handleDownload}
         />
-        {this.state.isDownloading ? (
-          <div>
-            <strong>looking for pictures</strong>
-          </div>
-        ) : (
-          ''
-        )}
-        {this.state.response.length && !this.state.isDownloading ? (
-          <ul className="Card-list" data-testid="card-list">
-            {this.state.response.map((elem, index) => (
-              <SearchItem key={index} item={elem} />
-            ))}
-          </ul>
-        ) : (
-          <span className="empty-search">search for something</span>
-        )}
+
+        {activeBlock}
       </main>
     );
   }
-}
-
-interface MainPageType {
-  value: string;
-  response: SearchItemDetailType[];
-  isDownloading: null | boolean;
 }

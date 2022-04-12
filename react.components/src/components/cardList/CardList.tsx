@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardProps } from '../card/Card';
+import { CardListProps } from '../../interfaces';
+import { Card } from '../card/Card';
 
 export class CardList extends React.Component<CardListProps> {
   constructor(props: CardListProps) {
@@ -14,9 +15,4 @@ export class CardList extends React.Component<CardListProps> {
       </div>
     );
   }
-}
-
-interface CardListProps {
-  savedCards: CardProps[];
-  savedImages: string[];
 }
