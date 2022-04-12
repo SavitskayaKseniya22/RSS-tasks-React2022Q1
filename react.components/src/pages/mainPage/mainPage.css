@@ -22,3 +22,8 @@ main > * {
 main > *:nth-child(odd) {
   background-color: #ffd6ba;
 }
+
+.empty-search{
+  text-align: center;
+  
+}

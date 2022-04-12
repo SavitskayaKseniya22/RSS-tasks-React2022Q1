@@ -34,11 +34,15 @@ export class MainPage extends React.Component<Record<string, never>, MainPageTyp
           handleChange={this.handleChange}
           handleResponse={this.handleResponse}
         />
-        <ul className="Card-list" data-testid="card-list">
-          {this.state.response.map((elem, index) => (
-            <ResponseItem key={index} item={elem} />
-          ))}
-        </ul>
+        {this.state.response.length ? (
+          <ul className="Card-list" data-testid="card-list">
+            {this.state.response.map((elem, index) => (
+              <ResponseItem key={index} item={elem} />
+            ))}
+          </ul>
+        ) : (
+          <span className="empty-search">search for something</span>
+        )}
       </main>
     );
   }

@@ -60,6 +60,12 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
     window.localStorage.setItem('searchValue', this.props.value);
   }
 
+  componentDidMount() {
+    if (this.props.value) {
+      this.getApiResponse(this.props.value);
+    }
+  }
+
   render() {
     return (
       <form className="search-form" onSubmit={this.handleSubmit} data-testid="search-form">
