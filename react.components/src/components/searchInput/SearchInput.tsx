@@ -27,7 +27,7 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
     this.props.handleResponse([]);
     this.props.handleDownload(true);
     try {
-      const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&per_page=20&query=${value}`;
+      const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&per_page=30&query=${value}`;
       const res = await fetch(url);
       const response = await res.json();
       this.data = this.getShortData(response);
@@ -38,7 +38,7 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
     }
   }
 
-  getShortData(response: ResponseType): SearchItemDetailType[] {
+  getShortData(response: ResponseType) {
     const result = response.results.map((item: ResponseItemType): SearchItemDetailType => {
       const obj = {
         src: item.urls.regular,

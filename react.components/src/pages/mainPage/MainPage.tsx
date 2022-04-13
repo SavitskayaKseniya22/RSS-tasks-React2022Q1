@@ -47,7 +47,11 @@ export class MainPage extends React.Component<Record<string, never>, MainPageTyp
   render() {
     let activeBlock;
     if (this.state.isDownloading) {
-      activeBlock = <p className="empty-search active-search"></p>;
+      activeBlock = (
+        <div className="empty-search">
+          <div className="active-search"></div>
+        </div>
+      );
     } else if (this.state.isError) {
       activeBlock = <p className="empty-search">something went wrong</p>;
     } else if (this.state.response.length) {

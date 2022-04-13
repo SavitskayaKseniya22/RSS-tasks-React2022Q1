@@ -1,9 +1,9 @@
 .Card-list{
   flex-flow: column wrap;
   align-content: center;
-  max-height: 1200px;
-  max-width: 100vw;
-
+  max-height: 1500px;
+  overflow-x: hidden;
+  padding: 2rem;
 }
 
 .item{
@@ -65,3 +65,32 @@
   display: flex;
   justify-content: space-around;
 }
+
+@media (max-width: 1250px) { 
+  .Card-list{
+    max-height: 2000px;
+  }
+
+  .item{
+    width: 18%;
+    
+  }
+
+}
+
+@media (max-width: 800px) { 
+  .Card-list{
+    max-height: 2200px;
+  }
+  .item{
+    width: 22%;
+  }
+}
+
+@media (max-width: 450px) { 
+  .item{
+    width: 30%;
+  }
+}
+
+
