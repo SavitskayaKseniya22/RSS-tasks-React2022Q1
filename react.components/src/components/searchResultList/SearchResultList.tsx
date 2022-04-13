@@ -14,7 +14,7 @@ export class SearchResultList extends React.Component<
     let activeBlock;
     if (this.props.data.isDownloading) {
       activeBlock = (
-        <div className="empty-search">
+        <div className="empty-search" data-testid="active-search">
           <div className="active-search"></div>
         </div>
       );
