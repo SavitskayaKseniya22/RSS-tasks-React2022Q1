@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { CardList } from './CardList';
+import { AdsList } from './AdsList';
 
 test('check form appearance', () => {
   render(
-    <CardList
+    <AdsList
       savedCards={[
         {
           adress: '3014 Tree Frog Lane, Lenexa, Missouri',

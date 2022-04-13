@@ -4,7 +4,7 @@ import phoneImg from '../../assets/svg/phone.svg';
 import linkImg from '../../assets/svg/forward-next-arrow.svg';
 import tempImgHouse from '../../assets/svg/temp-house.jpg';
 import likeImg from '../../assets/svg/like.svg';
-import './card.css';
+import './adCard.css';
 import { CardProps } from '../../interfaces';
 
 export class Card extends React.Component<

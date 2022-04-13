@@ -1,10 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Card } from './Card';
+import { Card } from './AdCard';
 
 test('check card appearance', () => {
   render(<Card />);
   const card = screen.getByTestId('card-item');
-  expect(card).toHaveClass('Card');
+  expect(card).toHaveClass('card');
 });
 
 test('check card content', () => {

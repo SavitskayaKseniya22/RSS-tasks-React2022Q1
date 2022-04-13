@@ -2,7 +2,7 @@
 
 exports[`check footer appearance 1`] = `
 <footer
-  class="Footer"
+  class="footer"
   data-testid="footer"
 >
   <div>

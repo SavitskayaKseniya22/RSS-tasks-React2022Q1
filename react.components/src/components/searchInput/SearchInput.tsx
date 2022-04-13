@@ -33,6 +33,8 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
       this.data = this.getShortData(response);
       this.props.handleResponse(this.data);
       this.props.handleDownload(false);
+      console.log(response);
+      console.log(this.data);
     } catch (error) {
       this.props.handleDownload(false, true);
     }
@@ -81,7 +83,7 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
           className="search-input"
           value={this.props.value}
           onChange={this.handleChange}
-          placeholder="search new home"
+          placeholder="search"
         />
       </form>
     );

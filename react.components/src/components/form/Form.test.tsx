@@ -65,7 +65,7 @@ test('test whole form for submit error', () => {
   fireEvent.input(screen.getByTestId('form__date'), { target: { value: 'text' } });
   fireEvent.input(screen.getByTestId('form__area'), { target: { value: 'text' } });
   fireEvent.click(submit);
-  expect(screen.getByTestId('Cardlist').innerHTML).toEqual('');
+  expect(screen.getByTestId('ads-list').innerHTML).toEqual('');
 });
 
 test('test whole form for submit correct', () => {
@@ -84,5 +84,5 @@ test('test whole form for submit correct', () => {
   const file = new File(['img'], 'img.png', { type: 'image/png' });
   userEvent.upload(screen.getByTestId('form__file'), file);
   fireEvent.click(submit);
-  expect(screen.getByTestId('Cardlist').childNodes.length).toBeGreaterThan(0);
+  expect(screen.getByTestId('ads-list').childNodes.length).toBeGreaterThan(0);
 });

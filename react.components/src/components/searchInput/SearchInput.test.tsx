@@ -1,22 +1,23 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { mockedResponse } from '../../mockedResponse';
+import { MainPage } from '../../pages/mainPage/MainPage';
 import { SearchInput } from './SearchInput';
-/*
+
 test('check search appearance', () => {
-  render(<SearchInput />);
+  render(<MainPage />);
   const search = screen.getByTestId('search-input');
-  expect(search).toHaveClass('Search-input');
+  expect(search).toHaveClass('search-input');
 });
 
-test('check search work', () => {
-  render(<SearchInput />);
+test('check input work', () => {
+  render(<MainPage />);
   const search = screen.getByTestId('search-input') as HTMLInputElement;
-  expect(search).toHaveClass('Search-input');
   fireEvent.input(search, { target: { value: 'text input' } });
   expect(search.value).toEqual('text input');
 });
 
 test('check save value', () => {
-  const { unmount } = render(<SearchInput />);
+  const { unmount } = render(<MainPage />);
   const search = screen.getByTestId('search-input') as HTMLInputElement;
   fireEvent.input(search, { target: { value: 'text input' } });
   jest.spyOn(Object.getPrototypeOf(window.localStorage), 'setItem');
@@ -27,10 +28,17 @@ test('check save value', () => {
 });
 
 test('check restore value', () => {
-  render(<SearchInput />);
+  render(<MainPage />);
   const search = screen.getByTestId('search-input') as HTMLInputElement;
   jest.spyOn(Object.getPrototypeOf(window.localStorage), 'setItem');
   Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
   window.localStorage.setItem('searchValue', 'text input');
   expect(search.value).toBe(window.localStorage.getItem('searchValue'));
-});*/
+});
+
+test('check search work', () => {
+  const responseMock = mockedResponse;
+  render(<MainPage />);
+  const search = screen.getByTestId('search-input') as HTMLInputElement;
+  fireEvent.input(search, { target: { value: 'text input' } });
+});

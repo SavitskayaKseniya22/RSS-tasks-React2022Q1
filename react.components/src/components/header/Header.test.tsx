@@ -9,7 +9,7 @@ test('check link appearance', () => {
     </BrowserRouter>
   );
   const header = screen.getByTestId('header');
-  expect(header).toHaveClass('Header');
+  expect(header).toHaveClass('header');
   expect(header).toHaveTextContent('main page');
   expect(header).toHaveTextContent('about us');
 

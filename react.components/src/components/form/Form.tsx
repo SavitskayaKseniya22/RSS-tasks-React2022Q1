@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import './form.css';
-import { CardList } from '../cardList/CardList';
 import { FormTypes } from '../../interfaces';
+import { AdsList } from '../adsList/AdsList';
 
 export class Form extends React.Component<Record<string, never>, FormTypes> {
   title: React.RefObject<HTMLInputElement>;
@@ -370,7 +370,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
             disabled
           />
         </form>
-        <CardList savedCards={this.state.savedCards} savedImages={this.state.savedImages} />
+        <AdsList savedCards={this.state.savedCards} savedImages={this.state.savedImages} />
       </div>
     );
   }

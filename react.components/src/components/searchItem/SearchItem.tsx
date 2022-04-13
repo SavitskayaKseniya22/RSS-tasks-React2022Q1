@@ -26,29 +26,39 @@ export class SearchItem extends React.Component<SearchItemType, { isOpen: boolea
 
   render() {
     return (
-      <li className="item">
+      <li className="item" data-testid="card-item">
         <img
+          data-testid="item__img_preview"
           className="item__img_preview"
           src={this.props.item.src as string}
           alt="main pic"
           onClick={this.handleClick}
         />
         {this.state.isOpen ? (
-          <div className="item__popup_container" onClick={this.handleClick}>
+          <div
+            className="item__popup_container"
+            onClick={this.handleClick}
+            data-testid="item__popup_container"
+          >
             <div className="item__popup">
               <img src={this.props.item.src as string} alt="main pic" />
               <ul>
-                <li className="item__description">
+                <li className="item__description" data-testid="item__description">
                   <h2>{this.props.item.description || 'Nice picture'}</h2>
                 </li>
 
-                <li className="item__likes">
+                <li className="item__likes" data-testid="item__likes">
                   <h2>&#9825; {this.props.item.likes || '0'}</h2>
                 </li>
-                <li className="item__author">
+                <li className="item__author" data-testid="item__author">
                   <h3>Author:</h3> <hr />
                   {this.props.item.portfolio ? (
-                    <a href={this.props.item.portfolio} target="_blank" rel="noopener noreferrer">
+                    <a
+                      data-testid="item__portfolio"
+                      href={this.props.item.portfolio}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {this.props.item.author} &#8690;
                     </a>
                   ) : (
@@ -56,12 +66,12 @@ export class SearchItem extends React.Component<SearchItemType, { isOpen: boolea
                   )}
                 </li>
 
-                <li className="item__location">
+                <li className="item__location" data-testid="item__location">
                   <h3>Location:</h3> <hr />
                   {this.props.item.location || 'Unknown'}
                 </li>
 
-                <li className="item__size">
+                <li className="item__size" data-testid="item__size">
                   <h3>Size:</h3> <hr />
                   {this.props.item.width || 'Unknown'}*{this.props.item.height || 'Unknown'}
                 </li>
@@ -83,7 +93,7 @@ export class SearchItem extends React.Component<SearchItemType, { isOpen: boolea
                   </a>
                 </li>
               </ul>
-              <button onClick={this.handleClick} className="item__close">
+              <button onClick={this.handleClick} className="item__close" data-testid="item__close">
                 Close
               </button>
             </div>

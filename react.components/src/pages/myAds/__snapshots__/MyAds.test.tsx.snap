@@ -233,7 +233,7 @@ exports[`check form appearance 1`] = `
     </form>
     <div
       class="ads-list"
-      data-testid="Cardlist"
+      data-testid="ads-list"
     />
   </div>
 </div>
