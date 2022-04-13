@@ -78,7 +78,7 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
       <form className="search-form" onSubmit={this.handleSubmit} data-testid="search-form">
         <input
           data-testid="search-input"
-          className="Search-input"
+          className="search-input"
           value={this.props.value}
           onChange={this.handleChange}
           placeholder="search new home"

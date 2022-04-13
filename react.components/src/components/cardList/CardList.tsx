@@ -8,7 +8,7 @@ export class CardList extends React.Component<CardListProps> {
   }
   render() {
     return (
-      <div className="ads-list" data-testid="Cardlist">
+      <div className="ads-list">
         {this.props.savedCards.map((elem, index) => (
           <Card key={index} houseItem={elem} img={this.props.savedImages[index]} />
         ))}

@@ -1,8 +1,8 @@
 import React from 'react';
 import './mainPage.css';
 import { SearchInput } from '../../components/searchInput/SearchInput';
-import { SearchItem } from '../../components/searchItem/SearchItem';
 import { MainPageType, SearchItemDetailType } from '../../interfaces';
+import { SearchResultList } from '../../components/searchResultList/SearchResultList';
 
 export class MainPage extends React.Component<Record<string, never>, MainPageType> {
   constructor(props: Record<string, never>) {
@@ -45,28 +45,6 @@ export class MainPage extends React.Component<Record<string, never>, MainPageTyp
   }
 
   render() {
-    let activeBlock;
-    if (this.state.isDownloading) {
-      activeBlock = (
-        <div className="empty-search">
-          <div className="active-search"></div>
-        </div>
-      );
-    } else if (this.state.isError) {
-      activeBlock = <p className="empty-search">something went wrong</p>;
-    } else if (this.state.response.length) {
-      activeBlock = (
-        <ul className="Card-list" data-testid="card-list">
-          {this.state.response.map((elem, index) => (
-            <SearchItem key={index} item={elem} />
-          ))}
-        </ul>
-      );
-    } else if (!this.state.response.length && this.state.isSearchOver) {
-      activeBlock = <p className="empty-search">no images found</p>;
-    } else if (!this.state.response.length && !this.state.isSearchOver) {
-      activeBlock = <p className="empty-search">search for something</p>;
-    }
     return (
       <main data-testid="main-page">
         <SearchInput
@@ -75,8 +53,7 @@ export class MainPage extends React.Component<Record<string, never>, MainPageTyp
           handleResponse={this.handleResponse}
           handleDownload={this.handleDownload}
         />
-
-        {activeBlock}
+        <SearchResultList data={this.state} />
       </main>
     );
   }

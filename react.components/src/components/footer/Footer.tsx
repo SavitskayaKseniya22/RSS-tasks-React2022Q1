@@ -8,7 +8,7 @@ export class Footer extends React.Component {
   }
   render() {
     return (
-      <footer className="Footer" data-testid="footer">
+      <footer className="footer" data-testid="footer">
         <div>
           <a href="https://rs.school/js/" target="_blank" rel="noreferrer">
             <img src={logo} alt="logo" width="100" />

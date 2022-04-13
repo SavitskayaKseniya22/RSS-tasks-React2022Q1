@@ -8,7 +8,7 @@ export class Header extends React.Component {
   }
   render() {
     return (
-      <header className="Header" data-testid="header">
+      <header className="header" data-testid="header">
         <NavLink
           data-testid="main-page__link"
           className={({ isActive }) => (isActive ? 'active-link' : 'inActiveLink')}

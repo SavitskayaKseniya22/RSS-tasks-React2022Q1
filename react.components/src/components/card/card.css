@@ -1,4 +1,4 @@
-.Card {
+.card {
   width: 350px;
   background-color: #eeeded;
   color: #003049;
@@ -9,20 +9,20 @@
   flex-direction: column;
 }
 
-.Card > *{
+.card > *{
   padding: 1rem;
 }
 
-.Card__main-img {
+.card__main-img {
   margin: 0;
 }
 
-.Card img {
+.card img {
   width: 100%;
   padding: 0;
 }
 
-.Card h3 {
+.card h3 {
   
   font-size: 1.3rem;
   margin: 0;
@@ -30,11 +30,11 @@
   color: white;
 }
 
-.Card__adress {
+.card__adress {
   font-size: 0.8rem;
 }
 
-.Card__description {
+.card__description {
   background-color: #89b0ae;
   color: white;
   margin: 0;
@@ -42,13 +42,13 @@
 
 
 
-.Card__links {
+.card__links {
   
   display: flex;
   justify-content: space-around;
 }
 
-.Card__mark-like {
+.card__mark-like {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -62,11 +62,11 @@
   border-radius: 50%;
 }
 
-.Card__mark-like.favorite-add {
+.card__mark-like.favorite-add {
   background-color: #ffd6ba;
 }
 
-.Card__mark-like img {
+.card__mark-like img {
   width: 80%;
   height: 80%;
 }
@@ -79,7 +79,7 @@ p{
   margin: 0;
 }
 
-.Card__price {
+.card__price {
   background-color: #e63946;
   color: white;
   font-size: 1.5rem;
@@ -88,27 +88,27 @@ p{
   right: -1rem;
 }
 
-.Card__area{
+.card__area{
   font-size: 1.5rem;
   background-color: #003049;
   color: white;
 }
 
-.Card__date{
+.card__date{
   color: #003049;
   font-weight: bold;
 
 }
 
-.Card__ready_ok{
+.card__ready-ok{
   background-color: #BEE3DB;
 }
 
-.Card__ready_wait{
+.card__ready-wait{
   background-color: #FFD6BA;
 }
 
-.Card__type{
+.card__type{
   font-size: 2rem;
   font-weight: bold;
   position: absolute;
