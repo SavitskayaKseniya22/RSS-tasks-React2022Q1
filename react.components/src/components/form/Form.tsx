@@ -54,23 +54,7 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
     };
   }
 
-  readUploadedFile = (inputFile: File) => {
-    const temporaryFileReader = new FileReader();
-
-    return new Promise((resolve, reject) => {
-      temporaryFileReader.onerror = () => {
-        temporaryFileReader.abort();
-        reject(new DOMException('Problem parsing input file.'));
-      };
-
-      temporaryFileReader.onload = () => {
-        resolve(temporaryFileReader.result);
-      };
-      temporaryFileReader.readAsDataURL(inputFile);
-    });
-  };
-
-  async handleSubmit(event: FormEvent<HTMLFormElement>) {
+  handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (this.validation()) {
       const object = {
@@ -88,10 +72,14 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
 
       if (this.fileInput.current?.files?.length) {
         const file = this.fileInput.current?.files[0];
-        const fileContents = (await this.readUploadedFile(file)) as string;
-        this.setState({
-          savedImages: [...this.state.savedImages, fileContents],
-        });
+        const fileReader = new FileReader();
+
+        fileReader.onloadend = () => {
+          this.setState({
+            savedImages: [...this.state.savedImages, fileReader.result as string],
+          });
+        };
+        fileReader.readAsDataURL(file);
       }
 
       this.setState({
@@ -196,9 +184,6 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
         break;
       case 'img':
         this.setState({ isValidFile: null });
-        break;
-
-      default:
         break;
     }
   }

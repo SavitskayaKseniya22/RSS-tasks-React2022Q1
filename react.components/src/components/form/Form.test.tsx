@@ -90,8 +90,8 @@ test('test whole form for submit correct', async () => {
   await waitFor(() =>
     expect((screen.getByTestId('form__file') as HTMLInputElement).files).toHaveLength(1)
   );
-
-  fireEvent.click(submit);
-
+  await waitFor(() => userEvent.click(submit));
+  expect((screen.getByTestId('ads-list') as HTMLInputElement).childNodes.length).toBeGreaterThan(0);
+  expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('');
   screen.debug();
 });
