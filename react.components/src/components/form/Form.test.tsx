@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form } from './Form';
 
@@ -68,9 +68,8 @@ test('test whole form for submit error', () => {
   expect(screen.getByTestId('ads-list').innerHTML).toEqual('');
 });
 
-test('test whole form for submit correct', () => {
+test('test whole form for submit correct', async () => {
   render(<Form />);
-  window.URL.createObjectURL = jest.fn();
   const submit = screen.getByTestId('form__submit') as HTMLInputElement;
   fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'texttext' } });
   fireEvent.input(screen.getByTestId('form__description'), {
@@ -82,7 +81,17 @@ test('test whole form for submit correct', () => {
   fireEvent.input(screen.getByTestId('form__date'), { target: { value: '2021-04-04' } });
   fireEvent.input(screen.getByTestId('form__area'), { target: { value: '55555' } });
   const file = new File(['img'], 'img.png', { type: 'image/png' });
-  userEvent.upload(screen.getByTestId('form__file'), file);
+
+  await waitFor(() => userEvent.upload(screen.getByTestId('form__file'), file));
+
+  expect((screen.getByTestId('form__file') as HTMLInputElement).files?.[0]).toStrictEqual(file);
+  expect((screen.getByTestId('form__file') as HTMLInputElement).files?.[0]).toStrictEqual(file);
+
+  await waitFor(() =>
+    expect((screen.getByTestId('form__file') as HTMLInputElement).files).toHaveLength(1)
+  );
+
   fireEvent.click(submit);
-  expect(screen.getByTestId('ads-list').childNodes.length).toBeGreaterThan(0);
+
+  screen.debug();
 });

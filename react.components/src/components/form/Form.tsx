@@ -2,6 +2,7 @@ import React, { FormEvent } from 'react';
 import './form.css';
 import { FormTypes } from '../../interfaces';
 import { AdsList } from '../adsList/AdsList';
+import { ReadableByteStreamController } from 'node:stream/web';
 
 export class Form extends React.Component<Record<string, never>, FormTypes> {
   title: React.RefObject<HTMLInputElement>;
@@ -53,7 +54,23 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
     };
   }
 
-  handleSubmit(event: FormEvent<HTMLFormElement>) {
+  readUploadedFile = (inputFile: File) => {
+    const temporaryFileReader = new FileReader();
+
+    return new Promise((resolve, reject) => {
+      temporaryFileReader.onerror = () => {
+        temporaryFileReader.abort();
+        reject(new DOMException('Problem parsing input file.'));
+      };
+
+      temporaryFileReader.onload = () => {
+        resolve(temporaryFileReader.result);
+      };
+      temporaryFileReader.readAsDataURL(inputFile);
+    });
+  };
+
+  async handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (this.validation()) {
       const object = {
@@ -70,9 +87,10 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
       };
 
       if (this.fileInput.current?.files?.length) {
-        const imgUrl = window.URL.createObjectURL(this.fileInput.current?.files[0]);
+        const file = this.fileInput.current?.files[0];
+        const fileContents = (await this.readUploadedFile(file)) as string;
         this.setState({
-          savedImages: [...this.state.savedImages, imgUrl],
+          savedImages: [...this.state.savedImages, fileContents],
         });
       }
 
@@ -82,12 +100,12 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
 
       this.form.current?.reset();
     }
-    this.submit!.current!.setAttribute('disabled', 'true');
+    this.submit?.current?.setAttribute('disabled', 'true');
   }
 
   handleInput(event: FormEvent<HTMLInputElement>) {
     event.preventDefault();
-    this.submit!.current!.removeAttribute('disabled');
+    this.submit?.current?.removeAttribute('disabled');
     const name = (event.target as HTMLInputElement).getAttribute('name') as string;
     this.resetError(name);
   }
