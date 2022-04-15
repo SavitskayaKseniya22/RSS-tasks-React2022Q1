@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card } from '../../components/card/Card';
 import './mainPage.css';
 import { data } from '../../mockedData';
 import { SearchInput } from '../../components/searchInput/SearchInput';
+import { Card } from '../../components/adCard/AdCard';
 
 export class MainPage extends React.Component {
   constructor(props: string) {

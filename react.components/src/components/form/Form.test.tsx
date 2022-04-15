@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form } from './Form';
 
@@ -65,12 +65,11 @@ test('test whole form for submit error', () => {
   fireEvent.input(screen.getByTestId('form__date'), { target: { value: 'text' } });
   fireEvent.input(screen.getByTestId('form__area'), { target: { value: 'text' } });
   fireEvent.click(submit);
-  expect(screen.getByTestId('Cardlist').innerHTML).toEqual('');
+  expect(screen.getByTestId('ads-list').innerHTML).toEqual('');
 });
 
-test('test whole form for submit correct', () => {
+test('test whole form for submit correct', async () => {
   render(<Form />);
-  window.URL.createObjectURL = jest.fn();
   const submit = screen.getByTestId('form__submit') as HTMLInputElement;
   fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'texttext' } });
   fireEvent.input(screen.getByTestId('form__description'), {
@@ -82,7 +81,21 @@ test('test whole form for submit correct', () => {
   fireEvent.input(screen.getByTestId('form__date'), { target: { value: '2021-04-04' } });
   fireEvent.input(screen.getByTestId('form__area'), { target: { value: '55555' } });
   const file = new File(['img'], 'img.png', { type: 'image/png' });
-  userEvent.upload(screen.getByTestId('form__file'), file);
-  fireEvent.click(submit);
-  expect(screen.getByTestId('Cardlist').childNodes.length).toBeGreaterThan(0);
+
+  await waitFor(() => userEvent.upload(screen.getByTestId('form__file'), file));
+
+  expect((screen.getByTestId('form__file') as HTMLInputElement).files?.[0]).toStrictEqual(file);
+
+  await waitFor(() =>
+    expect((screen.getByTestId('form__file') as HTMLInputElement).files).toHaveLength(1)
+  );
+  await waitFor(() => userEvent.click(submit));
+  await waitFor(() =>
+    expect((screen.getByTestId('ads-list') as HTMLInputElement).childNodes.length).toBeGreaterThan(
+      0
+    )
+  );
+  await waitFor(() =>
+    expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('')
+  );
 });

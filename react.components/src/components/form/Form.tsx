@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import './form.css';
-import { CardProps } from '../card/Card';
-import { CardList } from '../cardList/CardList';
+import { FormTypes } from '../../interfaces';
+import { AdsList } from '../adsList/AdsList';
 
 export class Form extends React.Component<Record<string, never>, FormTypes> {
   title: React.RefObject<HTMLInputElement>;
@@ -70,10 +70,15 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
       };
 
       if (this.fileInput.current?.files?.length) {
-        const imgUrl = window.URL.createObjectURL(this.fileInput.current?.files[0]);
-        this.setState({
-          savedImages: [...this.state.savedImages, imgUrl],
-        });
+        const file = this.fileInput.current?.files[0];
+        const fileReader = new FileReader();
+
+        fileReader.onloadend = () => {
+          this.setState({
+            savedImages: [...this.state.savedImages, fileReader.result as string],
+          });
+        };
+        fileReader.readAsDataURL(file);
       }
 
       this.setState({
@@ -82,12 +87,12 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
 
       this.form.current?.reset();
     }
-    this.submit!.current!.setAttribute('disabled', 'true');
+    this.submit?.current?.setAttribute('disabled', 'true');
   }
 
   handleInput(event: FormEvent<HTMLInputElement>) {
     event.preventDefault();
-    this.submit!.current!.removeAttribute('disabled');
+    this.submit?.current?.removeAttribute('disabled');
     const name = (event.target as HTMLInputElement).getAttribute('name') as string;
     this.resetError(name);
   }
@@ -178,9 +183,6 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
         break;
       case 'img':
         this.setState({ isValidFile: null });
-        break;
-
-      default:
         break;
     }
   }
@@ -370,21 +372,8 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
             disabled
           />
         </form>
-        <CardList savedCards={this.state.savedCards} savedImages={this.state.savedImages} />
+        <AdsList savedCards={this.state.savedCards} savedImages={this.state.savedImages} />
       </div>
     );
   }
-}
-
-interface FormTypes {
-  isValidTitle: boolean | null;
-  isValidDescription: boolean | null;
-  isValidTel: boolean | null;
-  isValidEmail: boolean | null;
-  isValidArea: boolean | null;
-  isValidPrice: boolean | null;
-  isValidDate: boolean | null;
-  isValidFile: boolean | null;
-  savedCards: CardProps[];
-  savedImages: string[];
 }

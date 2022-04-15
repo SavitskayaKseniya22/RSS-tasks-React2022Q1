@@ -4,7 +4,8 @@ import phoneImg from '../../assets/svg/phone.svg';
 import linkImg from '../../assets/svg/forward-next-arrow.svg';
 import tempImgHouse from '../../assets/svg/temp-house.jpg';
 import likeImg from '../../assets/svg/like.svg';
-import './card.css';
+import './adCard.css';
+import { CardProps } from '../../interfaces';
 
 export class Card extends React.Component<
   { houseItem: CardProps; img: string },
@@ -30,51 +31,51 @@ export class Card extends React.Component<
 
   render() {
     return (
-      <li className="Card" data-testid="card-item">
+      <li className="card" data-testid="card-item">
         <img src={this.props.img} alt="lot img" />
         <h3>
           <strong>{this.props.houseItem.name}</strong>
         </h3>
-        <div className="Card__adress">
+        <div className="card__adress">
           <i>{this.props.houseItem.adress}</i>
         </div>
-        <div className="Card__description" data-testid="card-item__description">
-          <p className="Card__description_text">{this.props.houseItem.description}</p>
+        <div className="card__description" data-testid="card-item__description">
+          <p className="card__description-text">{this.props.houseItem.description}</p>
         </div>
         <p>
-          Date of construction: <span className="Card__date">{this.props.houseItem.date}</span>{' '}
+          Date of construction: <span className="card__date">{this.props.houseItem.date}</span>{' '}
         </p>
-        <span className="Card__price">
+        <span className="card__price">
           {this.props.houseItem.price}
           {this.props.houseItem.currency}
         </span>
-        <span className="Card__area">{this.props.houseItem.area}&#13217;</span>
-        <span className="Card__type">{this.props.houseItem.type}</span>
+        <span className="card__area">{this.props.houseItem.area}&#13217;</span>
+        <span className="card__type">{this.props.houseItem.type}</span>
 
         {this.props.houseItem.isReady ? (
-          <span className="Card__ready Card__ready_ok">Ready to use &#10003;</span>
+          <span className="card__ready card__ready-ok">Ready to use &#10003;</span>
         ) : (
-          <span className="Card__ready Card__ready_wait">Need to wait &#10007;</span>
+          <span className="card__ready card__ready-wait">Need to wait &#10007;</span>
         )}
 
-        <div className="Card__links" data-testid="card-item__links">
-          <a href={'tel:' + this.props.houseItem.phone} className="Card__phone">
+        <div className="card__links" data-testid="card-item__links">
+          <a href={'tel:' + this.props.houseItem.phone} className="card__phone">
             <img src={phoneImg} alt="call me" />
           </a>
-          <a href={'mailto:' + this.props.houseItem.email} className="Card__email">
+          <a href={'mailto:' + this.props.houseItem.email} className="card__email">
             <img src={emailImg} alt="email me" />
           </a>
           <a
             href={this.props.houseItem.link}
             target="_blank"
-            className="Card__link-to-order"
+            className="card__link-to-order"
             rel="noreferrer"
           >
             <img src={linkImg} alt="go to site" />
           </a>
         </div>
         <button
-          className="Card__mark-like"
+          className="card__mark-like"
           onClick={this.handleClick}
           data-testid="card__mark-like"
         >
@@ -103,18 +104,3 @@ Card.defaultProps = {
   },
   img: tempImgHouse,
 };
-
-export interface CardProps {
-  adress?: string;
-  name?: string;
-  description?: string;
-  link?: string;
-  email?: string;
-  phone?: string;
-  price?: string;
-  date?: string;
-  area?: string;
-  type?: string;
-  isReady?: boolean;
-  currency?: string;
-}
