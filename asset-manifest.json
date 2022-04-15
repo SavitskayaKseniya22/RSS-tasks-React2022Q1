@@ -1,14 +1,8 @@
 {
   "files": {
-    "main.css": "/savitskayakseniya22-REACT2022Q1/static/css/main.7d559154.css",
-    "main.js": "/savitskayakseniya22-REACT2022Q1/static/js/main.bfdcd8cf.js",
-    "static/media/Realy big house.jpg": "/savitskayakseniya22-REACT2022Q1/static/media/Realy big house.b60ace5038ebd840388d.jpg",
-    "static/media/Poor and broken house.jpg": "/savitskayakseniya22-REACT2022Q1/static/media/Poor and broken house.704e9065a34bfcb4ae5b.jpg",
-    "static/media/Scary ghost house.jpg": "/savitskayakseniya22-REACT2022Q1/static/media/Scary ghost house.a9679d8b55df3cef748a.jpg",
-    "static/media/Nice view house.jpg": "/savitskayakseniya22-REACT2022Q1/static/media/Nice view house.69746cd5cb273a437ce4.jpg",
+    "main.css": "/savitskayakseniya22-REACT2022Q1/static/css/main.2ad3e07b.css",
+    "main.js": "/savitskayakseniya22-REACT2022Q1/static/js/main.1914cbb2.js",
     "static/media/temp-house.jpg": "/savitskayakseniya22-REACT2022Q1/static/media/temp-house.f253f765392d84ace78d.jpg",
-    "static/media/Nice home for retirees.jpg": "/savitskayakseniya22-REACT2022Q1/static/media/Nice home for retirees.ff804ecb3704524c1612.jpg",
-    "static/media/Small house for small family.jpg": "/savitskayakseniya22-REACT2022Q1/static/media/Small house for small family.a2b1356597aa8505c45f.jpg",
     "static/media/rs-school-js.svg": "/savitskayakseniya22-REACT2022Q1/static/media/rs-school-js.ad178c0df28bc133be34b982d62f431d.svg",
     "static/media/phone.svg": "/savitskayakseniya22-REACT2022Q1/static/media/phone.9076a6248458b2fdc389657a61e4985e.svg",
     "static/media/forward-next-arrow.svg": "/savitskayakseniya22-REACT2022Q1/static/media/forward-next-arrow.9915da4da109ad9c743612c6ae196f9a.svg",
@@ -16,11 +10,11 @@
     "static/media/search.svg": "/savitskayakseniya22-REACT2022Q1/static/media/search.3823158d25f29157896e.svg",
     "static/media/mail.svg": "/savitskayakseniya22-REACT2022Q1/static/media/mail.6af286ccc1ec8c30c5e461f1e4d42440.svg",
     "index.html": "/savitskayakseniya22-REACT2022Q1/index.html",
-    "main.7d559154.css.map": "/savitskayakseniya22-REACT2022Q1/static/css/main.7d559154.css.map",
-    "main.bfdcd8cf.js.map": "/savitskayakseniya22-REACT2022Q1/static/js/main.bfdcd8cf.js.map"
+    "main.2ad3e07b.css.map": "/savitskayakseniya22-REACT2022Q1/static/css/main.2ad3e07b.css.map",
+    "main.1914cbb2.js.map": "/savitskayakseniya22-REACT2022Q1/static/js/main.1914cbb2.js.map"
   },
   "entrypoints": [
-    "static/css/main.7d559154.css",
-    "static/js/main.bfdcd8cf.js"
+    "static/css/main.2ad3e07b.css",
+    "static/js/main.1914cbb2.js"
   ]
 }
