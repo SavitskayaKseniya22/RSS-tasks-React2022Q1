@@ -19,7 +19,11 @@ export class SearchResultList extends React.Component<
         </div>
       );
     } else if (this.props.data.isError) {
-      activeBlock = <p className="empty-search">something went wrong</p>;
+      activeBlock = (
+        <p className="empty-search" data-testid="error-search">
+          something went wrong
+        </p>
+      );
     } else if (this.props.data.response.length) {
       activeBlock = (
         <ul className="Card-list" data-testid="card-list">

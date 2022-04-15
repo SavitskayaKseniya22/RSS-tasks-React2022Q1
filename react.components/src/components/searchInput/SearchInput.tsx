@@ -33,8 +33,6 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
       this.data = this.getShortData(response);
       this.props.handleResponse(this.data);
       this.props.handleDownload(false);
-      console.log(response);
-      console.log(this.data);
     } catch (error) {
       this.props.handleDownload(false, true);
     }

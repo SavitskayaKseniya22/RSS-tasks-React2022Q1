@@ -7,7 +7,3 @@ test('check MainPage page appearance', () => {
   const searchForm = screen.getByTestId('search-form');
   expect(mainPage).toContainElement(searchForm);
 });
-
-test('check render all cards', () => {
-  render(<MainPage />);
-});

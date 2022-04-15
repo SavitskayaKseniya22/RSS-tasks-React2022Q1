@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form } from './Form';
 
@@ -85,13 +85,17 @@ test('test whole form for submit correct', async () => {
   await waitFor(() => userEvent.upload(screen.getByTestId('form__file'), file));
 
   expect((screen.getByTestId('form__file') as HTMLInputElement).files?.[0]).toStrictEqual(file);
-  expect((screen.getByTestId('form__file') as HTMLInputElement).files?.[0]).toStrictEqual(file);
 
   await waitFor(() =>
     expect((screen.getByTestId('form__file') as HTMLInputElement).files).toHaveLength(1)
   );
   await waitFor(() => userEvent.click(submit));
-  expect((screen.getByTestId('ads-list') as HTMLInputElement).childNodes.length).toBeGreaterThan(0);
-  expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('');
-  screen.debug();
+  await waitFor(() =>
+    expect((screen.getByTestId('ads-list') as HTMLInputElement).childNodes.length).toBeGreaterThan(
+      0
+    )
+  );
+  await waitFor(() =>
+    expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('')
+  );
 });
