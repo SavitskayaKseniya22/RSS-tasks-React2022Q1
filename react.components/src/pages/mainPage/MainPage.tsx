@@ -1,60 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './mainPage.css';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { MainPageType, SearchItemDetailType } from '../../interfaces';
 import { SearchResultList } from '../../components/searchResultList/SearchResultList';
+import { error } from 'node:console';
+import { render } from 'react-dom';
 
-export class MainPage extends React.Component<Record<string, never>, MainPageType> {
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleResponse = this.handleResponse.bind(this);
-    this.handleDownload = this.handleDownload.bind(this);
-    this.state = {
-      value: window.localStorage.getItem('searchValue') || '',
-      response: [],
-      isDownloading: false,
-      isSearchOver: false,
-      isError: false,
-    };
-  }
+export function MainPage() {
+  const initialValues: MainPageType = {
+    value: window.localStorage.getItem('searchValue') || '',
+    response: [],
+    isDownloading: false,
+    isSearchOver: false,
+    isError: false,
+  };
+  const [state, setState] = useState(initialValues);
 
-  handleChange(value: string) {
-    this.setState({
-      value: value,
-    });
-  }
+  const handleChange = (value: string) => {
+    state.value = value;
+    setState(state);
+  };
 
-  handleResponse(value: SearchItemDetailType[]) {
-    this.setState({
-      response: value,
-    });
-  }
+  const handleResponse = (value: SearchItemDetailType[]) => {
+    state.response = value;
+    setState(state);
+  };
 
-  handleDownload(value: boolean, error?: boolean) {
-    this.setState({
-      isDownloading: value,
-      isSearchOver: !value,
-    });
+  const handleDownload = (value: boolean, error?: boolean) => {
+    state.isDownloading = value;
+    state.isSearchOver = !value;
 
     if (error) {
-      this.setState({
-        isError: true,
-      });
+      state.isError = true;
     }
-  }
+    setState(state);
+  };
 
-  render() {
-    return (
-      <main data-testid="main-page">
-        <SearchInput
-          value={this.state.value}
-          handleChange={this.handleChange}
-          handleResponse={this.handleResponse}
-          handleDownload={this.handleDownload}
-        />
-        <SearchResultList data={this.state} />
-      </main>
-    );
-  }
+  return (
+    <main data-testid="main-page">
+      <SearchInput
+        value={state.value}
+        handleChange={handleChange}
+        handleResponse={handleResponse}
+        handleDownload={handleDownload}
+      />
+      <SearchResultList data={state} />
+    </main>
+  );
 }
