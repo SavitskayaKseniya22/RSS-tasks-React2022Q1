@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect } from 'react';
 import {
   SearchInputProps,
   ResponseItemType,
@@ -8,40 +8,30 @@ import {
 import './searchInput.css';
 
 export function SearchInput(props: SearchInputProps) {
-  const [inputState, setState] = useState(props);
-
   useEffect(() => {
-    if (inputState.value) {
-      getApiResponse(inputState.value);
+    if (props.value) {
+      getApiResponse(props.value);
     }
   }, []);
 
   useEffect(() => {
     return () => {
-      console.log(inputState);
-      window.localStorage.setItem('searchValue', inputState.value);
+      window.localStorage.setItem('searchValue', props.value);
     };
   });
 
   let data: SearchItemDetailType[] = [];
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    getApiResponse(inputState.value);
-  };
-
   const getApiResponse = async (value: string) => {
-    props.handleResponse([]);
-    props.handleDownload(true);
+    props.handleDownload([], true);
     try {
       const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&per_page=30&query=${value}`;
       const res = await fetch(url);
       const response = await res.json();
       data = getShortData(response);
-      props.handleResponse(data);
-      props.handleDownload(false);
+      props.handleDownload(data, false);
     } catch (error) {
-      props.handleDownload(false, true);
+      props.handleDownload([], false, true);
     }
   };
 
@@ -66,9 +56,13 @@ export function SearchInput(props: SearchInputProps) {
     return result;
   };
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    getApiResponse(props.value);
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     props.handleChange(e.target.value);
-    setState({ ...inputState, value: e.target.value });
   };
 
   return (
@@ -76,7 +70,7 @@ export function SearchInput(props: SearchInputProps) {
       <input
         data-testid="search-input"
         className="search-input"
-        value={inputState.value}
+        value={props.value}
         onChange={handleChange}
         placeholder="search"
       />

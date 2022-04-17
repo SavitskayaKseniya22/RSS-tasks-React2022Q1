@@ -30,8 +30,7 @@ export interface SearchInputState {
 export interface SearchInputProps {
   value: string;
   handleChange: (value: string) => void;
-  handleResponse: (value: SearchItemDetailType[]) => void;
-  handleDownload: (value: boolean, error?: boolean) => void;
+  handleDownload: (response: SearchItemDetailType[], load: boolean, error?: boolean) => void;
 }
 
 export interface ResponseType {

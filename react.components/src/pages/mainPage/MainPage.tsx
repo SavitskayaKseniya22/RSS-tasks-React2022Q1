@@ -3,8 +3,6 @@ import './mainPage.css';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { MainPageType, SearchItemDetailType } from '../../interfaces';
 import { SearchResultList } from '../../components/searchResultList/SearchResultList';
-import { error } from 'node:console';
-import { render } from 'react-dom';
 
 export function MainPage() {
   const initialValues: MainPageType = {
@@ -17,23 +15,17 @@ export function MainPage() {
   const [state, setState] = useState(initialValues);
 
   const handleChange = (value: string) => {
-    state.value = value;
-    setState(state);
+    setState({ ...state, value: value });
   };
 
-  const handleResponse = (value: SearchItemDetailType[]) => {
-    state.response = value;
-    setState(state);
-  };
-
-  const handleDownload = (value: boolean, error?: boolean) => {
-    state.isDownloading = value;
-    state.isSearchOver = !value;
-
-    if (error) {
-      state.isError = true;
-    }
-    setState(state);
+  const handleDownload = (response: SearchItemDetailType[], load: boolean, error?: boolean) => {
+    setState({
+      ...state,
+      response: response,
+      isDownloading: load,
+      isSearchOver: !load,
+      isError: error || false,
+    });
   };
 
   return (
@@ -41,7 +33,6 @@ export function MainPage() {
       <SearchInput
         value={state.value}
         handleChange={handleChange}
-        handleResponse={handleResponse}
         handleDownload={handleDownload}
       />
       <SearchResultList data={state} />
