@@ -1,44 +1,51 @@
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import {
   SearchInputProps,
-  SearchInputState,
   ResponseItemType,
   SearchItemDetailType,
   ResponseType,
 } from '../../interfaces';
 import './searchInput.css';
 
-export class SearchInput extends React.Component<SearchInputProps, SearchInputState> {
-  data: SearchItemDetailType[];
+export function SearchInput(props: SearchInputProps) {
+  const [inputState, setState] = useState(props);
 
-  constructor(props: SearchInputProps) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.data = [];
-  }
+  useEffect(() => {
+    if (inputState.value) {
+      getApiResponse(inputState.value);
+    }
+  }, []);
 
-  async handleSubmit(event: FormEvent<HTMLFormElement>) {
+  useEffect(() => {
+    return () => {
+      console.log(inputState);
+      window.localStorage.setItem('searchValue', inputState.value);
+    };
+  });
+
+  let data: SearchItemDetailType[] = [];
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    this.getApiResponse(this.props.value);
-  }
+    getApiResponse(inputState.value);
+  };
 
-  async getApiResponse(value: string) {
-    this.props.handleResponse([]);
-    this.props.handleDownload(true);
+  const getApiResponse = async (value: string) => {
+    props.handleResponse([]);
+    props.handleDownload(true);
     try {
       const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&per_page=30&query=${value}`;
       const res = await fetch(url);
       const response = await res.json();
-      this.data = this.getShortData(response);
-      this.props.handleResponse(this.data);
-      this.props.handleDownload(false);
+      data = getShortData(response);
+      props.handleResponse(data);
+      props.handleDownload(false);
     } catch (error) {
-      this.props.handleDownload(false, true);
+      props.handleDownload(false, true);
     }
-  }
+  };
 
-  getShortData(response: ResponseType) {
+  const getShortData = (response: ResponseType) => {
     const result = response.results.map((item: ResponseItemType): SearchItemDetailType => {
       const obj = {
         src: item.urls.regular,
@@ -57,33 +64,22 @@ export class SearchInput extends React.Component<SearchInputProps, SearchInputSt
     });
 
     return result;
-  }
+  };
 
-  handleChange(e: ChangeEvent<HTMLInputElement>) {
-    this.props.handleChange(e.target.value);
-  }
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    props.handleChange(e.target.value);
+    setState({ ...inputState, value: e.target.value });
+  };
 
-  componentWillUnmount() {
-    window.localStorage.setItem('searchValue', this.props.value);
-  }
-
-  componentDidMount() {
-    if (this.props.value) {
-      this.getApiResponse(this.props.value);
-    }
-  }
-
-  render() {
-    return (
-      <form className="search-form" onSubmit={this.handleSubmit} data-testid="search-form">
-        <input
-          data-testid="search-input"
-          className="search-input"
-          value={this.props.value}
-          onChange={this.handleChange}
-          placeholder="search"
-        />
-      </form>
-    );
-  }
+  return (
+    <form className="search-form" onSubmit={handleSubmit} data-testid="search-form">
+      <input
+        data-testid="search-input"
+        className="search-input"
+        value={inputState.value}
+        onChange={handleChange}
+        placeholder="search"
+      />
+    </form>
+  );
 }
