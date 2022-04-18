@@ -1,60 +1,79 @@
-import React, { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import './form.css';
-import { FormTypes } from '../../interfaces';
 import { AdsList } from '../adsList/AdsList';
-import { ReadableByteStreamController } from 'node:stream/web';
+import { useForm } from 'react-hook-form';
 
-export class Form extends React.Component<Record<string, never>, FormTypes> {
-  title: React.RefObject<HTMLInputElement>;
-  description: React.RefObject<HTMLInputElement>;
-  tel: React.RefObject<HTMLInputElement>;
-  email: React.RefObject<HTMLInputElement>;
-  area: React.RefObject<HTMLInputElement>;
-  price: React.RefObject<HTMLInputElement>;
-  date: React.RefObject<HTMLInputElement>;
-  ready: React.RefObject<HTMLInputElement>;
-  currency: React.RefObject<HTMLSelectElement>;
-  submit: React.RefObject<HTMLInputElement>;
-  fileInput: React.RefObject<HTMLInputElement>;
-  form: React.RefObject<HTMLFormElement>;
-  typeSale: React.RefObject<HTMLInputElement>;
-  typeRent: React.RefObject<HTMLInputElement>;
+export function Form() {
+  const initialValues: FormStateTypes = {
+    isValidTitle: null,
+    isValidDescription: null,
+    isValidTel: null,
+    isValidEmail: null,
+    isValidArea: null,
+    isValidPrice: null,
+    isValidDate: null,
+    isValidFile: null,
+    savedCards: [],
+    savedImages: [],
+    isSubmitBlock: true,
+    isErrorsOpen: false,
+  };
 
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-    this.validation = this.validation.bind(this);
-    this.resetError = this.resetError.bind(this);
-    this.title = React.createRef();
-    this.description = React.createRef();
-    this.tel = React.createRef();
-    this.email = React.createRef();
-    this.area = React.createRef();
-    this.price = React.createRef();
-    this.date = React.createRef();
-    this.ready = React.createRef();
-    this.currency = React.createRef();
-    this.submit = React.createRef();
-    this.fileInput = React.createRef();
-    this.typeSale = React.createRef();
-    this.typeRent = React.createRef();
-    this.form = React.createRef();
-    this.state = {
-      isValidTitle: null,
-      isValidDescription: null,
-      isValidTel: null,
-      isValidEmail: null,
-      isValidArea: null,
-      isValidPrice: null,
-      isValidDate: null,
-      isValidFile: null,
-      savedCards: [],
-      savedImages: [],
-    };
+  const { register, handleSubmit, getValues } = useForm({
+    defaultValues: {
+      description: '',
+      title: '',
+      phone: '',
+      email: '',
+      img: '',
+      date: '',
+      price: '',
+      typeAdd: '',
+      isReady: false,
+      area: '',
+      currency: '$',
+    },
+  });
+  const [state, setState] = useState(initialValues);
+
+  function onSubmit(data: FormType) {
+    if (validation(data)) {
+      const object = {
+        title: data.title,
+        description: data.description,
+        email: data.email,
+        phone: data.phone,
+        price: data.price,
+        date: data.date,
+        area: data.area,
+        typeAdd: data.typeAdd,
+        isReady: data.isReady,
+        currency: data.currency,
+        img: data.img,
+      };
+      console.log(data);
+
+      if (data.img) {
+        const file = data.img[0] as unknown as File;
+        const fileReader = new FileReader();
+
+        fileReader.onloadend = () => {
+          object.img = fileReader.result as string;
+          setState({
+            ...state,
+            savedCards: [...state.savedCards, object],
+            savedImages: [...state.savedImages, fileReader.result as string],
+          });
+        };
+        fileReader.readAsDataURL(file);
+      }
+
+      //this.form.current?.reset();
+    }
   }
-
-  handleSubmit(event: FormEvent<HTMLFormElement>) {
+  /*  
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    
     event.preventDefault();
     if (this.validation()) {
       const object = {
@@ -89,292 +108,341 @@ export class Form extends React.Component<Record<string, never>, FormTypes> {
       this.form.current?.reset();
     }
     this.submit?.current?.setAttribute('disabled', 'true');
-  }
-
-  handleInput(event: FormEvent<HTMLInputElement>) {
+    
+  };
+*/
+  const handleInput = (event: FormEvent<HTMLInputElement>) => {
     event.preventDefault();
-    this.submit?.current?.removeAttribute('disabled');
-    const name = (event.target as HTMLInputElement).getAttribute('name') as string;
-    this.resetError(name);
-  }
 
-  validation() {
+    if (state.isSubmitBlock) {
+      setState({
+        ...state,
+        isSubmitBlock: false,
+      });
+    }
+    if (state.isErrorsOpen) {
+      const name = (event.target as HTMLInputElement).getAttribute('name') as string;
+
+      resetError(name);
+    }
+  };
+
+  const validation = (values: FormType) => {
+    const checkList = {
+      isValidTitle: false,
+      isValidDescription: false,
+      isValidTel: false,
+      isValidEmail: false,
+      isValidArea: false,
+      isValidPrice: false,
+      isValidDate: false,
+      isValidFile: false,
+      isErrorsOpen: false,
+    };
+
     let isCorrect = true;
-    if (/^[A-Za-z0-9\s\.,]{6,}$/.test(this.title.current?.value as string)) {
-      this.setState({ isValidTitle: true });
+
+    if (/^[A-Za-z0-9\s\.,]{6,}$/.test(values.title)) {
+      checkList.isValidTitle = true;
     } else {
-      this.setState({ isValidTitle: false });
       isCorrect = false;
     }
 
-    if (/^[A-Za-z0-9\s\.,]{10,}$/.test(this.description.current?.value as string)) {
-      this.setState({ isValidDescription: true });
+    if (/^[A-Za-z0-9\s\.,]{10,}$/.test(values.description)) {
+      checkList.isValidDescription = true;
     } else {
-      this.setState({ isValidDescription: false });
       isCorrect = false;
     }
 
-    if (/^[0-9\s-]{5,}$/.test(this.tel.current?.value as string)) {
-      this.setState({ isValidTel: true });
+    if (/^[0-9\s-]{5,}$/.test(values.phone)) {
+      checkList.isValidTel = true;
     } else {
-      this.setState({ isValidTel: false });
       isCorrect = false;
     }
 
-    if (/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(this.email.current?.value as string)) {
-      this.setState({ isValidEmail: true });
+    if (/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(values.email)) {
+      checkList.isValidEmail = true;
     } else {
-      this.setState({ isValidEmail: false });
       isCorrect = false;
     }
 
-    if (/^[0-9]*[.,]?[0-9]+$/.test(this.area.current?.value as string)) {
-      this.setState({ isValidArea: true });
+    if (/^[0-9]*[.,]?[0-9]+$/.test(values.area)) {
+      checkList.isValidArea = true;
     } else {
-      this.setState({ isValidArea: false });
       isCorrect = false;
     }
 
-    if (/^[0-9]*[.,]?[0-9]+$/.test(this.price.current?.value as string)) {
-      this.setState({ isValidPrice: true });
+    if (/^[0-9]*[.,]?[0-9]+$/.test(values.price)) {
+      checkList.isValidPrice = true;
     } else {
-      this.setState({ isValidPrice: false });
       isCorrect = false;
     }
 
-    if (new Date(this.date.current?.value as string) < new Date()) {
-      this.setState({ isValidDate: true });
+    if (new Date(values.date) < new Date()) {
+      checkList.isValidDate = true;
     } else {
-      this.setState({ isValidDate: false });
       isCorrect = false;
     }
 
-    if (this.fileInput.current?.files?.length) {
-      this.setState({ isValidFile: true });
+    if (values.img) {
+      checkList.isValidFile = true;
     } else {
-      this.setState({ isValidFile: false });
       isCorrect = false;
     }
+
+    checkList.isErrorsOpen = !isCorrect;
+
+    setState({
+      ...state,
+      ...checkList,
+    });
 
     return isCorrect;
-  }
+  };
 
-  resetError(input: string) {
-    switch (input) {
+  const resetError = (inputName: string) => {
+    switch (inputName) {
       case 'title':
-        this.setState({ isValidTitle: null });
+        setState({
+          ...state,
+          isValidTitle: null,
+        });
+
         break;
       case 'description':
-        this.setState({ isValidDescription: null });
+        setState({
+          ...state,
+          isValidDescription: null,
+        });
+
         break;
-      case 'tel':
-        this.setState({ isValidTel: null });
+      case 'phone':
+        setState({
+          ...state,
+          isValidTel: null,
+        });
+
         break;
       case 'email':
-        this.setState({ isValidEmail: null });
+        setState({
+          ...state,
+          isValidEmail: null,
+        });
+
         break;
       case 'area':
-        this.setState({ isValidArea: null });
+        setState({
+          ...state,
+          isValidArea: null,
+        });
+
         break;
       case 'price':
-        this.setState({ isValidPrice: null });
+        setState({
+          ...state,
+          isValidPrice: null,
+        });
+
         break;
       case 'date':
-        this.setState({ isValidDate: null });
+        setState({
+          ...state,
+          isValidDate: null,
+        });
+
         break;
       case 'img':
-        this.setState({ isValidFile: null });
+        setState({
+          ...state,
+          isValidFile: null,
+        });
+
         break;
     }
-  }
+  };
 
-  render() {
-    return (
-      <div data-testid="advertisements" className="advertisements">
-        <form
-          className="add-adv"
-          onSubmit={this.handleSubmit}
-          noValidate
-          ref={this.form}
-          data-testid="form-ad"
-        >
-          <label className="big-field">
-            <h3>Title:</h3>
-            <input
-              data-testid="form__title"
-              type="text"
-              name="title"
-              ref={this.title}
-              onInput={this.handleInput}
-              placeholder="Please enter a valid title. String must contain at least 6 characters."
-            />
-            {
-              <span className="error-note" data-testid="form__title-error">
-                {this.state.isValidTitle === false ? 'Too short or wrong title' : ''}
-              </span>
-            }
-          </label>
-
-          <label className="big-field">
-            <h3>Description:</h3>
-            <input
-              data-testid="form__description"
-              type="text"
-              name="description"
-              ref={this.description}
-              onInput={this.handleInput}
-              placeholder="Please enter a valid description. String must contain at least 10 characters."
-            />
-            {
-              <span className="error-note" data-testid="form__description-error">
-                {this.state.isValidDescription === false ? 'Too short or wrong description' : ''}
-              </span>
-            }
-          </label>
-
-          <label className="middle-field">
-            <h3>Tel:</h3>
-            <input
-              data-testid="form__tel"
-              type="tel"
-              name="tel"
-              ref={this.tel}
-              onInput={this.handleInput}
-              placeholder="Please enter a valid number. Number must contain at least 5 digits."
-            />
-            {
-              <span className="error-note" data-testid="form__tel-error">
-                {this.state.isValidTel === false ? 'Invalid phone number' : ''}
-              </span>
-            }
-          </label>
-
-          <label className="middle-field">
-            <h3>E-mail:</h3>
-            <input
-              data-testid="form__email"
-              type="email"
-              name="email"
-              ref={this.email}
-              onInput={this.handleInput}
-              placeholder="Please enter a valid email"
-            />
-            {
-              <span className="error-note" data-testid="form__email-error">
-                {this.state.isValidEmail === false ? 'Invalid email' : ''}
-              </span>
-            }
-          </label>
-
-          <label className="small-field">
-            <h3>Area (&#13217;):</h3>
-            <input
-              data-testid="form__area"
-              type="number"
-              name="area"
-              ref={this.area}
-              onInput={this.handleInput}
-              placeholder="Enter the area of the house"
-            />
-            {
-              <span className="error-note" data-testid="form__error">
-                {this.state.isValidArea === false ? 'Invalid number' : ''}
-              </span>
-            }
-          </label>
-
-          <label className="small-field">
-            <h3>Price:</h3>
-            <div className="price">
-              <input
-                data-testid="form__price"
-                type="number"
-                name="price"
-                ref={this.price}
-                onInput={this.handleInput}
-                placeholder="Enter price"
-              />
-              <select name="currency" ref={this.currency} defaultValue="$">
-                <option value="$">&#36;</option>
-                <option value="€">&#8364;</option>
-                <option value="₽">&#8381;</option>
-              </select>
-            </div>
-            {
-              <span id="price-error" className="error-note" data-testid="form__price-error">
-                {this.state.isValidPrice === false ? 'Invalid number' : ''}
-              </span>
-            }
-          </label>
-          <label className="small-field">
-            <h3>Date of construction:</h3>
-            <input
-              type="date"
-              name="date"
-              ref={this.date}
-              onInput={this.handleInput}
-              data-testid="form__date"
-            />
-            {
-              <span className="error-note" data-testid="form__date-error">
-                {this.state.isValidDate === false ? 'Invalid date' : ''}
-              </span>
-            }
-          </label>
-
-          <div className="middle-field ad-type">
-            <h3>Type of ad:</h3>
-
-            <input
-              type="radio"
-              id="sale"
-              name="typeAdd"
-              value="sale"
-              defaultChecked
-              ref={this.typeSale}
-            />
-            <label className="switcher" htmlFor="sale">
-              <span>Sale</span>
-            </label>
-
-            <input type="radio" id="rent" name="typeAdd" value="rent" ref={this.typeRent} />
-            <label className="switcher" htmlFor="rent">
-              <span>Rent</span>
-            </label>
-          </div>
-
-          <label className="middle-field">
-            <h3>Ready for use</h3>
-            <input type="checkbox" name="ready" ref={this.ready} />
-          </label>
-
-          <label className="big-field">
-            <h3>Add images:</h3>
-            <input
-              type="file"
-              name="img"
-              ref={this.fileInput}
-              onInput={this.handleInput}
-              data-testid="form__file"
-            />
-            {
-              <span className="error-note" data-testid="form__file-error">
-                {this.state.isValidFile === false ? 'Please choose an img' : ''}
-              </span>
-            }
-          </label>
-
+  return (
+    <div data-testid="advertisements" className="advertisements">
+      <form className="add-adv" onSubmit={handleSubmit(onSubmit)} noValidate data-testid="form-ad">
+        <label className="big-field">
+          <h3>Title:</h3>
           <input
-            data-testid="form__submit"
-            type="submit"
-            className="submit-button"
-            value="send"
-            ref={this.submit}
-            disabled
+            data-testid="form__title"
+            type="text"
+            {...register('title')}
+            onInput={handleInput}
+            placeholder="Please enter a valid title. String must contain at least 6 characters."
           />
-        </form>
-        <AdsList savedCards={this.state.savedCards} savedImages={this.state.savedImages} />
-      </div>
-    );
-  }
+          {
+            <span className="error-note" data-testid="form__title-error">
+              {state.isValidTitle === false ? 'Too short or wrong title' : ''}
+            </span>
+          }
+        </label>
+
+        <label className="big-field">
+          <h3>Description:</h3>
+          <input
+            data-testid="form__description"
+            type="text"
+            {...register('description')}
+            onInput={handleInput}
+            placeholder="Please enter a valid description. String must contain at least 10 characters."
+          />
+          {
+            <span className="error-note" data-testid="form__description-error">
+              {state.isValidDescription === false ? 'Too short or wrong description' : ''}
+            </span>
+          }
+        </label>
+
+        <label className="middle-field">
+          <h3>Tel:</h3>
+          <input
+            data-testid="form__tel"
+            type="tel"
+            {...register('phone')}
+            onInput={handleInput}
+            placeholder="Please enter a valid number. Number must contain at least 5 digits."
+          />
+          {
+            <span className="error-note" data-testid="form__tel-error">
+              {state.isValidTel === false ? 'Invalid phone number' : ''}
+            </span>
+          }
+        </label>
+
+        <label className="middle-field">
+          <h3>E-mail:</h3>
+          <input
+            data-testid="form__email"
+            type="email"
+            {...register('email')}
+            onInput={handleInput}
+            placeholder="Please enter a valid email"
+          />
+          {
+            <span className="error-note" data-testid="form__email-error">
+              {state.isValidEmail === false ? 'Invalid email' : ''}
+            </span>
+          }
+        </label>
+
+        <label className="small-field">
+          <h3>Area (&#13217;):</h3>
+          <input
+            data-testid="form__area"
+            type="number"
+            {...register('area')}
+            onInput={handleInput}
+            placeholder="Enter the area of the house"
+          />
+          {
+            <span className="error-note" data-testid="form__error">
+              {state.isValidArea === false ? 'Invalid number' : ''}
+            </span>
+          }
+        </label>
+
+        <label className="small-field">
+          <h3>Price:</h3>
+          <div className="price">
+            <input
+              data-testid="form__price"
+              type="number"
+              {...register('price')}
+              onInput={handleInput}
+              placeholder="Enter price"
+            />
+            <select {...register('currency')} defaultValue="$">
+              <option value="$">&#36;</option>
+              <option value="€">&#8364;</option>
+              <option value="₽">&#8381;</option>
+            </select>
+          </div>
+          {
+            <span id="price-error" className="error-note" data-testid="form__price-error">
+              {state.isValidPrice === false ? 'Invalid number' : ''}
+            </span>
+          }
+        </label>
+        <label className="small-field">
+          <h3>Date of construction:</h3>
+          <input type="date" {...register('date')} onInput={handleInput} data-testid="form__date" />
+          {
+            <span className="error-note" data-testid="form__date-error">
+              {state.isValidDate === false ? 'Invalid date' : ''}
+            </span>
+          }
+        </label>
+
+        <div className="middle-field ad-type">
+          <h3>Type of ad:</h3>
+
+          <input type="radio" id="sale" value="sale" defaultChecked {...register('typeAdd')} />
+          <label className="switcher" htmlFor="sale">
+            <span>Sale</span>
+          </label>
+
+          <input type="radio" id="rent" value="rent" {...register('typeAdd')} />
+          <label className="switcher" htmlFor="rent">
+            <span>Rent</span>
+          </label>
+        </div>
+
+        <label className="middle-field">
+          <h3>Ready for use</h3>
+          <input type="checkbox" {...register('isReady')} />
+        </label>
+
+        <label className="big-field">
+          <h3>Add images:</h3>
+          <input type="file" {...register('img')} onInput={handleInput} data-testid="form__file" />
+          {
+            <span className="error-note" data-testid="form__file-error">
+              {state.isValidFile === false ? 'Please choose an img' : ''}
+            </span>
+          }
+        </label>
+
+        <input
+          data-testid="form__submit"
+          type="submit"
+          className="submit-button"
+          value="send"
+          disabled={state.isSubmitBlock}
+        />
+      </form>
+      <AdsList savedCards={state.savedCards} savedImages={state.savedImages} />
+    </div>
+  );
+}
+
+interface FormType {
+  description: string;
+  title: string;
+  phone: string;
+  email: string;
+  img: string;
+  date: string;
+  price: string;
+  typeAdd: string;
+  isReady: boolean;
+  area: string;
+  currency: string;
+}
+
+interface FormStateTypes {
+  isValidTitle: null | boolean;
+  isValidDescription: null | boolean;
+  isValidTel: null | boolean;
+  isValidEmail: null | boolean;
+  isValidArea: null | boolean;
+  isValidPrice: null | boolean;
+  isValidDate: null | boolean;
+  isValidFile: null | boolean;
+  savedCards: FormType[];
+  savedImages: string[];
+  isSubmitBlock: boolean;
+  isErrorsOpen: boolean;
 }
