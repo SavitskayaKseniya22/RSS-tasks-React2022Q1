@@ -19,7 +19,17 @@ export function Form() {
     isErrorsOpen: false,
   };
 
-  const { register, handleSubmit, getValues, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    reset,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit',
     defaultValues: {
       description: '',
       title: '',
@@ -37,37 +47,35 @@ export function Form() {
   const [state, setState] = useState(initialValues);
 
   function onSubmit(data: CardProps) {
-    if (validation(data)) {
-      const object = {
-        title: data.title,
-        description: data.description,
-        email: data.email,
-        phone: data.phone,
-        price: data.price,
-        date: data.date,
-        area: data.area,
-        typeAdd: data.typeAdd,
-        isReady: data.isReady,
-        currency: data.currency,
-        img: data.img,
+    const object = {
+      title: data.title,
+      description: data.description,
+      email: data.email,
+      phone: data.phone,
+      price: data.price,
+      date: data.date,
+      area: data.area,
+      typeAdd: data.typeAdd,
+      isReady: data.isReady,
+      currency: data.currency,
+      img: data.img,
+    };
+
+    if (data.img) {
+      const file = data.img[0] as unknown as File;
+      const fileReader = new FileReader();
+
+      fileReader.onloadend = () => {
+        object.img = fileReader.result as string;
+        setState({
+          ...state,
+          savedCards: [...state.savedCards, object],
+        });
       };
-
-      if (data.img) {
-        const file = data.img[0] as unknown as File;
-        const fileReader = new FileReader();
-
-        fileReader.onloadend = () => {
-          object.img = fileReader.result as string;
-          setState({
-            ...state,
-            savedCards: [...state.savedCards, object],
-          });
-        };
-        fileReader.readAsDataURL(file);
-      }
-
-      reset();
+      fileReader.readAsDataURL(file);
     }
+
+    reset();
   }
   const handleInput = (event: FormEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -78,145 +86,21 @@ export function Form() {
         isSubmitBlock: false,
       });
     }
-    if (state.isErrorsOpen) {
-      const name = (event.target as HTMLInputElement).getAttribute('name') as string;
 
-      resetError(name);
-    }
-  };
+    const name = (event.target as HTMLInputElement).getAttribute('name') as
+      | 'description'
+      | 'title'
+      | 'phone'
+      | 'email'
+      | 'img'
+      | 'date'
+      | 'price'
+      | 'typeAdd'
+      | 'isReady'
+      | 'area'
+      | 'currency';
 
-  const validation = (values: CardProps) => {
-    const checkList = {
-      isValidTitle: false,
-      isValidDescription: false,
-      isValidTel: false,
-      isValidEmail: false,
-      isValidArea: false,
-      isValidPrice: false,
-      isValidDate: false,
-      isValidFile: false,
-      isErrorsOpen: false,
-    };
-
-    let isCorrect = true;
-
-    if (/^[A-Za-z0-9\s\.,]{6,}$/.test(values.title)) {
-      checkList.isValidTitle = true;
-    } else {
-      isCorrect = false;
-    }
-
-    if (/^[A-Za-z0-9\s\.,]{10,}$/.test(values.description)) {
-      checkList.isValidDescription = true;
-    } else {
-      isCorrect = false;
-    }
-
-    if (/^[0-9\s-]{5,}$/.test(values.phone)) {
-      checkList.isValidTel = true;
-    } else {
-      isCorrect = false;
-    }
-
-    if (/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(values.email)) {
-      checkList.isValidEmail = true;
-    } else {
-      isCorrect = false;
-    }
-
-    if (/^[0-9]*[.,]?[0-9]+$/.test(values.area)) {
-      checkList.isValidArea = true;
-    } else {
-      isCorrect = false;
-    }
-
-    if (/^[0-9]*[.,]?[0-9]+$/.test(values.price)) {
-      checkList.isValidPrice = true;
-    } else {
-      isCorrect = false;
-    }
-
-    if (new Date(values.date) < new Date()) {
-      checkList.isValidDate = true;
-    } else {
-      isCorrect = false;
-    }
-
-    if (values.img) {
-      checkList.isValidFile = true;
-    } else {
-      isCorrect = false;
-    }
-
-    checkList.isErrorsOpen = !isCorrect;
-
-    setState({
-      ...state,
-      ...checkList,
-    });
-
-    return isCorrect;
-  };
-
-  const resetError = (inputName: string) => {
-    switch (inputName) {
-      case 'title':
-        setState({
-          ...state,
-          isValidTitle: null,
-        });
-
-        break;
-      case 'description':
-        setState({
-          ...state,
-          isValidDescription: null,
-        });
-
-        break;
-      case 'phone':
-        setState({
-          ...state,
-          isValidTel: null,
-        });
-
-        break;
-      case 'email':
-        setState({
-          ...state,
-          isValidEmail: null,
-        });
-
-        break;
-      case 'area':
-        setState({
-          ...state,
-          isValidArea: null,
-        });
-
-        break;
-      case 'price':
-        setState({
-          ...state,
-          isValidPrice: null,
-        });
-
-        break;
-      case 'date':
-        setState({
-          ...state,
-          isValidDate: null,
-        });
-
-        break;
-      case 'img':
-        setState({
-          ...state,
-          isValidFile: null,
-        });
-
-        break;
-    }
+    clearErrors([name]);
   };
 
   return (
@@ -227,15 +111,18 @@ export function Form() {
           <input
             data-testid="form__title"
             type="text"
-            {...register('title')}
+            {...register('title', {
+              required: true,
+              pattern: /^[A-Za-z0-9\s\.,]{6,}$/i,
+            })}
             onInput={handleInput}
             placeholder="Please enter a valid title. String must contain at least 6 characters."
           />
-          {
+          {errors.title && errors.title.type === 'pattern' && (
             <span className="error-note" data-testid="form__title-error">
-              {state.isValidTitle === false ? 'Too short or wrong title' : ''}
+              Too short or wrong title
             </span>
-          }
+          )}
         </label>
 
         <label className="big-field">
@@ -243,15 +130,18 @@ export function Form() {
           <input
             data-testid="form__description"
             type="text"
-            {...register('description')}
+            {...register('description', {
+              required: true,
+              pattern: /^[A-Za-z0-9\s\.,]{10,}$/i,
+            })}
             onInput={handleInput}
             placeholder="Please enter a valid description. String must contain at least 10 characters."
           />
-          {
+          {errors.description && errors.description.type === 'pattern' && (
             <span className="error-note" data-testid="form__description-error">
-              {state.isValidDescription === false ? 'Too short or wrong description' : ''}
+              Too short or wrong description
             </span>
-          }
+          )}
         </label>
 
         <label className="middle-field">
@@ -259,15 +149,18 @@ export function Form() {
           <input
             data-testid="form__tel"
             type="tel"
-            {...register('phone')}
+            {...register('phone', {
+              required: true,
+              pattern: /^[0-9\s-]{5,}$/i,
+            })}
             onInput={handleInput}
             placeholder="Please enter a valid number. Number must contain at least 5 digits."
           />
-          {
+          {errors.phone && errors.phone.type === 'pattern' && (
             <span className="error-note" data-testid="form__tel-error">
-              {state.isValidTel === false ? 'Invalid phone number' : ''}
+              Invalid phone number
             </span>
-          }
+          )}
         </label>
 
         <label className="middle-field">
@@ -275,15 +168,18 @@ export function Form() {
           <input
             data-testid="form__email"
             type="email"
-            {...register('email')}
+            {...register('email', {
+              required: true,
+              pattern: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/i,
+            })}
             onInput={handleInput}
             placeholder="Please enter a valid email"
           />
-          {
+          {errors.email && errors.email.type === 'pattern' && (
             <span className="error-note" data-testid="form__email-error">
-              {state.isValidEmail === false ? 'Invalid email' : ''}
+              Invalid email
             </span>
-          }
+          )}
         </label>
 
         <label className="small-field">
@@ -291,15 +187,18 @@ export function Form() {
           <input
             data-testid="form__area"
             type="number"
-            {...register('area')}
+            {...register('area', {
+              required: true,
+              pattern: /^[0-9]*[.,]?[0-9]+$/i,
+            })}
             onInput={handleInput}
             placeholder="Enter the area of the house"
           />
-          {
+          {errors.area && errors.area.type === 'pattern' && (
             <span className="error-note" data-testid="form__error">
-              {state.isValidArea === false ? 'Invalid number' : ''}
+              Invalid number
             </span>
-          }
+          )}
         </label>
 
         <label className="small-field">
@@ -308,7 +207,10 @@ export function Form() {
             <input
               data-testid="form__price"
               type="number"
-              {...register('price')}
+              {...register('price', {
+                required: true,
+                pattern: /^[0-9]*[.,]?[0-9]+$/i,
+              })}
               onInput={handleInput}
               placeholder="Enter price"
             />
@@ -318,20 +220,28 @@ export function Form() {
               <option value="₽">&#8381;</option>
             </select>
           </div>
-          {
+          {errors.price && errors.price.type === 'pattern' && (
             <span id="price-error" className="error-note" data-testid="form__price-error">
-              {state.isValidPrice === false ? 'Invalid number' : ''}
+              Invalid number
             </span>
-          }
+          )}
         </label>
         <label className="small-field">
           <h3>Date of construction:</h3>
-          <input type="date" {...register('date')} onInput={handleInput} data-testid="form__date" />
-          {
+          <input
+            type="date"
+            {...register('date', {
+              required: true,
+              validate: (input) => new Date(input) < new Date(),
+            })}
+            onInput={handleInput}
+            data-testid="form__date"
+          />
+          {errors.date && (
             <span className="error-note" data-testid="form__date-error">
-              {state.isValidDate === false ? 'Invalid date' : ''}
+              Invalid date
             </span>
-          }
+          )}
         </label>
 
         <div className="middle-field ad-type">
@@ -355,12 +265,20 @@ export function Form() {
 
         <label className="big-field">
           <h3>Add images:</h3>
-          <input type="file" {...register('img')} onInput={handleInput} data-testid="form__file" />
-          {
+          <input
+            type="file"
+            {...register('img', {
+              required: true,
+              validate: (input) => input.length > 0,
+            })}
+            onInput={handleInput}
+            data-testid="form__file"
+          />
+          {errors.img && (
             <span className="error-note" data-testid="form__file-error">
-              {state.isValidFile === false ? 'Please choose an img' : ''}
+              Please choose an img
             </span>
-          }
+          )}
         </label>
 
         <input
