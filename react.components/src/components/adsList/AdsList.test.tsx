@@ -7,7 +7,7 @@ test('check form appearance', () => {
       savedCards={[
         {
           adress: '3014 Tree Frog Lane, Lenexa, Missouri',
-          name: 'Realy big house',
+          title: 'Realy big house',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           link: 'https://www.stackexchange.com/',
@@ -16,13 +16,14 @@ test('check form appearance', () => {
           price: '1 000 000',
           date: '2000-01-01',
           area: '100',
-          type: 'sale',
+          typeAdd: 'sale',
           isReady: true,
           currency: '$',
+          img: 'blob:http://localhost:3000/a5dd0b3d-6b18-4059-bd25-bc24760ef807',
         },
         {
           adress: '3014 Tree Frog Lane, Lenexa, Missouri',
-          name: 'Realy big house',
+          title: 'Realy big house',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           link: 'https://www.stackexchange.com/',
@@ -31,14 +32,11 @@ test('check form appearance', () => {
           price: '1 000 000',
           date: '2000-01-01',
           area: '100',
-          type: 'sale',
+          typeAdd: 'sale',
           isReady: true,
           currency: '$',
+          img: 'blob:http://localhost:3000/a5dd0b3d-6b18-4059-bd25-bc24760ef807',
         },
-      ]}
-      savedImages={[
-        'blob:http://localhost:3000/a5dd0b3d-6b18-4059-bd25-bc24760ef807',
-        'blob:http://localhost:3000/a5dd0b3d-6b18-4059-bd25-bc24760ef807',
       ]}
     />
   );

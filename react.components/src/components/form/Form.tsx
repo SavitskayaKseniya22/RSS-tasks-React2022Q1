@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import './form.css';
 import { AdsList } from '../adsList/AdsList';
 import { useForm } from 'react-hook-form';
+import { CardProps, FormStateTypes } from '../../interfaces';
 
 export function Form() {
   const initialValues: FormStateTypes = {
@@ -14,12 +15,11 @@ export function Form() {
     isValidDate: null,
     isValidFile: null,
     savedCards: [],
-    savedImages: [],
     isSubmitBlock: true,
     isErrorsOpen: false,
   };
 
-  const { register, handleSubmit, getValues } = useForm({
+  const { register, handleSubmit, getValues, reset } = useForm({
     defaultValues: {
       description: '',
       title: '',
@@ -36,7 +36,7 @@ export function Form() {
   });
   const [state, setState] = useState(initialValues);
 
-  function onSubmit(data: FormType) {
+  function onSubmit(data: CardProps) {
     if (validation(data)) {
       const object = {
         title: data.title,
@@ -51,7 +51,6 @@ export function Form() {
         currency: data.currency,
         img: data.img,
       };
-      console.log(data);
 
       if (data.img) {
         const file = data.img[0] as unknown as File;
@@ -62,55 +61,14 @@ export function Form() {
           setState({
             ...state,
             savedCards: [...state.savedCards, object],
-            savedImages: [...state.savedImages, fileReader.result as string],
           });
         };
         fileReader.readAsDataURL(file);
       }
 
-      //this.form.current?.reset();
+      reset();
     }
   }
-  /*  
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    
-    event.preventDefault();
-    if (this.validation()) {
-      const object = {
-        name: this.title.current?.value,
-        description: this.description.current?.value,
-        email: this.email.current?.value,
-        phone: this.tel.current?.value,
-        price: this.price.current?.value,
-        date: this.date.current?.value,
-        area: this.area.current?.value,
-        type: this.typeSale.current?.checked ? 'sale' : 'rent',
-        isReady: this.ready.current?.checked,
-        currency: this.currency.current?.value,
-      };
-
-      if (this.fileInput.current?.files?.length) {
-        const file = this.fileInput.current?.files[0];
-        const fileReader = new FileReader();
-
-        fileReader.onloadend = () => {
-          this.setState({
-            savedImages: [...this.state.savedImages, fileReader.result as string],
-          });
-        };
-        fileReader.readAsDataURL(file);
-      }
-
-      this.setState({
-        savedCards: [...this.state.savedCards, object],
-      });
-
-      this.form.current?.reset();
-    }
-    this.submit?.current?.setAttribute('disabled', 'true');
-    
-  };
-*/
   const handleInput = (event: FormEvent<HTMLInputElement>) => {
     event.preventDefault();
 
@@ -127,7 +85,7 @@ export function Form() {
     }
   };
 
-  const validation = (values: FormType) => {
+  const validation = (values: CardProps) => {
     const checkList = {
       isValidTitle: false,
       isValidDescription: false,
@@ -413,36 +371,7 @@ export function Form() {
           disabled={state.isSubmitBlock}
         />
       </form>
-      <AdsList savedCards={state.savedCards} savedImages={state.savedImages} />
+      <AdsList savedCards={state.savedCards} />
     </div>
   );
-}
-
-interface FormType {
-  description: string;
-  title: string;
-  phone: string;
-  email: string;
-  img: string;
-  date: string;
-  price: string;
-  typeAdd: string;
-  isReady: boolean;
-  area: string;
-  currency: string;
-}
-
-interface FormStateTypes {
-  isValidTitle: null | boolean;
-  isValidDescription: null | boolean;
-  isValidTel: null | boolean;
-  isValidEmail: null | boolean;
-  isValidArea: null | boolean;
-  isValidPrice: null | boolean;
-  isValidDate: null | boolean;
-  isValidFile: null | boolean;
-  savedCards: FormType[];
-  savedImages: string[];
-  isSubmitBlock: boolean;
-  isErrorsOpen: boolean;
 }

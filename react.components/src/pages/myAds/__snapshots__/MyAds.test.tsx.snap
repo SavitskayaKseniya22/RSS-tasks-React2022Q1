@@ -59,7 +59,7 @@ exports[`check form appearance 1`] = `
         </h3>
         <input
           data-testid="form__tel"
-          name="tel"
+          name="phone"
           placeholder="Please enter a valid number. Number must contain at least 5 digits."
           type="tel"
         />
@@ -203,7 +203,7 @@ exports[`check form appearance 1`] = `
           Ready for use
         </h3>
         <input
-          name="ready"
+          name="isReady"
           type="checkbox"
         />
       </label>

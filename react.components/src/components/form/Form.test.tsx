@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form } from './Form';
 
@@ -89,7 +89,10 @@ test('test whole form for submit correct', async () => {
   await waitFor(() =>
     expect((screen.getByTestId('form__file') as HTMLInputElement).files).toHaveLength(1)
   );
-  await waitFor(() => userEvent.click(submit));
+  await act(async () => {
+    await waitFor(() => userEvent.click(submit));
+  });
+
   await waitFor(() =>
     expect((screen.getByTestId('ads-list') as HTMLInputElement).childNodes.length).toBeGreaterThan(
       0

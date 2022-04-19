@@ -111,35 +111,36 @@ export interface ResponseItemType {
   tags: string[];
 }
 
-export interface FormTypes {
-  isValidTitle: boolean | null;
-  isValidDescription: boolean | null;
-  isValidTel: boolean | null;
-  isValidEmail: boolean | null;
-  isValidArea: boolean | null;
-  isValidPrice: boolean | null;
-  isValidDate: boolean | null;
-  isValidFile: boolean | null;
-  savedCards: CardProps[];
-  savedImages: string[];
-}
-
 export interface CardListProps {
   savedCards: CardProps[];
-  savedImages: string[];
 }
 
 export interface CardProps {
   adress?: string;
-  name?: string;
-  description?: string;
+  title: string;
+  description: string;
   link?: string;
-  email?: string;
-  phone?: string;
-  price?: string;
-  date?: string;
-  area?: string;
-  type?: string;
-  isReady?: boolean;
-  currency?: string;
+  email: string;
+  phone: string;
+  price: string;
+  date: string;
+  area: string;
+  typeAdd: string;
+  isReady: boolean;
+  currency: string;
+  img: string;
+}
+
+export interface FormStateTypes {
+  isValidTitle: null | boolean;
+  isValidDescription: null | boolean;
+  isValidTel: null | boolean;
+  isValidEmail: null | boolean;
+  isValidArea: null | boolean;
+  isValidPrice: null | boolean;
+  isValidDate: null | boolean;
+  isValidFile: null | boolean;
+  savedCards: CardProps[];
+  isSubmitBlock: boolean;
+  isErrorsOpen: boolean;
 }
