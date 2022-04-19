@@ -6,27 +6,15 @@ import { CardProps, FormStateTypes } from '../../interfaces';
 
 export function Form() {
   const initialValues: FormStateTypes = {
-    isValidTitle: null,
-    isValidDescription: null,
-    isValidTel: null,
-    isValidEmail: null,
-    isValidArea: null,
-    isValidPrice: null,
-    isValidDate: null,
-    isValidFile: null,
     savedCards: [],
-    isSubmitBlock: true,
-    isErrorsOpen: false,
   };
 
   const {
     register,
     handleSubmit,
-    getValues,
     reset,
-    setError,
     clearErrors,
-    formState: { errors },
+    formState: { errors, isDirty, isValid, isSubmitted },
   } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
@@ -80,13 +68,6 @@ export function Form() {
   const handleInput = (event: FormEvent<HTMLInputElement>) => {
     event.preventDefault();
 
-    if (state.isSubmitBlock) {
-      setState({
-        ...state,
-        isSubmitBlock: false,
-      });
-    }
-
     const name = (event.target as HTMLInputElement).getAttribute('name') as
       | 'description'
       | 'title'
@@ -101,6 +82,20 @@ export function Form() {
       | 'currency';
 
     clearErrors([name]);
+    if (isSubmitted) {
+      console.log(11);
+      reset(
+        {},
+        {
+          keepErrors: true,
+          keepDirty: true,
+          keepIsSubmitted: false,
+          keepTouched: true,
+          keepIsValid: true,
+          keepSubmitCount: true,
+        }
+      );
+    }
   };
 
   return (
@@ -118,7 +113,7 @@ export function Form() {
             onInput={handleInput}
             placeholder="Please enter a valid title. String must contain at least 6 characters."
           />
-          {errors.title && errors.title.type === 'pattern' && (
+          {errors.title && (
             <span className="error-note" data-testid="form__title-error">
               Too short or wrong title
             </span>
@@ -137,7 +132,7 @@ export function Form() {
             onInput={handleInput}
             placeholder="Please enter a valid description. String must contain at least 10 characters."
           />
-          {errors.description && errors.description.type === 'pattern' && (
+          {errors.description && (
             <span className="error-note" data-testid="form__description-error">
               Too short or wrong description
             </span>
@@ -156,7 +151,7 @@ export function Form() {
             onInput={handleInput}
             placeholder="Please enter a valid number. Number must contain at least 5 digits."
           />
-          {errors.phone && errors.phone.type === 'pattern' && (
+          {errors.phone && (
             <span className="error-note" data-testid="form__tel-error">
               Invalid phone number
             </span>
@@ -175,7 +170,7 @@ export function Form() {
             onInput={handleInput}
             placeholder="Please enter a valid email"
           />
-          {errors.email && errors.email.type === 'pattern' && (
+          {errors.email && (
             <span className="error-note" data-testid="form__email-error">
               Invalid email
             </span>
@@ -194,7 +189,7 @@ export function Form() {
             onInput={handleInput}
             placeholder="Enter the area of the house"
           />
-          {errors.area && errors.area.type === 'pattern' && (
+          {errors.area && (
             <span className="error-note" data-testid="form__error">
               Invalid number
             </span>
@@ -220,7 +215,7 @@ export function Form() {
               <option value="₽">&#8381;</option>
             </select>
           </div>
-          {errors.price && errors.price.type === 'pattern' && (
+          {errors.price && (
             <span id="price-error" className="error-note" data-testid="form__price-error">
               Invalid number
             </span>
@@ -286,7 +281,7 @@ export function Form() {
           type="submit"
           className="submit-button"
           value="send"
-          disabled={state.isSubmitBlock}
+          disabled={!isDirty || (isSubmitted && !isValid)}
         />
       </form>
       <AdsList savedCards={state.savedCards} />

@@ -29,10 +29,6 @@ exports[`check form appearance 1`] = `
           placeholder="Please enter a valid title. String must contain at least 6 characters."
           type="text"
         />
-        <span
-          class="error-note"
-          data-testid="form__title-error"
-        />
       </label>
       <label
         class="big-field"
@@ -45,10 +41,6 @@ exports[`check form appearance 1`] = `
           name="description"
           placeholder="Please enter a valid description. String must contain at least 10 characters."
           type="text"
-        />
-        <span
-          class="error-note"
-          data-testid="form__description-error"
         />
       </label>
       <label
@@ -63,10 +55,6 @@ exports[`check form appearance 1`] = `
           placeholder="Please enter a valid number. Number must contain at least 5 digits."
           type="tel"
         />
-        <span
-          class="error-note"
-          data-testid="form__tel-error"
-        />
       </label>
       <label
         class="middle-field"
@@ -80,10 +68,6 @@ exports[`check form appearance 1`] = `
           placeholder="Please enter a valid email"
           type="email"
         />
-        <span
-          class="error-note"
-          data-testid="form__email-error"
-        />
       </label>
       <label
         class="small-field"
@@ -96,10 +80,6 @@ exports[`check form appearance 1`] = `
           name="area"
           placeholder="Enter the area of the house"
           type="number"
-        />
-        <span
-          class="error-note"
-          data-testid="form__error"
         />
       </label>
       <label
@@ -138,11 +118,6 @@ exports[`check form appearance 1`] = `
             </option>
           </select>
         </div>
-        <span
-          class="error-note"
-          data-testid="form__price-error"
-          id="price-error"
-        />
       </label>
       <label
         class="small-field"
@@ -154,10 +129,6 @@ exports[`check form appearance 1`] = `
           data-testid="form__date"
           name="date"
           type="date"
-        />
-        <span
-          class="error-note"
-          data-testid="form__date-error"
         />
       </label>
       <div
@@ -217,10 +188,6 @@ exports[`check form appearance 1`] = `
           data-testid="form__file"
           name="img"
           type="file"
-        />
-        <span
-          class="error-note"
-          data-testid="form__file-error"
         />
       </label>
       <input

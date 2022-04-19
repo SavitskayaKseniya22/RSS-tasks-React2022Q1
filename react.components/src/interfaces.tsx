@@ -132,15 +132,5 @@ export interface CardProps {
 }
 
 export interface FormStateTypes {
-  isValidTitle: null | boolean;
-  isValidDescription: null | boolean;
-  isValidTel: null | boolean;
-  isValidEmail: null | boolean;
-  isValidArea: null | boolean;
-  isValidPrice: null | boolean;
-  isValidDate: null | boolean;
-  isValidFile: null | boolean;
   savedCards: CardProps[];
-  isSubmitBlock: boolean;
-  isErrorsOpen: boolean;
 }
