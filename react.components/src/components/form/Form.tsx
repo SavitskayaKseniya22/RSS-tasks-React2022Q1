@@ -1,14 +1,9 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import './form.css';
-import { AdsList } from '../adsList/AdsList';
 import { useForm } from 'react-hook-form';
-import { CardProps, FormStateTypes } from '../../interfaces';
+import { CardProps } from '../../interfaces';
 
-export function Form() {
-  const initialValues: FormStateTypes = {
-    savedCards: [],
-  };
-
+export function Form(props: { changeState: (object: CardProps) => void }) {
   const {
     register,
     handleSubmit,
@@ -32,7 +27,6 @@ export function Form() {
       currency: '$',
     },
   });
-  const [state, setState] = useState(initialValues);
 
   function onSubmit(data: CardProps) {
     const object = {
@@ -55,10 +49,7 @@ export function Form() {
 
       fileReader.onloadend = () => {
         object.img = fileReader.result as string;
-        setState({
-          ...state,
-          savedCards: [...state.savedCards, object],
-        });
+        props.changeState(object);
       };
       fileReader.readAsDataURL(file);
     }
@@ -99,8 +90,8 @@ export function Form() {
   };
 
   return (
-    <div data-testid="advertisements" className="advertisements">
-      <form className="add-adv" onSubmit={handleSubmit(onSubmit)} noValidate data-testid="form-ad">
+    <div data-testid="form__container" className="form__container">
+      <form className="form" onSubmit={handleSubmit(onSubmit)} noValidate data-testid="form-ad">
         <label className="big-field">
           <h3>Title:</h3>
           <input
@@ -284,7 +275,6 @@ export function Form() {
           disabled={!isDirty || (isSubmitted && !isValid)}
         />
       </form>
-      <AdsList savedCards={state.savedCards} />
     </div>
   );
 }
