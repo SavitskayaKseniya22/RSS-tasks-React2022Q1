@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './mainPage.css';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { MainPageType, SearchItemDetailType } from '../../interfaces';
