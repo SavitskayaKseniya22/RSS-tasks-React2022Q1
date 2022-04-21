@@ -9,7 +9,7 @@ export function Form(props: { changeState: (object: CardProps) => void }) {
     handleSubmit,
     reset,
     clearErrors,
-    formState: { errors, isDirty, isValid, isSubmitted },
+    formState: { errors, isDirty, isValid, isSubmitted, isSubmitSuccessful },
   } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
@@ -74,7 +74,6 @@ export function Form(props: { changeState: (object: CardProps) => void }) {
 
     clearErrors([name]);
     if (isSubmitted) {
-      console.log(11);
       reset(
         {},
         {
@@ -91,7 +90,14 @@ export function Form(props: { changeState: (object: CardProps) => void }) {
 
   return (
     <div data-testid="form__container" className="form__container">
-      <form className="form" onSubmit={handleSubmit(onSubmit)} noValidate data-testid="form-ad">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+        data-testid="form-ad"
+        className={
+          !isValid && isSubmitted && !isSubmitSuccessful ? 'form form_invalid' : 'form form_valid'
+        }
+      >
         <label className="big-field">
           <h3>Title:</h3>
           <input
@@ -254,7 +260,6 @@ export function Form(props: { changeState: (object: CardProps) => void }) {
           <input
             type="file"
             {...register('img', {
-              required: true,
               validate: (input) => input.length > 0,
             })}
             onInput={handleInput}

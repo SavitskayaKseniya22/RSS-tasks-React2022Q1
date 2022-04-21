@@ -7,7 +7,7 @@ import likeImg from '../../assets/svg/like.svg';
 import './adCard.css';
 import { CardProps } from '../../interfaces';
 
-export function Card(props: { item: CardProps }) {
+export function AdCard(props: { item: CardProps }) {
   const [state, setState] = useState({
     isFavorite: false,
   });
@@ -66,7 +66,7 @@ export function Card(props: { item: CardProps }) {
   );
 }
 
-Card.defaultProps = {
+AdCard.defaultProps = {
   item: {
     adress: '3014 Tree Frog Lane, Lenexa, Missouri',
     title: 'Ut enim ad minim veniam',

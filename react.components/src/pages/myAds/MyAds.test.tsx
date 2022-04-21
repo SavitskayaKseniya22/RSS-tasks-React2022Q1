@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { MyAds } from './MyAds';
 
-test('check form appearance', () => {
+test('check MyAds appearance', () => {
   render(<MyAds />);
-  const adPage = screen.getByTestId('my-ads');
-  expect(adPage).toMatchSnapshot();
+  expect(screen.getByTestId('my-ads')).toBeInTheDocument();
+  expect(screen.getByText('my advertisements')).toBeInTheDocument();
+  expect(screen.getByTestId('form-ad')).toBeInTheDocument();
+  screen.debug();
 });

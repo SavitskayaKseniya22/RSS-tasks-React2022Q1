@@ -1,14 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Card } from './AdCard';
+import { AdCard } from './AdCard';
 
 test('check card appearance', () => {
-  render(<Card />);
+  render(<AdCard />);
   const card = screen.getByTestId('card-item');
   expect(card).toHaveClass('card');
 });
 
 test('check card content', () => {
-  render(<Card />);
+  render(<AdCard />);
   const card = screen.getByTestId('card-item');
   const cardDescription = screen.getByTestId('card-item__description');
   expect(card).toContainElement(cardDescription);
@@ -17,7 +17,7 @@ test('check card content', () => {
 });
 
 test('check like button', () => {
-  render(<Card />);
+  render(<AdCard />);
   const card = screen.getByTestId('card-item');
   const likeButton = screen.getByTestId('card__mark-like');
   expect(card).toContainElement(likeButton);
