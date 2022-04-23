@@ -38,10 +38,6 @@
       "npm run lint --fix",
       "prettier --write"
     ],
-    "src/**/**/*.{js,jsx,ts,tsx,json,md}": [
-      "npm run lint --fix",
-      "prettier --write"
-    ],
     "src/**/**/*.{css,scss}": [
       "prettier --write"
     ]
