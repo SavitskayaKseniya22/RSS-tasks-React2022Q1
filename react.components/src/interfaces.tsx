@@ -1,9 +1,9 @@
 export interface MainPageType {
-  value: string;
-  response: SearchItemDetailType[];
-  isDownloading: boolean;
-  isSearchOver: boolean;
-  isError: boolean;
+  value: string | undefined;
+  response: SearchItemDetailType[] | undefined;
+  isDownloading: boolean | undefined;
+  isSearchOver: boolean | undefined;
+  isError: boolean | undefined;
 }
 
 export interface SearchItemType {
@@ -28,7 +28,7 @@ export interface SearchInputState {
 }
 
 export interface SearchInputProps {
-  value: string;
+  value: string | undefined;
   handleChange: (value: string) => void;
   handleDownload: (response: SearchItemDetailType[], load: boolean, error?: boolean) => void;
 }
@@ -133,4 +133,16 @@ export interface CardProps {
 
 export interface FormStateTypes {
   savedCards: CardProps[];
+}
+
+export interface PayloadTypes {
+  response?: SearchItemDetailType[];
+  load?: boolean;
+  value?: string;
+  error?: boolean;
+}
+
+export interface ReducerTypes {
+  type: string;
+  payload: PayloadTypes;
 }

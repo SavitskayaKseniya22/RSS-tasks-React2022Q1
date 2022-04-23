@@ -16,7 +16,9 @@ export function SearchInput(props: SearchInputProps) {
 
   useEffect(() => {
     return () => {
-      window.localStorage.setItem('searchValue', props.value);
+      if (props.value) {
+        window.localStorage.setItem('searchValue', props.value);
+      }
     };
   });
 
@@ -58,7 +60,9 @@ export function SearchInput(props: SearchInputProps) {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    getApiResponse(props.value);
+    if (props.value) {
+      getApiResponse(props.value);
+    }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

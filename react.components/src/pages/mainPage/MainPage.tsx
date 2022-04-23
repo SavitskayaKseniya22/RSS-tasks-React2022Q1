@@ -1,31 +1,18 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './mainPage.css';
 import { SearchInput } from '../../components/searchInput/SearchInput';
-import { MainPageType, SearchItemDetailType } from '../../interfaces';
+import { MainPageType, ReducerTypes, SearchItemDetailType } from '../../interfaces';
 import { SearchResultList } from '../../components/searchResultList/SearchResultList';
+import { ContextApp } from './../../app/App';
 
 export function MainPage() {
-  const initialValues: MainPageType = {
-    value: window.localStorage.getItem('searchValue') || '',
-    response: [],
-    isDownloading: false,
-    isSearchOver: false,
-    isError: false,
-  };
-  const [state, setState] = useState(initialValues);
-
+  const { state, dispatch } = useContext(ContextApp);
   const handleChange = (value: string) => {
-    setState({ ...state, value: value });
+    dispatch({ type: 'handleChange', payload: { value } });
   };
 
   const handleDownload = (response: SearchItemDetailType[], load: boolean, error?: boolean) => {
-    setState({
-      ...state,
-      response: response,
-      isDownloading: load,
-      isSearchOver: !load,
-      isError: error || false,
-    });
+    dispatch({ type: 'handleDownload', payload: { response, load, error } });
   };
 
   return (

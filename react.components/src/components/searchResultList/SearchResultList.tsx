@@ -15,7 +15,7 @@ export function SearchResultList(props: { data: MainPageType }) {
         something went wrong
       </p>
     );
-  } else if (props.data.response.length) {
+  } else if (props.data.response?.length) {
     activeBlock = (
       <ul className="Card-list" data-testid="card-list">
         {props.data.response.map((elem, index) => (
@@ -23,9 +23,9 @@ export function SearchResultList(props: { data: MainPageType }) {
         ))}
       </ul>
     );
-  } else if (!props.data.response.length && props.data.isSearchOver) {
+  } else if (!props.data.response?.length && props.data.isSearchOver) {
     activeBlock = <p className="empty-search">no images found</p>;
-  } else if (!props.data.response.length && !props.data.isSearchOver) {
+  } else if (!props.data.response?.length && !props.data.isSearchOver) {
     activeBlock = <p className="empty-search">search for something</p>;
   }
 
