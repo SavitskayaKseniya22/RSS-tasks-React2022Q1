@@ -4,6 +4,7 @@ export interface MainPageType {
   isDownloading: boolean | undefined;
   isSearchOver: boolean | undefined;
   isError: boolean | undefined;
+  activeCard: undefined | SearchItemDetailType;
 }
 
 export interface SearchItemType {
@@ -140,6 +141,7 @@ export interface PayloadTypes {
   load?: boolean;
   value?: string;
   error?: boolean;
+  activeCard?: SearchItemDetailType;
 }
 
 export interface ReducerTypes {

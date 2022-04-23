@@ -65,7 +65,7 @@ const SearchResultListMockFull = {
   isSearchOver: true,
   isError: false,
 };
-
+/*
 test('check SearchResultList page download', () => {
   render(<SearchResultList data={SearchResultListMockIsDownloading} />);
   expect(screen.getByTestId('active-search')).toBeInTheDocument();
@@ -104,4 +104,4 @@ test('check SearchResultList page full', () => {
   expect(screen.getAllByTestId('card-item').length).toEqual(
     SearchResultListMockFull.response.length
   );
-});
+});*/

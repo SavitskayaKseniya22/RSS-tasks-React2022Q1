@@ -1,23 +1,25 @@
-import { ChangeEvent, FormEvent, useEffect } from 'react';
-import {
-  SearchInputProps,
-  ResponseItemType,
-  SearchItemDetailType,
-  ResponseType,
-} from '../../interfaces';
+import { ChangeEvent, FormEvent, useContext, useEffect } from 'react';
+import { ResponseItemType, SearchItemDetailType, ResponseType } from '../../interfaces';
 import './searchInput.css';
+import { ContextApp } from './../../app/App';
 
-export function SearchInput(props: SearchInputProps) {
+export function SearchInput() {
+  const { state, dispatch } = useContext(ContextApp);
+
+  const handleDownload = (response: SearchItemDetailType[], load: boolean, error?: boolean) => {
+    dispatch({ type: 'handleDownload', payload: { response, load, error } });
+  };
+
   useEffect(() => {
-    if (props.value) {
-      getApiResponse(props.value);
+    if (state.value) {
+      getApiResponse(state.value);
     }
   }, []);
 
   useEffect(() => {
     return () => {
-      if (props.value) {
-        window.localStorage.setItem('searchValue', props.value);
+      if (state.value) {
+        window.localStorage.setItem('searchValue', state.value);
       }
     };
   });
@@ -25,15 +27,15 @@ export function SearchInput(props: SearchInputProps) {
   let data: SearchItemDetailType[] = [];
 
   const getApiResponse = async (value: string) => {
-    props.handleDownload([], true);
+    handleDownload([], true);
     try {
       const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&per_page=30&query=${value}`;
       const res = await fetch(url);
       const response = await res.json();
       data = getShortData(response);
-      props.handleDownload(data, false);
+      handleDownload(data, false);
     } catch (error) {
-      props.handleDownload([], false, true);
+      handleDownload([], false, true);
     }
   };
 
@@ -60,13 +62,14 @@ export function SearchInput(props: SearchInputProps) {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (props.value) {
-      getApiResponse(props.value);
+    if (state.value) {
+      getApiResponse(state.value);
     }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    props.handleChange(e.target.value);
+    const value = e.target.value;
+    dispatch({ type: 'handleChange', payload: { value } });
   };
 
   return (
@@ -74,7 +77,7 @@ export function SearchInput(props: SearchInputProps) {
       <input
         data-testid="search-input"
         className="search-input"
-        value={props.value}
+        value={state.value}
         onChange={handleChange}
         placeholder="search"
       />
