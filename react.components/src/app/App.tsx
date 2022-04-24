@@ -48,28 +48,15 @@ function App() {
       case 'toggleCard':
         return { ...state, activeCard: action.payload.activeCard };
 
-      case 'handleChange':
-        return { ...state, value: action.payload.value };
-
-      case 'handleSort':
-        return { ...state, sort: action.payload.sort };
-      case 'handlePerPage':
-        return { ...state, perPage: action.payload.perPage };
-      case 'handlePageNumber':
-        return { ...state, pageNumber: action.payload.pageNumber };
-      case 'handlePageRange':
-        return { ...state, pageRange: action.payload.pageRange };
-      /*
       case 'handleSearchForm':
-        console.log(action.payload);
-        console.log(state);
         return {
           ...state,
           sort: action.payload.sort,
           perPage: action.payload.perPage,
           pageNumber: action.payload.pageNumber,
           pageRange: action.payload.pageRange,
-        };*/
+          value: action.payload.value,
+        };
 
       default:
         return state;

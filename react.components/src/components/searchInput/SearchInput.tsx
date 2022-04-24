@@ -15,7 +15,13 @@ export function SearchInput() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    dispatch({ type: 'handleChange', payload: { value } });
+    dispatch({
+      type: 'handleSearchForm',
+      payload: {
+        ...state,
+        value,
+      },
+    });
   };
 
   return (

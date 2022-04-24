@@ -9,16 +9,10 @@ import { Pagination } from '../pagination/Pagination';
 export function SearchForm() {
   const { state, dispatch } = useContext(ContextApp);
 
-  /*
-
   useEffect(() => {
     if (!state.response?.length) {
       getApiResponse();
     }
-  }, []);*/
-
-  useEffect(() => {
-    getApiResponse();
   }, [state.sort, state.pageNumber, state.perPage]);
 
   const handleDownload = (response: SearchItemDetailType[], load: boolean, error?: boolean) => {
@@ -33,12 +27,19 @@ export function SearchForm() {
   const getApiResponse = async () => {
     if (state.value) {
       handleDownload([], true);
+
       try {
         const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=${state.pageNumber}&per_page=${state.perPage}&query=${state.value}&order_by=${state.sort}`;
         const res = await fetch(url);
         const response = (await res.json()) as ResponseType;
 
-        dispatch({ type: 'handlePageRange', payload: { pageRange: response.total_pages } });
+        dispatch({
+          type: 'handleSearchForm',
+          payload: {
+            ...state,
+            pageRange: response.total_pages,
+          },
+        });
 
         const data = getShortData(response);
         handleDownload(data, false);

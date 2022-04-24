@@ -7,7 +7,13 @@ export function Sort() {
   const { state, dispatch } = useContext(ContextApp);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch({ type: 'handleSort', payload: { sort: e.target.value } });
+    dispatch({
+      type: 'handleSearchForm',
+      payload: {
+        ...state,
+        sort: e.target.value,
+      },
+    });
   };
 
   return (

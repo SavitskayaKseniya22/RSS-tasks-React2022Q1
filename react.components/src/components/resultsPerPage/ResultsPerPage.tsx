@@ -7,7 +7,14 @@ export function ResultsPerPage() {
   const { state, dispatch } = useContext(ContextApp);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'handlePerPage', payload: { perPage: e.target.value } });
+    dispatch({
+      type: 'handleSearchForm',
+      payload: {
+        ...state,
+        pageNumber: '1',
+        perPage: e.target.value,
+      },
+    });
   };
 
   return (
