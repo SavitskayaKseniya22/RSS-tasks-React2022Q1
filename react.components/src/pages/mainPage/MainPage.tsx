@@ -1,11 +1,11 @@
 import './mainPage.css';
-import { SearchInput } from '../../components/searchInput/SearchInput';
 import { SearchResultList } from '../../components/searchResultList/SearchResultList';
+import { SearchForm } from '../../components/searchForm/SearchForm';
 
 export function MainPage() {
   return (
     <main data-testid="main-page">
-      <SearchInput />
+      <SearchForm />
       <SearchResultList />
     </main>
   );

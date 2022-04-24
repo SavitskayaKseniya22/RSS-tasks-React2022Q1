@@ -10,13 +10,17 @@ import { MainPageType, ReducerTypes, SearchItemDetailType } from '../interfaces'
 import React from 'react';
 import { SearchItemDetails } from '../components/searchItemDetails/SearchItemDetails';
 
-const initialValues = {
+const initialValues: MainPageType = {
   value: window.localStorage.getItem('searchValue') || '',
   response: [],
   isDownloading: false,
   isSearchOver: false,
   isError: false,
   activeCard: undefined,
+  sort: 'latest',
+  perPage: '20',
+  pageNumber: '1',
+  pageRange: 10,
 };
 
 export const ContextApp = React.createContext<{
@@ -41,11 +45,31 @@ function App() {
           isError: action.payload.error || false,
         };
 
+      case 'toggleCard':
+        return { ...state, activeCard: action.payload.activeCard };
+
       case 'handleChange':
         return { ...state, value: action.payload.value };
 
-      case 'toggleCard':
-        return { ...state, activeCard: action.payload.activeCard };
+      case 'handleSort':
+        return { ...state, sort: action.payload.sort };
+      case 'handlePerPage':
+        return { ...state, perPage: action.payload.perPage };
+      case 'handlePageNumber':
+        return { ...state, pageNumber: action.payload.pageNumber };
+      case 'handlePageRange':
+        return { ...state, pageRange: action.payload.pageRange };
+      /*
+      case 'handleSearchForm':
+        console.log(action.payload);
+        console.log(state);
+        return {
+          ...state,
+          sort: action.payload.sort,
+          perPage: action.payload.perPage,
+          pageNumber: action.payload.pageNumber,
+          pageRange: action.payload.pageRange,
+        };*/
 
       default:
         return state;
