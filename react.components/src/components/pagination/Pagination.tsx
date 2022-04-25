@@ -35,7 +35,7 @@ export function Pagination() {
         1
       </button>
 
-      {state.pageNumber && +state.pageNumber > 3 ? (
+      {state.pageNumber && +state.pageNumber >= 3 ? (
         <button type="button" onClick={handleClick}>
           {+state.pageNumber - 2}
         </button>
@@ -43,7 +43,7 @@ export function Pagination() {
         <button type="button" disabled></button>
       )}
 
-      {state.pageNumber && +state.pageNumber > 2 ? (
+      {state.pageNumber && +state.pageNumber >= 2 ? (
         <button type="button" onClick={handleClick}>
           {+state.pageNumber - 1}
         </button>
@@ -60,7 +60,7 @@ export function Pagination() {
         placeholder="go to"
       />
 
-      {state.pageNumber && state.pageRange && +state.pageNumber + 2 <= state.pageRange ? (
+      {state.pageNumber && state.maxPageNumber && +state.pageNumber + 1 <= state.maxPageNumber ? (
         <button type="button" onClick={handleClick}>
           {+state.pageNumber + 1}
         </button>
@@ -68,7 +68,7 @@ export function Pagination() {
         <button type="button" disabled></button>
       )}
 
-      {state.pageNumber && state.pageRange && +state.pageNumber + 3 <= state.pageRange ? (
+      {state.pageNumber && state.maxPageNumber && +state.pageNumber + 2 <= state.maxPageNumber ? (
         <button type="button" onClick={handleClick}>
           {+state.pageNumber + 2}
         </button>
@@ -77,7 +77,7 @@ export function Pagination() {
       )}
 
       <button type="button" onClick={handleClick}>
-        {state.pageRange}
+        {state.maxPageNumber}
       </button>
     </div>
   );

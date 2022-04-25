@@ -6,7 +6,7 @@ import { AboutUs } from '../pages/aboutUs/AboutUs';
 import { Header } from '../components/header/Header';
 import { Footer } from '../components/footer/Footer';
 import { Dispatch, useReducer } from 'react';
-import { MainPageType, ReducerTypes, SearchItemDetailType } from '../interfaces';
+import { MainPageType, ReducerTypes } from '../interfaces';
 import React from 'react';
 import { SearchItemDetails } from '../components/searchItemDetails/SearchItemDetails';
 
@@ -18,9 +18,10 @@ const initialValues: MainPageType = {
   isError: false,
   activeCard: undefined,
   sort: 'latest',
-  perPage: '20',
+  itemsPerPage: '20',
   pageNumber: '1',
-  pageRange: 10,
+  maxPageNumber: 10,
+  isMounted: true,
 };
 
 export const ContextApp = React.createContext<{
@@ -52,10 +53,11 @@ function App() {
         return {
           ...state,
           sort: action.payload.sort,
-          perPage: action.payload.perPage,
+          itemsPerPage: action.payload.itemsPerPage,
           pageNumber: action.payload.pageNumber,
-          pageRange: action.payload.pageRange,
+          maxPageNumber: action.payload.maxPageNumber,
           value: action.payload.value,
+          isMounted: action.payload.isMounted,
         };
 
       default:

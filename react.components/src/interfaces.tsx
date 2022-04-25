@@ -6,9 +6,10 @@ export interface MainPageType {
   isError: boolean | undefined;
   activeCard: undefined | SearchItemDetailType;
   sort: string | undefined;
-  perPage: string | undefined;
+  itemsPerPage: string | undefined;
   pageNumber: string | undefined;
-  pageRange: number | undefined;
+  maxPageNumber: number | undefined;
+  isMounted: boolean | undefined;
 }
 
 export interface SearchItemType {
@@ -147,9 +148,10 @@ export interface PayloadTypes {
   error?: boolean;
   activeCard?: SearchItemDetailType;
   sort?: string;
-  perPage?: string;
+  itemsPerPage?: string;
   pageNumber?: string;
-  pageRange?: number;
+  maxPageNumber?: number;
+  isMounted?: boolean;
 }
 
 export interface ReducerTypes {

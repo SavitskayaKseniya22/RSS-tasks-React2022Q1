@@ -10,10 +10,17 @@ export function SearchForm() {
   const { state, dispatch } = useContext(ContextApp);
 
   useEffect(() => {
-    if (!state.response?.length) {
+    if (state.isMounted) {
       getApiResponse();
     }
-  }, [state.sort, state.pageNumber, state.perPage]);
+  }, [state.sort, state.pageNumber, state.itemsPerPage]);
+
+  useEffect(() => {
+    dispatch({ type: 'handleSearchForm', payload: { ...state, isMounted: true } });
+    return () => {
+      dispatch({ type: 'handleSearchForm', payload: { ...state, isMounted: false } });
+    };
+  }, []);
 
   const handleDownload = (response: SearchItemDetailType[], load: boolean, error?: boolean) => {
     dispatch({ type: 'handleDownload', payload: { response, load, error } });
@@ -29,7 +36,7 @@ export function SearchForm() {
       handleDownload([], true);
 
       try {
-        const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=${state.pageNumber}&per_page=${state.perPage}&query=${state.value}&order_by=${state.sort}`;
+        const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=${state.pageNumber}&per_page=${state.itemsPerPage}&query=${state.value}&order_by=${state.sort}`;
         const res = await fetch(url);
         const response = (await res.json()) as ResponseType;
 
@@ -37,7 +44,7 @@ export function SearchForm() {
           type: 'handleSearchForm',
           payload: {
             ...state,
-            pageRange: response.total_pages,
+            maxPageNumber: response.total_pages,
           },
         });
 

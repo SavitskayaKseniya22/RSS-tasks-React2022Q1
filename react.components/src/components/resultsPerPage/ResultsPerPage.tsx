@@ -12,7 +12,7 @@ export function ResultsPerPage() {
       payload: {
         ...state,
         pageNumber: '1',
-        perPage: e.target.value,
+        itemsPerPage: e.target.value,
       },
     });
   };
@@ -21,7 +21,7 @@ export function ResultsPerPage() {
     <input
       type="number"
       className="number-per-page"
-      value={state.perPage}
+      value={state.itemsPerPage}
       onInput={handleChange}
       placeholder="1-30"
     />
