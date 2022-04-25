@@ -66,6 +66,11 @@ function App() {
           ...state,
           savedCards: action.payload.savedCards,
         };
+      case 'handleAddsForm':
+        return {
+          ...state,
+          addsFormValues: action.payload.addsFormValues,
+        };
 
       default:
         return state;

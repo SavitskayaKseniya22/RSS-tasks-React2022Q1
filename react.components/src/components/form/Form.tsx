@@ -1,4 +1,4 @@
-import { FormEvent, useContext } from 'react';
+import { FormEvent, useContext, useEffect } from 'react';
 import './form.css';
 import { useForm } from 'react-hook-form';
 import { CardProps } from '../../interfaces';
@@ -11,24 +11,26 @@ export function Form() {
     handleSubmit,
     reset,
     clearErrors,
+    getValues,
     formState: { errors, isDirty, isValid, isSubmitted, isSubmitSuccessful },
   } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
-    defaultValues: {
-      description: '',
-      title: '',
-      phone: '',
-      email: '',
-      img: '',
-      date: '',
-      price: '',
-      typeAdd: '',
-      isReady: false,
-      area: '',
-      currency: '$',
-    },
+    defaultValues: state.addsFormValues,
   });
+
+  useEffect(() => {
+    return () => {
+      const values = getValues();
+      dispatch({
+        type: 'handleAddsForm',
+        payload: {
+          ...state,
+          addsFormValues: values,
+        },
+      });
+    };
+  }, []);
 
   function onSubmit(data: CardProps) {
     const object = {

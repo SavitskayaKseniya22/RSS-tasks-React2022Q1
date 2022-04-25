@@ -10,8 +10,8 @@ export interface MainPageType {
   pageNumber: string | undefined;
   maxPageNumber: number | undefined;
   isMounted: boolean | undefined;
-  //addingForm: FormStateTypes | undefined;
   savedCards: CardProps[] | undefined;
+  addsFormValues?: CardProps | undefined;
 }
 
 export interface SearchItemType {
@@ -155,6 +155,7 @@ export interface PayloadTypes {
   maxPageNumber?: number;
   isMounted?: boolean;
   savedCards?: CardProps[];
+  addsFormValues?: CardProps;
 }
 
 export interface ReducerTypes {
