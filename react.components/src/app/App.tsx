@@ -22,6 +22,7 @@ const initialValues: MainPageType = {
   pageNumber: '1',
   maxPageNumber: 10,
   isMounted: true,
+  savedCards: [],
 };
 
 export const ContextApp = React.createContext<{
@@ -58,6 +59,12 @@ function App() {
           maxPageNumber: action.payload.maxPageNumber,
           value: action.payload.value,
           isMounted: action.payload.isMounted,
+        };
+
+      case 'handleSavedCards':
+        return {
+          ...state,
+          savedCards: action.payload.savedCards,
         };
 
       default:

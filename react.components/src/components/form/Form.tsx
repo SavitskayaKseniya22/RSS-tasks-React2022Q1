@@ -1,9 +1,11 @@
-import { FormEvent } from 'react';
+import { FormEvent, useContext } from 'react';
 import './form.css';
 import { useForm } from 'react-hook-form';
 import { CardProps } from '../../interfaces';
+import { ContextApp } from '../../app/App';
 
-export function Form(props: { changeState: (object: CardProps) => void }) {
+export function Form() {
+  const { state, dispatch } = useContext(ContextApp);
   const {
     register,
     handleSubmit,
@@ -49,7 +51,10 @@ export function Form(props: { changeState: (object: CardProps) => void }) {
 
       fileReader.onloadend = () => {
         object.img = fileReader.result as string;
-        props.changeState(object);
+        dispatch({
+          type: 'handleSavedCards',
+          payload: { ...state, savedCards: [...(state.savedCards as CardProps[]), object] },
+        });
       };
       fileReader.readAsDataURL(file);
     }
