@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
 import { ChangeEvent, useContext } from 'react';
 import { ContextApp } from './../../app/App';
 import '../searchForm/searchForm.css';
@@ -12,6 +12,7 @@ export function Sort() {
       payload: {
         ...state,
         sort: e.target.value,
+        isMounted: true,
       },
     });
   };

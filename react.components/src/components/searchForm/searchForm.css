@@ -25,3 +25,7 @@
   width: 45px;
   height: 25px;
 }
+
+.hidden-button {
+  display: none;
+}

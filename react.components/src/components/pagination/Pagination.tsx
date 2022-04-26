@@ -14,6 +14,7 @@ export function Pagination() {
       payload: {
         ...state,
         pageNumber: e.target.value,
+        isMounted: true,
       },
     });
   };
@@ -25,6 +26,7 @@ export function Pagination() {
       payload: {
         ...state,
         pageNumber: e.currentTarget.textContent as string,
+        isMounted: true,
       },
     });
   };

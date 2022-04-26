@@ -13,6 +13,7 @@ export function ResultsPerPage() {
         ...state,
         pageNumber: '1',
         itemsPerPage: e.target.value,
+        isMounted: true,
       },
     });
   };

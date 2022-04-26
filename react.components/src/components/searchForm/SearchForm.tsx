@@ -13,50 +13,43 @@ export function SearchForm() {
     if (state.isMounted) {
       getApiResponse();
     }
-  }, [state.sort, state.pageNumber, state.itemsPerPage]);
-
-  useEffect(() => {
-    dispatch({ type: 'handleSearchForm', payload: { ...state, isMounted: true } });
-    return () => {
-      dispatch({ type: 'handleSearchForm', payload: { ...state, isMounted: false } });
-    };
-  }, []);
-
-  const handleDownload = (
-    response: SearchItemDetailType[],
-    isDownloading: boolean,
-    isError?: boolean
-  ) => {
-    dispatch({ type: 'handleDownload', payload: { response, isDownloading, isError } });
-  };
+  }, [state.isMounted]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    getApiResponse();
+    dispatch({ type: 'handleSearchForm', payload: { ...state, isMounted: true } });
   };
 
   const getApiResponse = async () => {
-    if (state.value) {
-      handleDownload([], true);
+    dispatch({ type: 'handleDownload', payload: { ...state, isDownloading: true } });
+    try {
+      const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=${state.pageNumber}&per_page=${state.itemsPerPage}&query=${state.value}&order_by=${state.sort}`;
+      const res = await fetch(url);
+      const response = (await res.json()) as ResponseType;
+      const data = getShortData(response);
 
-      try {
-        const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=${state.pageNumber}&per_page=${state.itemsPerPage}&query=${state.value}&order_by=${state.sort}`;
-        const res = await fetch(url);
-        const response = (await res.json()) as ResponseType;
-
-        dispatch({
-          type: 'handleSearchForm',
-          payload: {
-            ...state,
-            maxPageNumber: response.total_pages,
-          },
-        });
-
-        const data = getShortData(response);
-        handleDownload(data, false);
-      } catch (error) {
-        handleDownload([], false, true);
-      }
+      dispatch({
+        type: 'handleDownload',
+        payload: {
+          ...state,
+          response: data,
+          isDownloading: false,
+        },
+      });
+      dispatch({
+        type: 'handleSearchForm',
+        payload: {
+          ...state,
+          maxPageNumber: response.total_pages,
+          isMounted: false,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: 'handleDownload',
+        payload: { ...state, isDownloading: false, isError: true },
+      });
+      dispatch({ type: 'handleSearchForm', payload: { ...state, isMounted: false } });
     }
   };
 
@@ -87,7 +80,7 @@ export function SearchForm() {
       <Sort />
       <ResultsPerPage />
       <Pagination />
-      <input type="submit" value="Update" className="ui positive icon button" />
+      <input type="submit" value="Update" className="hidden-button" />
     </form>
   );
 }
