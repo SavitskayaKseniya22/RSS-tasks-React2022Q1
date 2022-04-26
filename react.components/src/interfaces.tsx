@@ -1,21 +1,17 @@
-export interface MainPageType {
-  value: string | undefined;
-  response: SearchItemDetailType[] | undefined;
-  isDownloading: boolean | undefined;
-  isSearchOver: boolean | undefined;
-  isError: boolean | undefined;
-  activeCard: undefined | SearchItemDetailType;
-  sort: string | undefined;
-  itemsPerPage: string | undefined;
-  pageNumber: string | undefined;
-  maxPageNumber: number | undefined;
-  isMounted: boolean | undefined;
-  savedCards: CardProps[] | undefined;
-  addsFormValues?: CardProps | undefined;
-}
-
-export interface SearchItemType {
-  item: SearchItemDetailType;
+export interface GlobalTypes {
+  value?: string;
+  response?: SearchItemDetailType[];
+  isDownloading?: boolean;
+  isError?: boolean;
+  isSearchOver?: boolean;
+  activeCard?: SearchItemDetailType;
+  sort?: string;
+  itemsPerPage?: string;
+  pageNumber?: string;
+  maxPageNumber?: number;
+  isMounted?: boolean;
+  savedCards?: CardProps[];
+  addsFormValues?: CardProps;
 }
 
 export interface SearchItemDetailType {
@@ -29,10 +25,6 @@ export interface SearchItemDetailType {
   location: string | null;
   likes: number | null;
   unsplashLink: string | null;
-}
-
-export interface SearchInputState {
-  value: string;
 }
 
 export interface SearchInputProps {
@@ -119,10 +111,6 @@ export interface ResponseItemType {
   tags: string[];
 }
 
-export interface CardListProps {
-  savedCards: CardProps[];
-}
-
 export interface CardProps {
   adress?: string;
   title: string;
@@ -137,28 +125,10 @@ export interface CardProps {
   isReady: boolean;
   currency: string;
   img: string;
-}
-
-export interface FormStateTypes {
-  savedCards: CardProps[];
-}
-
-export interface PayloadTypes {
-  response?: SearchItemDetailType[];
-  load?: boolean;
-  value?: string;
-  error?: boolean;
-  activeCard?: SearchItemDetailType;
-  sort?: string;
-  itemsPerPage?: string;
-  pageNumber?: string;
-  maxPageNumber?: number;
-  isMounted?: boolean;
-  savedCards?: CardProps[];
-  addsFormValues?: CardProps;
+  isFavorite: boolean;
 }
 
 export interface ReducerTypes {
   type: string;
-  payload: PayloadTypes;
+  payload: GlobalTypes;
 }

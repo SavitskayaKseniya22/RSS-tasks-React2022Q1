@@ -6,11 +6,11 @@ import { AboutUs } from '../pages/aboutUs/AboutUs';
 import { Header } from '../components/header/Header';
 import { Footer } from '../components/footer/Footer';
 import { Dispatch, useReducer } from 'react';
-import { MainPageType, ReducerTypes } from '../interfaces';
+import { GlobalTypes, ReducerTypes } from '../interfaces';
 import React from 'react';
 import { SearchItemDetails } from '../components/searchItemDetails/SearchItemDetails';
 
-const initialValues: MainPageType = {
+const initialValues: GlobalTypes = {
   value: window.localStorage.getItem('searchValue') || '',
   response: [],
   isDownloading: false,
@@ -26,7 +26,7 @@ const initialValues: MainPageType = {
 };
 
 export const ContextApp = React.createContext<{
-  state: MainPageType;
+  state: GlobalTypes;
   dispatch: Dispatch<ReducerTypes>;
 }>({
   state: initialValues,
@@ -36,15 +36,15 @@ export const ContextApp = React.createContext<{
 function App() {
   const [state, dispatch] = useReducer(reducer, initialValues);
 
-  function reducer(state: MainPageType, action: ReducerTypes): MainPageType {
+  function reducer(state: GlobalTypes, action: ReducerTypes): GlobalTypes {
     switch (action.type) {
       case 'handleDownload':
         return {
           ...state,
           response: action.payload.response,
-          isDownloading: action.payload.load,
-          isSearchOver: !action.payload.load,
-          isError: action.payload.error || false,
+          isDownloading: action.payload.isDownloading,
+          isSearchOver: !action.payload.isDownloading,
+          isError: action.payload.isError || false,
         };
 
       case 'toggleCard':

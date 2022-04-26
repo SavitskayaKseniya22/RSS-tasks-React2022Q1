@@ -32,6 +32,20 @@ export function Form() {
     };
   }, []);
 
+  const defaultValues = {
+    description: '',
+    title: '',
+    phone: '',
+    email: '',
+    img: '',
+    date: '',
+    price: '',
+    typeAdd: '',
+    isReady: false,
+    area: '',
+    currency: '$',
+  };
+
   function onSubmit(data: CardProps) {
     const object = {
       title: data.title,
@@ -45,6 +59,7 @@ export function Form() {
       isReady: data.isReady,
       currency: data.currency,
       img: data.img,
+      isFavorite: false,
     };
 
     if (data.img) {
@@ -61,7 +76,9 @@ export function Form() {
       fileReader.readAsDataURL(file);
     }
 
-    reset();
+    reset(defaultValues, {
+      keepValues: false,
+    });
   }
   const handleInput = (event: FormEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -80,6 +97,7 @@ export function Form() {
       | 'currency';
 
     clearErrors([name]);
+
     if (isSubmitted) {
       reset(
         {},
@@ -90,6 +108,7 @@ export function Form() {
           keepTouched: true,
           keepIsValid: true,
           keepSubmitCount: true,
+          keepValues: true,
         }
       );
     }

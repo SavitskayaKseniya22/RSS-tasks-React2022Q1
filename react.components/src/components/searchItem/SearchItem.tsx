@@ -1,12 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { SearchItemType } from '../../interfaces';
-import { SearchItemDetails } from '../searchItemDetails/SearchItemDetails';
+import { SearchItemDetailType } from '../../interfaces';
 import { ContextApp } from './../../app/App';
 import './searchItem.css';
 
-export function SearchItem(props: SearchItemType) {
-  const { state, dispatch } = useContext(ContextApp);
+export function SearchItem(props: { item: SearchItemDetailType }) {
+  const { dispatch } = useContext(ContextApp);
   const handleClick = (
     e:
       | React.MouseEvent<HTMLButtonElement>
@@ -14,9 +13,8 @@ export function SearchItem(props: SearchItemType) {
       | React.MouseEvent<HTMLDivElement>
   ) => {
     if (e.target !== e.currentTarget) return;
-    const activeCard = props.item;
 
-    dispatch({ type: 'toggleCard', payload: { activeCard } });
+    dispatch({ type: 'toggleCard', payload: { activeCard: props.item } });
   };
 
   return (

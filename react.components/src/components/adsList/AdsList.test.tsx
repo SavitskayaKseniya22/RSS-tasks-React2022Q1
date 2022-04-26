@@ -20,6 +20,7 @@ test('check form appearance', () => {
           isReady: true,
           currency: '$',
           img: 'blob:http://localhost:3000/a5dd0b3d-6b18-4059-bd25-bc24760ef807',
+          isFavorite: false,
         },
         {
           adress: '3014 Tree Frog Lane, Lenexa, Missouri',
@@ -36,6 +37,7 @@ test('check form appearance', () => {
           isReady: true,
           currency: '$',
           img: 'blob:http://localhost:3000/a5dd0b3d-6b18-4059-bd25-bc24760ef807',
+          isFavorite: true,
         },
       ]}
     />

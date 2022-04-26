@@ -22,8 +22,12 @@ export function SearchForm() {
     };
   }, []);
 
-  const handleDownload = (response: SearchItemDetailType[], load: boolean, error?: boolean) => {
-    dispatch({ type: 'handleDownload', payload: { response, load, error } });
+  const handleDownload = (
+    response: SearchItemDetailType[],
+    isDownloading: boolean,
+    isError?: boolean
+  ) => {
+    dispatch({ type: 'handleDownload', payload: { response, isDownloading, isError } });
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
