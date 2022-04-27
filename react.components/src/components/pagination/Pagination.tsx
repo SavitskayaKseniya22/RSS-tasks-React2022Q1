@@ -9,23 +9,20 @@ export function Pagination() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    dispatch({
-      type: 'handleSearchForm',
-      payload: {
-        ...state,
-        pageNumber: e.target.value,
-        isMounted: true,
-      },
-    });
+    changePageNumber(e.target.value);
   };
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    changePageNumber(e.currentTarget.textContent as string);
+  };
+
+  const changePageNumber = (value: string) => {
     dispatch({
       type: 'handleSearchForm',
       payload: {
         ...state,
-        pageNumber: e.currentTarget.textContent as string,
+        pageNumber: value,
         isMounted: true,
       },
     });

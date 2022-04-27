@@ -6,5 +6,4 @@ test('check MyAds appearance', () => {
   expect(screen.getByTestId('my-ads')).toBeInTheDocument();
   expect(screen.getByText('my advertisements')).toBeInTheDocument();
   expect(screen.getByTestId('form-ad')).toBeInTheDocument();
-  screen.debug();
 });
