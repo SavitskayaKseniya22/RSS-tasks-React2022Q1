@@ -1,27 +1,34 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useReducer } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { ContextApp, reducer } from '../../app/App';
 import { CardProps } from '../../interfaces';
+import {
+  SearchResultListMockEmpty,
+  SearchResultListMockFull,
+  SearchResultListMockStart,
+} from '../../mockedResponseItem';
+import { MyAds } from '../../pages/myAds/MyAds';
 
 import { Form } from './Form';
 describe('form test', () => {
-  const func = jest.fn() as (object: CardProps) => void;
-  /*
   test('check form appearance', () => {
-    render(<Form changeState={func} />);
+    render(<Form />);
     const adPage = screen.getByTestId('form__container');
     expect(adPage).toBeInTheDocument();
     expect(adPage).toContainElement(screen.getByTestId('form-ad'));
   });
 
   test('check input title work', () => {
-    render(<Form changeState={func} />);
+    render(<Form />);
     const title = screen.getByTestId('form__title') as HTMLInputElement;
     fireEvent.input(title, { target: { value: 'text input' } });
     expect(title.value).toEqual('text input');
   });
 
   test('check handleinput title work', () => {
-    render(<Form changeState={func} />);
+    render(<Form />);
     const title = screen.getByTestId('form__title') as HTMLInputElement;
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     expect(submit.disabled).toEqual(true);
@@ -30,7 +37,7 @@ describe('form test', () => {
   });
 
   test('check title error work', async () => {
-    render(<Form changeState={func} />);
+    render(<Form />);
     const title = screen.getByTestId('form__title') as HTMLInputElement;
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     expect(submit.disabled).toEqual(true);
@@ -47,7 +54,7 @@ describe('form test', () => {
   });
 
   test('check date input', async () => {
-    render(<Form changeState={func} />);
+    render(<Form />);
     const date = screen.getByTestId('form__date') as HTMLInputElement;
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     fireEvent.input(date, { target: { value: '2023-04-04' } });
@@ -60,7 +67,7 @@ describe('form test', () => {
   });
 
   test('check the entire form for a submission error', async () => {
-    render(<Form changeState={func} />);
+    render(<Form />);
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'text' } });
     fireEvent.input(screen.getByTestId('form__description'), { target: { value: 'text' } });
@@ -72,11 +79,21 @@ describe('form test', () => {
     fireEvent.click(submit);
 
     await waitFor(() => expect(screen.getByTestId('form-ad')).toHaveClass('form form_invalid'));
-    expect(screen.queryByText('ads-list')).not.toBeInTheDocument();
   });
 
-  test('reset test form after correct submission', async () => {
-    render(<Form changeState={func} />);
+  test('reset test form after correct submission and add cart to page', async () => {
+    const Wrapper = () => {
+      const [state, dispatch] = useReducer(reducer, SearchResultListMockStart);
+      return (
+        <BrowserRouter>
+          <ContextApp.Provider value={{ state, dispatch }}>
+            <MyAds />
+          </ContextApp.Provider>
+        </BrowserRouter>
+      );
+    };
+
+    render(<Wrapper />);
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'texttext' } });
     fireEvent.input(screen.getByTestId('form__description'), {
@@ -95,11 +112,14 @@ describe('form test', () => {
     expect(fileUploader.files?.[0]).toStrictEqual(file);
     expect(fileUploader.files).toHaveLength(1);
     expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('texttext');
-    fireEvent.click(submit);
+
+    await waitFor(() => fireEvent.click(submit));
 
     await waitFor(() =>
       expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('')
     );
     expect(screen.getByTestId('form-ad')).toHaveClass('form form_valid');
-  });*/
+    await waitFor(() => expect(screen.getByTestId('my-ads').childNodes.length).toBe(3));
+    await waitFor(() => expect(screen.getByTestId('ads-list').childNodes.length).toBe(1));
+  });
 });

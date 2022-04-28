@@ -1,23 +1,51 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { mockedResponseItem, mockedResponseItemEmpty } from '../../mockedResponseItem';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { BrowserRouter } from 'react-router-dom';
+import { ContextApp } from '../../app/App';
+import {
+  mockedResponseItem,
+  mockedResponseItemEmpty,
+  SearchResultListMockFull,
+} from '../../mockedResponseItem';
+import { MainPage } from '../../pages/mainPage/MainPage';
 import { SearchItem } from './SearchItem';
 
 describe('SearchItem test', () => {
-  /*
   test('check searchItem appearance', () => {
-    render(<SearchItem item={mockedResponseItem} />);
+    render(
+      <BrowserRouter>
+        <ContextApp.Provider
+          value={{
+            state: SearchResultListMockFull,
+            dispatch: () => null,
+          }}
+        >
+          <SearchItem item={mockedResponseItem} />
+        </ContextApp.Provider>
+      </BrowserRouter>
+    );
     const searchItem = screen.getByTestId('card-item');
     expect(searchItem).toHaveClass('item');
+    expect(screen.getByTestId('item__img_preview')).toBeInTheDocument();
   });
 
-  test('check searchItem content', () => {
-    render(<SearchItem item={mockedResponseItem} />);
-    const img = screen.getByTestId('item__img_preview');
-    expect(img).toBeInTheDocument();
-  });
+  test('check searchItem popup appearance', async () => {
+    render(
+      <BrowserRouter>
+        <ContextApp.Provider
+          value={{
+            state: SearchResultListMockFull,
+            dispatch: () => null,
+          }}
+        >
+          <MainPage />
+        </ContextApp.Provider>
+      </BrowserRouter>
+    );
 
-  test('check searchItem popup appearance', () => {
-    render(<SearchItem item={mockedResponseItem} />);
+    await waitFor(() => userEvent.click(screen.getAllByTestId('card__link')[0]));
+
+    /*
     const img = screen.getByTestId('item__img_preview');
     expect(screen.queryByText('Author:')).not.toBeInTheDocument();
 
@@ -30,9 +58,9 @@ describe('SearchItem test', () => {
     fireEvent.click(img);
     expect(screen.queryByText('Author:')).toBeInTheDocument();
     fireEvent.click(screen.getByTestId('item__popup_container'));
-    expect(screen.queryByText('Author:')).not.toBeInTheDocument();
+    expect(screen.queryByText('Author:')).not.toBeInTheDocument();*/
   });
-
+  /*
   test('check searchItem popup content', () => {
     render(<SearchItem item={mockedResponseItem} />);
     fireEvent.click(screen.getByTestId('item__img_preview'));

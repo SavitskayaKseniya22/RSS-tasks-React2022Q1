@@ -1,12 +1,15 @@
-import { CardProps } from '../../interfaces';
+import { useContext } from 'react';
+import { ContextApp } from '../../app/App';
 import { AdCard } from '../adCard/AdCard';
 
-export function AdsList(props: { savedCards: CardProps[] }) {
+export function AdsList() {
+  const { state } = useContext(ContextApp);
+
   return (
-    <div className="ads-list" data-testid="ads-list">
-      {props.savedCards.map((elem, index) => (
+    <ul className="ads-list" data-testid="ads-list">
+      {state.savedCards?.map((elem, index) => (
         <AdCard key={index} item={elem} />
       ))}
-    </div>
+    </ul>
   );
 }

@@ -11,7 +11,7 @@ export function MyAds() {
     <div data-testid="my-ads" className="my-ads">
       <h1>my advertisements</h1>
       <Form />
-      {state.savedCards && state.savedCards.length > 0 && <AdsList savedCards={state.savedCards} />}
+      {state.savedCards && state.savedCards.length > 0 && <AdsList />}
     </div>
   );
 }
