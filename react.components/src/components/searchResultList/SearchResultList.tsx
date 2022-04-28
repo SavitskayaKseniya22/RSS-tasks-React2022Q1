@@ -8,7 +8,9 @@ export function SearchResultList() {
   if (state.isDownloading) {
     activeBlock = (
       <div className="empty-search" data-testid="active-search">
-        <div className="active-search"></div>
+        <div className="active-search">
+          <span className="non-visible">Loading data</span>
+        </div>
       </div>
     );
   } else if (state.isError) {

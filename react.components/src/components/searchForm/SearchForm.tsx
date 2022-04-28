@@ -26,6 +26,7 @@ export function SearchForm() {
       const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=${state.pageNumber}&per_page=${state.itemsPerPage}&query=${state.value}&order_by=${state.sort}`;
       const res = await fetch(url);
       const response = (await res.json()) as ResponseType;
+
       const data = getShortData(response);
 
       dispatch({

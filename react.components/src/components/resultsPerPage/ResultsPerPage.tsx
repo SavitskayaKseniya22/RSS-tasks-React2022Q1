@@ -25,6 +25,7 @@ export function ResultsPerPage() {
       value={state.itemsPerPage}
       onInput={handleChange}
       placeholder="1-30"
+      data-testid="search-per-page"
     />
   );
 }

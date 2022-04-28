@@ -1,3 +1,5 @@
+import { mockChangedResponse } from './mockedResponse';
+
 export const mockedResponseItem = {
   src: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMTgzNjd8MHwxfHNlYXJjaHwxfHxjYXJ8ZW58MHx8fHwxNjQ5ODQxMzM0&ixlib=rb-1.2.1&q=80&w=1080',
   description: 'parked white Ford Explorer SUV',
@@ -35,7 +37,7 @@ export const SearchResultListMockEmpty = {
   itemsPerPage: '20',
   pageNumber: '1',
   maxPageNumber: 10,
-  isMounted: true,
+  isMounted: false,
   savedCards: [],
 };
 
@@ -50,27 +52,27 @@ export const SearchResultListMockError = {
   itemsPerPage: '20',
   pageNumber: '1',
   maxPageNumber: 10,
-  isMounted: true,
+  isMounted: false,
   savedCards: [],
 };
 
 export const SearchResultListMockFull = {
-  value: 'text',
-  response: [mockedResponseItem, mockedResponseItem],
+  value: 'car',
+  response: mockChangedResponse,
   isDownloading: false,
   isSearchOver: true,
   isError: false,
   activeCard: undefined,
   sort: 'latest',
   itemsPerPage: '20',
-  pageNumber: '1',
-  maxPageNumber: 10,
-  isMounted: true,
+  pageNumber: '5',
+  maxPageNumber: 500,
+  isMounted: false,
   savedCards: [],
 };
 
 export const SearchResultListMockStart = {
-  value: 'text',
+  value: '',
   response: [],
   isDownloading: false,
   isSearchOver: false,
@@ -80,7 +82,7 @@ export const SearchResultListMockStart = {
   itemsPerPage: '20',
   pageNumber: '1',
   maxPageNumber: 10,
-  isMounted: true,
+  isMounted: false,
   savedCards: [],
 };
 

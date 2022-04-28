@@ -30,7 +30,7 @@ export function Pagination() {
 
   return (
     <div className="pagination">
-      <button type="button" onClick={handleClick}>
+      <button type="button" onClick={handleClick} data-testid="search-page-number-start">
         1
       </button>
 
@@ -57,6 +57,7 @@ export function Pagination() {
         value={state.pageNumber}
         onChange={handleChange}
         placeholder="go to"
+        data-testid="search-page-number"
       />
 
       {state.pageNumber && state.maxPageNumber && +state.pageNumber + 1 <= state.maxPageNumber ? (
@@ -75,7 +76,7 @@ export function Pagination() {
         <button type="button" disabled></button>
       )}
 
-      <button type="button" onClick={handleClick}>
+      <button type="button" onClick={handleClick} data-testid="search-page-number-end">
         {state.maxPageNumber}
       </button>
     </div>
