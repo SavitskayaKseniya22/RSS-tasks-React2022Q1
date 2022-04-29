@@ -3,7 +3,7 @@ import { mockChangedResponse } from './mockedResponse';
 
 export const mockedResponseItem = {
   src: 'https://images.unsplash.com/photo-1651047947753-d053220b267a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMTgzNjd8MHwxfHNlYXJjaHw0fHxjYXJ8ZW58MHx8Mnx8MTY1MTA5OTg2Ng&ixlib=rb-1.2.1&q=80&w=1080',
-  description: null,
+  description: 'Good picture',
   link: 'https://images.unsplash.com/photo-1651047947753-d053220b267a?crop=entropy&cs=srgb&fm=jpg&ixid=MnwzMTgzNjd8MHwxfHNlYXJjaHw0fHxjYXJ8ZW58MHx8Mnx8MTY1MTA5OTg2Ng&ixlib=rb-1.2.1&q=85',
   author: 'taylorgsimpson',
   portfolio: 'https://www.etsy.com/shop/taylorsimpsonphoto',
@@ -57,7 +57,37 @@ export const SearchResultListMockError = {
   savedCards: [],
 };
 
+export const SearchResultListMockFullWithEmptyActiveCard = {
+  value: 'car',
+  response: mockChangedResponse,
+  isDownloading: false,
+  isSearchOver: true,
+  isError: false,
+  activeCard: mockedResponseItemEmpty,
+  sort: 'latest',
+  itemsPerPage: '20',
+  pageNumber: '5',
+  maxPageNumber: 500,
+  isMounted: false,
+  savedCards: data,
+};
+
 export const SearchResultListMockFull = {
+  value: 'car',
+  response: mockChangedResponse,
+  isDownloading: false,
+  isSearchOver: true,
+  isError: false,
+  activeCard: mockedResponseItem,
+  sort: 'latest',
+  itemsPerPage: '20',
+  pageNumber: '5',
+  maxPageNumber: 500,
+  isMounted: false,
+  savedCards: data,
+};
+
+export const SearchResultListMockFullWithoutActiveCard = {
   value: 'car',
   response: mockChangedResponse,
   isDownloading: false,

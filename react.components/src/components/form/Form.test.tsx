@@ -3,12 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { useReducer } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp, reducer } from '../../app/App';
-import { CardProps } from '../../interfaces';
-import {
-  SearchResultListMockEmpty,
-  SearchResultListMockFull,
-  SearchResultListMockStart,
-} from '../../mockedResponseItem';
+import { SearchResultListMockStart } from '../../mockedResponseItem';
 import { MyAds } from '../../pages/myAds/MyAds';
 
 import { Form } from './Form';

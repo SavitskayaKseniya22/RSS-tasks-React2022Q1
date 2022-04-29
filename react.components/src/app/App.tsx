@@ -85,14 +85,14 @@ function App() {
         <Routes>
           <Route path="/my-ads" element={<MyAds />} />
           <Route path="/" element={<MainPage />} />
-          <Route path="about-us" element={<AboutUs />} />
+          <Route path="/about-us" element={<AboutUs />} />
           <Route
             path="/card"
             element={state.activeCard ? <SearchItemDetails /> : <Navigate to="/" />}
           />
 
           <Route
-            path="*"
+            path="/*"
             element={
               <div className="empty-page">
                 <span>404</span>

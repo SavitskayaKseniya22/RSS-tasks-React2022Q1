@@ -12,6 +12,7 @@ export function AdCard(props: { item: CardProps }) {
 
   const handleClick = () => {
     setIsFavorite((isFavorite) => !isFavorite);
+    item.isFavorite = !isFavorite;
   };
 
   return (

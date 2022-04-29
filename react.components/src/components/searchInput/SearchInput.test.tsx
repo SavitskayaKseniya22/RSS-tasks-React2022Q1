@@ -103,7 +103,7 @@ describe('SearchInput tests', () => {
 
       return (
         <ContextApp.Provider value={{ state, dispatch }}>
-          <MainPage />
+          <SearchInput />
         </ContextApp.Provider>
       );
     };

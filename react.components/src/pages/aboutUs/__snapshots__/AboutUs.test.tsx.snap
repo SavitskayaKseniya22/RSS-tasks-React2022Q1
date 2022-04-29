@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`check AboutUs page appearance 1`] = `
+exports[`AboutUs test check AboutUs page appearance 1`] = `
 <div
   data-testid="about-us"
 >

@@ -41,7 +41,7 @@ export function SearchItemDetails() {
 
         <li className="item__size" data-testid="item__size">
           <h3>Size:</h3> <hr />
-          {state.activeCard?.width || 'Unknown'}*{state.activeCard?.height || 'Unknown'}
+          {state.activeCard?.width || 'Unknown'} * {state.activeCard?.height || 'Unknown'}
         </li>
 
         <li className="item__links">

@@ -1,34 +1,21 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { AdCard } from './AdCard';
-import tempImgHouse from '../../assets/svg/temp-house.jpg';
+import { data } from '../../mockedData';
+import { useReducer } from 'react';
+
+import { reducer, ContextApp } from '../../app/App';
+import { SearchResultListMockFull } from '../../mockedResponseItem';
+import userEvent from '@testing-library/user-event';
 
 describe('check forming card with data', () => {
-  const defaultData = {
-    adress: '3014 Tree Frog Lane, Lenexa, Missouri',
-    title: 'Ut enim ad minim veniam',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    link: 'https://www.google.com/',
-    email: 'zapeppebraco-8159@yopmail.com',
-    phone: '(606) 476-8863',
-    price: '550 000$',
-    date: '2000-01-01',
-    area: '100',
-    typeAdd: 'sale',
-    isReady: true,
-    currency: '$',
-    img: tempImgHouse,
-    isFavorite: false,
-  };
-
   test('check card appearance', () => {
-    render(<AdCard item={defaultData} />);
+    render(<AdCard item={data[0]} />);
     const card = screen.getByTestId('card-item');
     expect(card).toHaveClass('card');
   });
 
   test('check card content', () => {
-    render(<AdCard item={defaultData} />);
+    render(<AdCard item={data[0]} />);
     const card = screen.getByTestId('card-item');
     const cardDescription = screen.getByTestId('card-item__description');
     expect(card).toContainElement(cardDescription);
@@ -37,7 +24,7 @@ describe('check forming card with data', () => {
   });
 
   test('check like button', () => {
-    render(<AdCard item={defaultData} />);
+    render(<AdCard item={data[0]} />);
     const card = screen.getByTestId('card-item');
     const likeButton = screen.getByTestId('card__mark-like');
     expect(card).toContainElement(likeButton);
@@ -45,5 +32,25 @@ describe('check forming card with data', () => {
     expect(likeButton).toHaveClass('favorite-add');
     fireEvent.click(likeButton);
     expect(likeButton).not.toHaveClass('favorite-add');
+  });
+
+  test('check restore like condition after unmount', async () => {
+    const Wrapper = () => {
+      const [state, dispatch] = useReducer(reducer, SearchResultListMockFull);
+
+      return (
+        <ContextApp.Provider value={{ state, dispatch }}>
+          <AdCard item={data[0]} />
+        </ContextApp.Provider>
+      );
+    };
+    const { unmount } = render(<Wrapper />);
+    const likeButton = screen.getByTestId('card__mark-like');
+    expect(likeButton).not.toHaveClass('favorite-add');
+    userEvent.click(likeButton);
+    expect(likeButton).toHaveClass('favorite-add');
+    unmount();
+    render(<Wrapper />);
+    expect(likeButton).toHaveClass('favorite-add');
   });
 });
