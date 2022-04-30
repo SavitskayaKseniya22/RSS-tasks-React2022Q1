@@ -130,7 +130,3 @@ export interface CardProps {
   currency: string;
   img: string;
 }
-
-export interface FormStateTypes {
-  savedCards: CardProps[];
-}

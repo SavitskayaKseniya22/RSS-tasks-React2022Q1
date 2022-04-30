@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SearchItemType } from '../../interfaces';
 import './searchItem.css';
 
-export function SearchItem(props: SearchItemType) {
+export const SearchItem = (props: SearchItemType) => {
   const [isOpen, setOpen] = useState(false);
   const handleClick = (
     e:
@@ -88,4 +88,4 @@ export function SearchItem(props: SearchItemType) {
       )}
     </li>
   );
-}
+};

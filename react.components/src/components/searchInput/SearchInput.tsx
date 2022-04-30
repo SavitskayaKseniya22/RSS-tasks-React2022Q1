@@ -7,7 +7,7 @@ import {
 } from '../../interfaces';
 import './searchInput.css';
 
-export function SearchInput(props: SearchInputProps) {
+export const SearchInput = (props: SearchInputProps) => {
   useEffect(() => {
     if (props.value) {
       getApiResponse(props.value);
@@ -76,4 +76,4 @@ export function SearchInput(props: SearchInputProps) {
       />
     </form>
   );
-}
+};

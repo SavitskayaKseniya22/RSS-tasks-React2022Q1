@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
 import { mockedResponse } from '../../mockedResponse';
-import { MainPage } from '../../pages/mainPage/MainPage';
+import { MainPage } from '../../pages/MainPage/MainPage';
 
 describe('SearchInput tests', () => {
   afterEach(() => {
@@ -53,13 +53,7 @@ describe('SearchInput tests', () => {
     const search = screen.getByTestId('search-input') as HTMLInputElement;
     await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
 
-    await waitFor(() =>
-      fireEvent.keyDown(screen.getByTestId('search-form') as HTMLFormElement, {
-        key: 'Enter',
-        code: 'Enter',
-        charCode: 13,
-      })
-    );
+    await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
     await waitFor(() => expect(screen.getByTestId('active-search')).toBeInTheDocument());
     await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());
   });
@@ -73,13 +67,7 @@ describe('SearchInput tests', () => {
     render(<MainPage />);
     const search = screen.getByTestId('search-input') as HTMLInputElement;
     await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
-    await waitFor(() =>
-      fireEvent.keyDown(screen.getByTestId('search-form') as HTMLFormElement, {
-        key: 'Enter',
-        code: 'Enter',
-        charCode: 13,
-      })
-    );
+    await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
     await waitFor(() => expect(screen.getByTestId('error-search')).toBeInTheDocument());
   });
 });

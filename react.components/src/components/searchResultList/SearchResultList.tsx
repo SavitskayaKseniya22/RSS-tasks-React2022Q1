@@ -1,7 +1,7 @@
-import { SearchItem } from '../../components/searchItem/SearchItem';
+import { SearchItem } from '../../components/SearchItem/SearchItem';
 import { MainPageType } from '../../interfaces';
 
-export function SearchResultList(props: { data: MainPageType }) {
+export const SearchResultList = (props: { data: MainPageType }) => {
   let activeBlock;
   if (props.data.isDownloading) {
     activeBlock = (
@@ -30,4 +30,4 @@ export function SearchResultList(props: { data: MainPageType }) {
   }
 
   return activeBlock as JSX.Element;
-}
+};

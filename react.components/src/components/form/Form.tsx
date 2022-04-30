@@ -3,7 +3,7 @@ import './form.css';
 import { useForm } from 'react-hook-form';
 import { CardProps } from '../../interfaces';
 
-export function Form(props: { changeState: (object: CardProps) => void }) {
+export const Form = (props: { changeState: (object: CardProps) => void }) => {
   const {
     register,
     handleSubmit,
@@ -282,4 +282,4 @@ export function Form(props: { changeState: (object: CardProps) => void }) {
       </form>
     </div>
   );
-}
+};

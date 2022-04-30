@@ -1,7 +1,7 @@
 import './footer.css';
 import logo from '../../assets/svg/rs-school-js.svg';
 
-export function Footer() {
+export const Footer = () => {
   return (
     <footer className="footer" data-testid="footer">
       <div>
@@ -17,4 +17,4 @@ export function Footer() {
       <div>© 2022</div>
     </footer>
   );
-}
+};
