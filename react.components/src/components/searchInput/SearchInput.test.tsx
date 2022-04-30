@@ -1,12 +1,13 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { wait } from '@testing-library/user-event/dist/utils';
+
 import fetchMock from 'fetch-mock';
 import { useReducer } from 'react';
-import { BrowserRouter, Router } from 'react-router-dom';
-import { ContextApp, initialValues, reducer } from '../../app/App';
+import { BrowserRouter } from 'react-router-dom';
+import { reducer, ContextApp } from '../../App';
 import { mockedResponse } from '../../mockedResponse';
-import { SearchResultListMockStart } from '../../mockedResponseItem';
-import { MainPage } from '../../pages/mainPage/MainPage';
+import { mockedStateStart } from '../../mockedState';
+import { MainPage } from '../../pages/MainPage/MainPage';
+
 import { SearchInput } from './SearchInput';
 
 describe('SearchInput tests', () => {
@@ -29,7 +30,7 @@ describe('SearchInput tests', () => {
 
   test('check input work', async () => {
     const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, SearchResultListMockStart);
+      const [state, dispatch] = useReducer(reducer, mockedStateStart);
       return (
         <ContextApp.Provider value={{ state, dispatch }}>
           <SearchInput />
@@ -47,7 +48,7 @@ describe('SearchInput tests', () => {
 
   test('check save value', async () => {
     const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, SearchResultListMockStart);
+      const [state, dispatch] = useReducer(reducer, mockedStateStart);
       return (
         <ContextApp.Provider value={{ state, dispatch }}>
           <SearchInput />
@@ -89,7 +90,7 @@ describe('SearchInput tests', () => {
       const [state, dispatch] = useReducer(reducer, {
         value: window.localStorage.getItem('searchValue') || '',
         response: [],
-        isDownloading: false,
+        isLoading: false,
         isSearchOver: false,
         isError: false,
         activeCard: undefined,
@@ -97,7 +98,7 @@ describe('SearchInput tests', () => {
         itemsPerPage: '20',
         pageNumber: '1',
         maxPageNumber: 10,
-        isMounted: false,
+        shouldUpdate: false,
         savedCards: [],
       });
 
@@ -121,7 +122,7 @@ describe('SearchInput tests', () => {
 
   test('check search work with results', async () => {
     const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, SearchResultListMockStart);
+      const [state, dispatch] = useReducer(reducer, mockedStateStart);
 
       return (
         <BrowserRouter>
@@ -150,7 +151,7 @@ describe('SearchInput tests', () => {
     );
 
     const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, SearchResultListMockStart);
+      const [state, dispatch] = useReducer(reducer, mockedStateStart);
 
       return (
         <BrowserRouter>

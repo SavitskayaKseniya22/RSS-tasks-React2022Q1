@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-import { SearchItem } from '../../components/searchItem/SearchItem';
-import { ContextApp } from './../../app/App';
+import { SearchItem } from '../SearchItem/SearchItem';
+import { ContextApp } from '../../App';
 
 export function SearchResultList() {
   const { state } = useContext(ContextApp);
   let activeBlock;
-  if (state.isDownloading) {
+  if (state.isLoading) {
     activeBlock = (
       <div className="empty-search" data-testid="active-search">
         <div className="active-search">

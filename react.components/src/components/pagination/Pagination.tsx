@@ -1,8 +1,7 @@
 import { ChangeEvent, useContext } from 'react';
-
 import { MouseEvent } from 'react';
-import '../searchForm/searchForm.css';
-import { ContextApp } from '../../app/App';
+import { ContextApp } from '../../App';
+import '../SearchForm/searchForm.css';
 
 export function Pagination() {
   const { state, dispatch } = useContext(ContextApp);
@@ -23,7 +22,7 @@ export function Pagination() {
       payload: {
         ...state,
         pageNumber: value,
-        isMounted: true,
+        shouldUpdate: true,
       },
     });
   };

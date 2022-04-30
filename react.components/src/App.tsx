@@ -1,19 +1,20 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { MainPage } from '../pages/mainPage/MainPage';
-import { MyAds } from '../pages/myAds/MyAds';
-import { AboutUs } from '../pages/aboutUs/AboutUs';
-import { Header } from '../components/header/Header';
-import { Footer } from '../components/footer/Footer';
+import { MainPage } from './pages/MainPage/MainPage';
+import { Ads } from './pages/Ads/Ads';
 import { Dispatch, useReducer } from 'react';
-import { GlobalTypes, ReducerTypes } from '../interfaces';
+import { GlobalTypes, ReducerTypes } from './interfaces';
 import React from 'react';
-import { SearchItemDetails } from '../components/searchItemDetails/SearchItemDetails';
+
+import { AboutUs } from './pages/AboutUs/AboutUs';
+import { Footer } from './components/Footer/Footer';
+import { Header } from './components/Header/Header';
+import { SearchItemDetails } from './components/SearchItemDetails/SearchItemDetails';
 
 export const initialValues: GlobalTypes = {
   value: window.localStorage.getItem('searchValue') || '',
   response: [],
-  isDownloading: false,
+  isLoading: false,
   isSearchOver: false,
   isError: false,
   activeCard: undefined,
@@ -21,7 +22,7 @@ export const initialValues: GlobalTypes = {
   itemsPerPage: '20',
   pageNumber: '1',
   maxPageNumber: 10,
-  isMounted: true,
+  shouldUpdate: true,
   savedCards: [],
 };
 
@@ -39,8 +40,8 @@ export function reducer(state: GlobalTypes, action: ReducerTypes): GlobalTypes {
       return {
         ...state,
         response: action.payload.response,
-        isDownloading: action.payload.isDownloading,
-        isSearchOver: !action.payload.isDownloading,
+        isLoading: action.payload.isLoading,
+        isSearchOver: !action.payload.isLoading,
         isError: action.payload.isError || false,
       };
 
@@ -55,7 +56,7 @@ export function reducer(state: GlobalTypes, action: ReducerTypes): GlobalTypes {
         pageNumber: action.payload.pageNumber,
         maxPageNumber: action.payload.maxPageNumber,
         value: action.payload.value,
-        isMounted: action.payload.isMounted,
+        shouldUpdate: action.payload.shouldUpdate,
       };
 
     case 'handleSavedCards':
@@ -83,7 +84,7 @@ function App() {
         <Footer />
         <Outlet />
         <Routes>
-          <Route path="/my-ads" element={<MyAds />} />
+          <Route path="/ads" element={<Ads />} />
           <Route path="/" element={<MainPage />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route

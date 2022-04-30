@@ -13,7 +13,7 @@ describe('header tests', () => {
     expect(header).toHaveClass('header');
     expect(header).toHaveTextContent('main page');
     expect(header).toHaveTextContent('about us');
-    expect(header).toHaveTextContent('my ads');
+    expect(header).toHaveTextContent('ads');
     expect(header).toHaveTextContent('card');
   });
 
@@ -32,7 +32,7 @@ describe('header tests', () => {
     expect(navLinkAboutUs).toHaveClass('active-link');
     expect(navLinkMain).toHaveClass('inActiveLink');
 
-    const navLinkAds = screen.getByTestId('my-ads__link');
+    const navLinkAds = screen.getByTestId('ads__link');
     fireEvent.click(navLinkAds);
     expect(navLinkAds).toHaveClass('active-link');
     expect(navLinkAboutUs).toHaveClass('inActiveLink');

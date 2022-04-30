@@ -1,7 +1,7 @@
 import { ChangeEvent, useContext } from 'react';
+import { ContextApp } from '../../../App';
 
-import '../searchForm/searchForm.css';
-import { ContextApp } from '../../app/App';
+import '../SearchForm/searchForm.css';
 
 export function ResultsPerPage() {
   const { state, dispatch } = useContext(ContextApp);
@@ -13,7 +13,7 @@ export function ResultsPerPage() {
         ...state,
         pageNumber: '1',
         itemsPerPage: e.target.value,
-        isMounted: true,
+        shouldUpdate: true,
       },
     });
   };

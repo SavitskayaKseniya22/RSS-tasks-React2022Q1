@@ -2,11 +2,11 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useReducer } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ContextApp, reducer } from '../../app/App';
-import { SearchResultListMockStart } from '../../mockedResponseItem';
-import { MyAds } from '../../pages/myAds/MyAds';
-
+import { reducer, ContextApp } from '../../App';
+import { mockedStateStart } from '../../mockedState';
+import { Ads } from '../../pages/Ads/Ads';
 import { Form } from './Form';
+
 describe('form test', () => {
   test('check form appearance', () => {
     render(<Form />);
@@ -78,11 +78,11 @@ describe('form test', () => {
 
   test('reset test form after correct submission and add cart to page', async () => {
     const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, SearchResultListMockStart);
+      const [state, dispatch] = useReducer(reducer, mockedStateStart);
       return (
         <BrowserRouter>
           <ContextApp.Provider value={{ state, dispatch }}>
-            <MyAds />
+            <Ads />
           </ContextApp.Provider>
         </BrowserRouter>
       );
@@ -114,7 +114,7 @@ describe('form test', () => {
       expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('')
     );
     expect(screen.getByTestId('form-ad')).toHaveClass('form form_valid');
-    await waitFor(() => expect(screen.getByTestId('my-ads').childNodes.length).toBe(3));
+    await waitFor(() => expect(screen.getByTestId('ads').childNodes.length).toBe(3));
     await waitFor(() => expect(screen.getByTestId('ads-list').childNodes.length).toBe(1));
   });
 });

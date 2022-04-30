@@ -1,9 +1,4 @@
-import React, { useState } from 'react';
-import emailImg from '../../assets/svg/mail.svg';
-import phoneImg from '../../assets/svg/phone.svg';
-import linkImg from '../../assets/svg/forward-next-arrow.svg';
-import likeImg from '../../assets/svg/like.svg';
-import './adCard.css';
+import { useState } from 'react';
 import { CardProps } from '../../interfaces';
 
 export function AdCard(props: { item: CardProps }) {

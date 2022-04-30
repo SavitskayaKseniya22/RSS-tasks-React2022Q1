@@ -1,10 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { ContextApp } from '../../app/App';
-import {
-  SearchResultListMockFull,
-  SearchResultListMockFullWithEmptyActiveCard,
-} from '../../mockedResponseItem';
+import { ContextApp } from '../../App';
+import { mockedState, mockedStateWithEmptyActiveCard } from '../../mockedState';
+
 import { SearchItemDetails } from './SearchItemDetails';
 
 describe('SearchItemDetails test', () => {
@@ -13,7 +11,7 @@ describe('SearchItemDetails test', () => {
       <BrowserRouter>
         <ContextApp.Provider
           value={{
-            state: SearchResultListMockFull,
+            state: mockedState,
             dispatch: () => null,
           }}
         >
@@ -22,23 +20,19 @@ describe('SearchItemDetails test', () => {
       </BrowserRouter>
     );
 
-    expect(screen.queryByText(SearchResultListMockFull.activeCard.description)).toBeInTheDocument();
-    expect(screen.queryByText(SearchResultListMockFull.activeCard.location)).toBeInTheDocument();
+    expect(screen.queryByText(mockedState.activeCard.description)).toBeInTheDocument();
+    expect(screen.queryByText(mockedState.activeCard.location)).toBeInTheDocument();
     expect(screen.getByTestId('item__description')).toHaveTextContent(
-      SearchResultListMockFull.activeCard.description
+      mockedState.activeCard.description
     );
     expect(screen.getByTestId('item__likes')).toHaveTextContent(
-      SearchResultListMockFull.activeCard.likes as unknown as string
+      mockedState.activeCard.likes as unknown as string
     );
-    expect(screen.getByTestId('item__author')).toHaveTextContent(
-      SearchResultListMockFull.activeCard.author
-    );
+    expect(screen.getByTestId('item__author')).toHaveTextContent(mockedState.activeCard.author);
     expect(screen.getByTestId('item__portfolio')).toBeInTheDocument();
-    expect(screen.getByTestId('item__location')).toHaveTextContent(
-      SearchResultListMockFull.activeCard.location
-    );
+    expect(screen.getByTestId('item__location')).toHaveTextContent(mockedState.activeCard.location);
     expect(screen.getByTestId('item__size')).toHaveTextContent(
-      SearchResultListMockFull.activeCard.width as unknown as string
+      mockedState.activeCard.width as unknown as string
     );
   });
 
@@ -47,7 +41,7 @@ describe('SearchItemDetails test', () => {
       <BrowserRouter>
         <ContextApp.Provider
           value={{
-            state: SearchResultListMockFullWithEmptyActiveCard,
+            state: mockedStateWithEmptyActiveCard,
             dispatch: () => null,
           }}
         >

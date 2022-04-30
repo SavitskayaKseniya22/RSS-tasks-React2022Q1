@@ -1,6 +1,6 @@
+import { SearchForm } from '../../components/mainPage/SearchForm/SearchForm';
+import { SearchResultList } from '../../components/mainPage/SearchResultList/SearchResultList';
 import './mainPage.css';
-import { SearchResultList } from '../../components/searchResultList/SearchResultList';
-import { SearchForm } from '../../components/searchForm/SearchForm';
 
 export function MainPage() {
   return (

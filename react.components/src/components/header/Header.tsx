@@ -1,10 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import React, { useContext } from 'react';
-import { ContextApp } from './../../app/App';
 import './header.css';
 
 export function Header() {
-  const { state, dispatch } = useContext(ContextApp);
   return (
     <header className="header" data-testid="header">
       <NavLink
@@ -22,11 +19,11 @@ export function Header() {
         about us
       </NavLink>
       <NavLink
-        data-testid="my-ads__link"
+        data-testid="ads__link"
         className={({ isActive }) => (isActive ? 'active-link' : 'inActiveLink')}
-        to="/my-ads"
+        to="/ads"
       >
-        my ads
+        ads
       </NavLink>
 
       <NavLink

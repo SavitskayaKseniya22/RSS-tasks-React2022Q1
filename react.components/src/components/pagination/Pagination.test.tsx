@@ -2,9 +2,10 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useReducer } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ContextApp, reducer } from '../../app/App';
-import { SearchResultListMockFull } from '../../mockedResponseItem';
-import { MainPage } from '../../pages/mainPage/MainPage';
+import { ContextApp, reducer } from '../../App';
+import { mockedState } from '../../mockedState';
+import { MainPage } from '../../pages/MainPage/MainPage';
+
 import { Pagination } from './Pagination';
 
 describe('Pagination tests', () => {
@@ -12,7 +13,7 @@ describe('Pagination tests', () => {
     render(
       <ContextApp.Provider
         value={{
-          state: SearchResultListMockFull,
+          state: mockedState,
           dispatch: () => null,
         }}
       >
@@ -22,7 +23,7 @@ describe('Pagination tests', () => {
 
     await waitFor(() => expect(screen.getByTestId('search-page-number')).toBeInTheDocument());
     expect((screen.getByTestId('search-page-number') as HTMLInputElement).value).toEqual(
-      SearchResultListMockFull.pageNumber
+      mockedState.pageNumber
     );
 
     expect(
@@ -30,13 +31,13 @@ describe('Pagination tests', () => {
     ).toEqual('1');
 
     expect((screen.getByTestId('search-page-number-end') as HTMLSelectElement).textContent).toEqual(
-      String(SearchResultListMockFull.maxPageNumber)
+      String(mockedState.maxPageNumber)
     );
   });
 
   test('check Pagination change page in input', async () => {
     const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, SearchResultListMockFull);
+      const [state, dispatch] = useReducer(reducer, mockedState);
       return (
         <ContextApp.Provider value={{ state, dispatch }}>
           <Pagination />
@@ -56,7 +57,7 @@ describe('Pagination tests', () => {
 
   test('check Pagination buttons start and end', async () => {
     const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, SearchResultListMockFull);
+      const [state, dispatch] = useReducer(reducer, mockedState);
       return (
         <BrowserRouter>
           <ContextApp.Provider value={{ state, dispatch }}>
@@ -82,7 +83,7 @@ describe('Pagination tests', () => {
 
     await waitFor(() =>
       expect((screen.getByTestId('search-page-number') as HTMLInputElement).value).toEqual(
-        String(SearchResultListMockFull.maxPageNumber)
+        String(mockedState.maxPageNumber)
       )
     );
     await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());

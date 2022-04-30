@@ -1,11 +1,7 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import App, { ContextApp } from '../../app/App';
-import {
-  SearchResultListMockFull,
-  SearchResultListMockLoading,
-  SearchResultListMockStart,
-} from '../../mockedResponseItem';
+import { render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter, BrowserRouter } from 'react-router-dom';
+import App, { ContextApp } from '../../App';
+import { mockedState } from '../../mockedState';
 import { MainPage } from './MainPage';
 
 describe('MainPage test', () => {
@@ -35,7 +31,7 @@ describe('MainPage test', () => {
       <BrowserRouter>
         <ContextApp.Provider
           value={{
-            state: SearchResultListMockFull,
+            state: mockedState,
             dispatch: () => null,
           }}
         >

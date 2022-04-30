@@ -1,11 +1,11 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { AdCard } from './AdCard';
-import { data } from '../../mockedData';
-import { useReducer } from 'react';
-
-import { reducer, ContextApp } from '../../app/App';
-import { SearchResultListMockFull } from '../../mockedResponseItem';
+import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useReducer } from 'react';
+import { reducer, ContextApp } from '../../App';
+import { data } from '../../mockedData';
+import { mockedState } from '../../mockedState';
+import { AdCard } from './AdCard';
+import { render, screen } from '@testing-library/react';
 
 describe('check forming card with data', () => {
   test('check card appearance', () => {
@@ -36,7 +36,7 @@ describe('check forming card with data', () => {
 
   test('check restore like condition after unmount', async () => {
     const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, SearchResultListMockFull);
+      const [state, dispatch] = useReducer(reducer, mockedState);
 
       return (
         <ContextApp.Provider value={{ state, dispatch }}>

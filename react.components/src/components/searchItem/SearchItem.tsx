@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { SearchItemDetailType } from '../../interfaces';
-import { ContextApp } from './../../app/App';
+import { ContextApp } from '../../../App';
+import { SearchItemDetailType } from '../../../interfaces';
+
 import './searchItem.css';
 
 export function SearchItem(props: { item: SearchItemDetailType }) {

@@ -1,7 +1,7 @@
 export interface GlobalTypes {
   value?: string;
   response?: SearchItemDetailType[];
-  isDownloading?: boolean;
+  isLoading?: boolean;
   isError?: boolean;
   isSearchOver?: boolean;
   activeCard?: SearchItemDetailType;
@@ -9,7 +9,7 @@ export interface GlobalTypes {
   itemsPerPage?: string;
   pageNumber?: string;
   maxPageNumber?: number;
-  isMounted?: boolean;
+  shouldUpdate?: boolean;
   savedCards?: CardProps[];
   addsFormValues?: CardProps;
 }

@@ -2,7 +2,7 @@ import { FormEvent, useContext, useEffect } from 'react';
 import './form.css';
 import { useForm } from 'react-hook-form';
 import { CardProps } from '../../interfaces';
-import { ContextApp } from '../../app/App';
+import { ContextApp } from '../../App';
 
 export function Form() {
   const { state, dispatch } = useContext(ContextApp);

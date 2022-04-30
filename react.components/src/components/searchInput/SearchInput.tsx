@@ -1,6 +1,6 @@
 import { ChangeEvent, useContext, useEffect } from 'react';
-import '../searchForm/searchForm.css';
-import { ContextApp } from './../../app/App';
+import { ContextApp } from '../../../App';
+import '../SearchForm/searchForm.css';
 
 export function SearchInput() {
   const { state, dispatch } = useContext(ContextApp);

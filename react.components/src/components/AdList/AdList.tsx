@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { ContextApp } from '../../app/App';
-import { AdCard } from '../adCard/AdCard';
+import { ContextApp } from '../../App';
+import { AdCard } from '../AdCard/AdCard';
 
-export function AdsList() {
+export function AdList() {
   const { state } = useContext(ContextApp);
 
   return (

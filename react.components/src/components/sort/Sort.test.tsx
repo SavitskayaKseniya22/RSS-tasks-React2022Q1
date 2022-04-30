@@ -2,9 +2,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useReducer } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ContextApp, reducer } from '../../app/App';
-import { SearchResultListMockFull } from '../../mockedResponseItem';
-import { MainPage } from '../../pages/mainPage/MainPage';
+import { ContextApp, reducer } from '../../App';
+import { mockedState } from '../../mockedState';
+import { MainPage } from '../../pages/MainPage/MainPage';
+
 import { Sort } from './Sort';
 
 describe('Sort tests', () => {
@@ -12,7 +13,7 @@ describe('Sort tests', () => {
     render(
       <ContextApp.Provider
         value={{
-          state: SearchResultListMockFull,
+          state: mockedState,
           dispatch: () => null,
         }}
       >
@@ -22,13 +23,13 @@ describe('Sort tests', () => {
 
     await waitFor(() => expect(screen.getByTestId('search-sort')).toBeInTheDocument());
     expect((screen.getByTestId('search-sort') as HTMLSelectElement).value).toEqual(
-      SearchResultListMockFull.sort
+      mockedState.sort
     );
   });
 
   test('check Sort select new option', async () => {
     const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, SearchResultListMockFull);
+      const [state, dispatch] = useReducer(reducer, mockedState);
       return (
         <BrowserRouter>
           <ContextApp.Provider value={{ state, dispatch }}>

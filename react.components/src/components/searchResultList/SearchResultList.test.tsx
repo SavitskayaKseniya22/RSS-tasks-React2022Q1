@@ -1,14 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import { SearchResultList } from './SearchResultList';
-import { ContextApp } from './../../app/App';
 import { BrowserRouter } from 'react-router-dom';
+import { ContextApp } from '../../App';
 import {
-  SearchResultListMockEmpty,
-  SearchResultListMockError,
-  SearchResultListMockFull,
-  SearchResultListMockLoading,
-  SearchResultListMockStart,
-} from '../../mockedResponseItem';
+  mockedStateLoading,
+  mockedStateError,
+  mockedStateEmpty,
+  mockedStateStart,
+  mockedState,
+} from '../../mockedState';
+
+import { SearchResultList } from './SearchResultList';
 
 describe('SearchResults tests', () => {
   test('check SearchResultList page download', () => {
@@ -16,7 +17,7 @@ describe('SearchResults tests', () => {
       <BrowserRouter>
         <ContextApp.Provider
           value={{
-            state: SearchResultListMockLoading,
+            state: mockedStateLoading,
             dispatch: () => null,
           }}
         >
@@ -36,7 +37,7 @@ describe('SearchResults tests', () => {
       <BrowserRouter>
         <ContextApp.Provider
           value={{
-            state: SearchResultListMockError,
+            state: mockedStateError,
             dispatch: () => null,
           }}
         >
@@ -54,7 +55,7 @@ describe('SearchResults tests', () => {
       <BrowserRouter>
         <ContextApp.Provider
           value={{
-            state: SearchResultListMockEmpty,
+            state: mockedStateEmpty,
             dispatch: () => null,
           }}
         >
@@ -73,7 +74,7 @@ describe('SearchResults tests', () => {
       <BrowserRouter>
         <ContextApp.Provider
           value={{
-            state: SearchResultListMockStart,
+            state: mockedStateStart,
             dispatch: () => null,
           }}
         >
@@ -91,7 +92,7 @@ describe('SearchResults tests', () => {
       <BrowserRouter>
         <ContextApp.Provider
           value={{
-            state: SearchResultListMockFull,
+            state: mockedState,
             dispatch: () => null,
           }}
         >
@@ -103,8 +104,6 @@ describe('SearchResults tests', () => {
     expect(screen.queryByText('no images found')).not.toBeInTheDocument();
     expect(screen.queryByText('something went wrong')).not.toBeInTheDocument();
     expect(screen.getByTestId('card-list')).toBeInTheDocument();
-    expect(screen.getAllByTestId('card-item').length).toEqual(
-      SearchResultListMockFull.response.length
-    );
+    expect(screen.getAllByTestId('card-item').length).toEqual(mockedState.response.length);
   });
 });

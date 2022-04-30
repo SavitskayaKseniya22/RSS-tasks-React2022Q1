@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 
-import { ContextApp } from './../../app/App';
-import '../searchItem/searchItem.css';
+import '../SearchItem/searchItem.css';
 import { NavLink } from 'react-router-dom';
+import { ContextApp } from '../../App';
 
 export function SearchItemDetails() {
   const { state } = useContext(ContextApp);

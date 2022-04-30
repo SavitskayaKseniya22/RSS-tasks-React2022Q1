@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChangeEvent, useContext } from 'react';
-import { ContextApp } from './../../app/App';
-import '../searchForm/searchForm.css';
+import { ContextApp } from '../../App';
+import '../SearchForm/searchForm.css';
 
 export function Sort() {
   const { state, dispatch } = useContext(ContextApp);
@@ -13,7 +13,7 @@ export function Sort() {
       payload: {
         ...state,
         sort: value,
-        isMounted: true,
+        shouldUpdate: true,
       },
     });
   };

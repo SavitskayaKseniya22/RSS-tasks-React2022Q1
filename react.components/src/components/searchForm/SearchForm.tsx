@@ -1,27 +1,27 @@
-import { SearchInput } from '../../components/searchInput/SearchInput';
-import { ContextApp } from './../../app/App';
-import { Sort } from '../../components/sort/Sort';
+import { SearchInput } from '../SearchInput/SearchInput';
+import { ContextApp } from '../../App';
+import { Sort } from '../Sort/Sort';
 import { useEffect, FormEvent, useContext } from 'react';
 import { SearchItemDetailType, ResponseItemType, ResponseType } from '../../interfaces';
-import { ResultsPerPage } from '../resultsPerPage/ResultsPerPage';
-import { Pagination } from '../pagination/Pagination';
+import { ResultsPerPage } from '../ResultsPerPage/ResultsPerPage';
+import { Pagination } from '../Pagination/Pagination';
 
 export function SearchForm() {
   const { state, dispatch } = useContext(ContextApp);
 
   useEffect(() => {
-    if (state.isMounted) {
+    if (state.shouldUpdate) {
       getApiResponse();
     }
-  }, [state.isMounted]);
+  }, [state.shouldUpdate]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch({ type: 'handleSearchForm', payload: { ...state, isMounted: true } });
+    dispatch({ type: 'handleSearchForm', payload: { ...state, shouldUpdate: true } });
   };
 
   const getApiResponse = async () => {
-    dispatch({ type: 'handleDownload', payload: { ...state, isDownloading: true } });
+    dispatch({ type: 'handleDownload', payload: { ...state, isLoading: true } });
     try {
       const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=${state.pageNumber}&per_page=${state.itemsPerPage}&query=${state.value}&order_by=${state.sort}`;
       const res = await fetch(url);
@@ -34,7 +34,7 @@ export function SearchForm() {
         payload: {
           ...state,
           response: data,
-          isDownloading: false,
+          isLoading: false,
         },
       });
       dispatch({
@@ -42,15 +42,15 @@ export function SearchForm() {
         payload: {
           ...state,
           maxPageNumber: response.total_pages,
-          isMounted: false,
+          shouldUpdate: false,
         },
       });
     } catch (error) {
       dispatch({
         type: 'handleDownload',
-        payload: { ...state, isDownloading: false, isError: true },
+        payload: { ...state, isLoading: false, isError: true },
       });
-      dispatch({ type: 'handleSearchForm', payload: { ...state, isMounted: false } });
+      dispatch({ type: 'handleSearchForm', payload: { ...state, shouldUpdate: false } });
     }
   };
 

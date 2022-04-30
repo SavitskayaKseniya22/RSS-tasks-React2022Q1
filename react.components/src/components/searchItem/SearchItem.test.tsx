@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 
 import { BrowserRouter } from 'react-router-dom';
-import { ContextApp } from '../../app/App';
-import { mockedResponseItem, SearchResultListMockFull } from '../../mockedResponseItem';
+import { ContextApp } from '../../../App';
+import { mockedResponseItem } from '../../../mockedResponse';
+import { mockedState } from '../../../mockedState';
 
 import { SearchItem } from './SearchItem';
 
@@ -12,7 +13,7 @@ describe('SearchItem test', () => {
       <BrowserRouter>
         <ContextApp.Provider
           value={{
-            state: SearchResultListMockFull,
+            state: mockedState,
             dispatch: () => null,
           }}
         >
