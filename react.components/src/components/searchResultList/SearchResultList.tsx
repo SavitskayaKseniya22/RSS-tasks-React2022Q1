@@ -22,8 +22,8 @@ export function SearchResultList() {
   } else if (state.response?.length) {
     activeBlock = (
       <ul className="Card-list" data-testid="card-list">
-        {state.response.map((elem, index) => (
-          <SearchItem key={index} item={elem} />
+        {state.response.map((elem) => (
+          <SearchItem key={elem.src} item={elem} />
         ))}
       </ul>
     );

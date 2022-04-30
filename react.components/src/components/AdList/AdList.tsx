@@ -7,8 +7,8 @@ export function AdList() {
 
   return (
     <ul className="ads-list" data-testid="ads-list">
-      {state.savedCards?.map((elem, index) => (
-        <AdCard key={index} item={elem} />
+      {state.savedCards?.map((elem) => (
+        <AdCard key={elem.adCreationDate + elem.title} item={elem} />
       ))}
     </ul>
   );

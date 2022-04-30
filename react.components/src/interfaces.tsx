@@ -126,6 +126,7 @@ export interface CardProps {
   currency: string;
   img: string;
   isFavorite: boolean;
+  adCreationDate: number;
 }
 
 export interface ReducerTypes {

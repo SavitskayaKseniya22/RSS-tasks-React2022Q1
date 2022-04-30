@@ -60,6 +60,7 @@ export function Form() {
       currency: data.currency,
       img: data.img,
       isFavorite: false,
+      adCreationDate: Date.now(),
     };
 
     if (data.img) {
