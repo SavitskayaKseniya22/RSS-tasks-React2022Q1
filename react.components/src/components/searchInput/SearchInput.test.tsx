@@ -13,14 +13,6 @@ describe('SearchInput tests', () => {
     fetchMock.restore();
   });
 
-  fetchMock.mock(
-    'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=20&query=car&order_by=latest',
-    {
-      body: mockedResponse,
-      status: 200,
-    }
-  );
-
   test('check search appearance', () => {
     render(<MainPage />);
     expect(screen.getByTestId('search-input')).toBeInTheDocument();
@@ -119,6 +111,13 @@ describe('SearchInput tests', () => {
   });
 
   test('check search work with results', async () => {
+    fetchMock.mock(
+      'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=20&query=car&order_by=latest',
+      {
+        body: mockedResponse,
+        status: 200,
+      }
+    );
     const Wrapper = () => {
       const [state, dispatch] = useReducer(reducer, mockedStateStart);
 
@@ -135,8 +134,11 @@ describe('SearchInput tests', () => {
 
     const search = screen.getByTestId('search-input') as HTMLInputElement;
     await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
+
+    expect(screen.queryByText('search for something')).toBeInTheDocument();
     await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
-    await waitFor(() => expect(screen.getByTestId('active-search')).toBeInTheDocument());
+
+    expect(screen.queryByText('search for something')).not.toBeInTheDocument();
     await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());
   });
 
