@@ -1,5 +1,5 @@
-import { Sort } from './Sort';
-import { MainPage } from '../../pages/MainPage/MainPage';
+import Sort from './Sort';
+import MainPage from '../../pages/MainPage/MainPage';
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp, reducer } from '../../App';
 import { mockedState } from '../../mockedState';

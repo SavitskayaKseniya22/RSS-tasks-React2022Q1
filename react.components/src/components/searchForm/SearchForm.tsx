@@ -1,12 +1,12 @@
-import { Sort } from '../Sort/Sort';
-import { SearchInput } from '../SearchInput/SearchInput';
-import { ResultsPerPage } from '../ResultsPerPage/ResultsPerPage';
-import { Pagination } from '../Pagination/Pagination';
+import Sort from '../Sort/Sort';
+import SearchInput from '../SearchInput/SearchInput';
+import ResultsPerPage from '../ResultsPerPage/ResultsPerPage';
+import Pagination from '../Pagination/Pagination';
 import { ContextApp } from '../../App';
 import { SearchItemDetailType, ResponseItemType, ResponseType } from '../../interfaces';
 import { useEffect, FormEvent, useContext } from 'react';
 
-export function SearchForm() {
+const SearchForm = () => {
   const { state, dispatch } = useContext(ContextApp);
 
   useEffect(() => {
@@ -84,4 +84,6 @@ export function SearchForm() {
       <input type="submit" value="Update" className="hidden-button" />
     </form>
   );
-}
+};
+
+export default SearchForm;

@@ -4,7 +4,7 @@ import { ContextApp } from '../../App';
 import { SearchItemDetailType } from '../../interfaces';
 import './searchItem.css';
 
-export function SearchItem(props: { item: SearchItemDetailType }) {
+const SearchItem = (props: { item: SearchItemDetailType }) => {
   const { dispatch } = useContext(ContextApp);
   const handleClick = (
     e:
@@ -30,4 +30,6 @@ export function SearchItem(props: { item: SearchItemDetailType }) {
       </NavLink>
     </li>
   );
-}
+};
+
+export default SearchItem;

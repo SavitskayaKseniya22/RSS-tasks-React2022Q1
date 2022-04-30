@@ -2,7 +2,7 @@ import { ContextApp } from '../../App';
 import { ChangeEvent, useContext, useEffect } from 'react';
 import '../SearchForm/searchForm.css';
 
-export function SearchInput() {
+const SearchInput = () => {
   const { state, dispatch } = useContext(ContextApp);
 
   useEffect(() => {
@@ -33,4 +33,6 @@ export function SearchInput() {
       placeholder="search"
     />
   );
-}
+};
+
+export default SearchInput;

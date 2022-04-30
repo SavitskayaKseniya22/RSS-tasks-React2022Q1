@@ -1,11 +1,10 @@
 import { ContextApp } from '../../App';
-import { AdList } from '../../components/AdList/AdList';
-import { Form } from '../../components/Form/Form';
+import AdList from '../../components/AdList/AdList';
+import Form from '../../components/Form/Form';
 import { useContext } from 'react';
-
 import './Ads.css';
 
-export function Ads() {
+const Ads = () => {
   const { state } = useContext(ContextApp);
 
   return (
@@ -15,4 +14,6 @@ export function Ads() {
       {state.savedCards && state.savedCards.length > 0 && <AdList />}
     </div>
   );
-}
+};
+
+export default Ads;

@@ -4,7 +4,7 @@ import { FormEvent, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './form.css';
 
-export function Form() {
+const Form = () => {
   const { state, dispatch } = useContext(ContextApp);
   const {
     register,
@@ -309,4 +309,6 @@ export function Form() {
       </form>
     </div>
   );
-}
+};
+
+export default Form;

@@ -1,4 +1,4 @@
-import { SearchItem } from './SearchItem';
+import SearchItem from './SearchItem';
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp } from '../../App';
 import { mockedResponseItem } from '../../mockedResponse';

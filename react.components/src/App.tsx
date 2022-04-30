@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { MainPage } from './pages/MainPage/MainPage';
-import { Ads } from './pages/Ads/Ads';
-import { AboutUs } from './pages/AboutUs/AboutUs';
-import { Footer } from './components/Footer/Footer';
-import { Header } from './components/Header/Header';
-import { SearchItemDetails } from './components/SearchItemDetails/SearchItemDetails';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import SearchItemDetails from './components/SearchItemDetails/SearchItemDetails';
+import AboutUs from './pages/AboutUs/AboutUs';
+import Ads from './pages/Ads/Ads';
+import MainPage from './pages/MainPage/MainPage';
 import { Dispatch, useReducer } from 'react';
 import { GlobalTypes, ReducerTypes } from './interfaces';
 import './App.css';
@@ -73,7 +73,8 @@ export function reducer(state: GlobalTypes, action: ReducerTypes): GlobalTypes {
       return state;
   }
 }
-function App() {
+
+const App = () => {
   const [state, dispatch] = useReducer(reducer, initialValues);
 
   return (
@@ -103,6 +104,6 @@ function App() {
       </ContextApp.Provider>
     </div>
   );
-}
+};
 
 export default App;

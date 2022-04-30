@@ -1,5 +1,5 @@
 import App from '../../App';
-import { AboutUs } from './AboutUs';
+import AboutUs from './AboutUs';
 import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 

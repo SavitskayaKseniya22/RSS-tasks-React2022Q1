@@ -6,7 +6,7 @@ import phoneImg from '../../assets/svg/phone.svg';
 import linkImg from '../../assets/svg/forward-next-arrow.svg';
 import likeImg from '../../assets/svg/like.svg';
 
-export function AdCard(props: { item: CardProps }) {
+const AdCard = (props: { item: CardProps }) => {
   const { item } = props;
   const [isFavorite, setIsFavorite] = useState(item.isFavorite);
 
@@ -63,4 +63,6 @@ export function AdCard(props: { item: CardProps }) {
       </button>
     </li>
   );
-}
+};
+
+export default AdCard;

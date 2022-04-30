@@ -1,4 +1,4 @@
-import { Ads } from './Ads';
+import Ads from './Ads';
 import { MemoryRouter } from 'react-router-dom';
 import App, { ContextApp } from '../../App';
 import { mockedState } from '../../mockedState';

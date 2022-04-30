@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp } from '../../App';
-import { SearchItemDetails } from './SearchItemDetails';
+import SearchItemDetails from './SearchItemDetails';
 import { mockedState, mockedStateWithEmptyActiveCard } from '../../mockedState';
 import { render, screen } from '@testing-library/react';
 

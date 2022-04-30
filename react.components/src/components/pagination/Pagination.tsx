@@ -3,7 +3,7 @@ import { ChangeEvent, useContext } from 'react';
 import { MouseEvent } from 'react';
 import '../SearchForm/searchForm.css';
 
-export function Pagination() {
+const Pagination = () => {
   const { state, dispatch } = useContext(ContextApp);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -80,4 +80,6 @@ export function Pagination() {
       </button>
     </div>
   );
-}
+};
+
+export default Pagination;

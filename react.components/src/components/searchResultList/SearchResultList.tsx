@@ -1,8 +1,8 @@
-import { SearchItem } from '../SearchItem/SearchItem';
+import SearchItem from '../SearchItem/SearchItem';
 import { ContextApp } from '../../App';
 import { useContext } from 'react';
 
-export function SearchResultList() {
+const SearchResultList = () => {
   const { state } = useContext(ContextApp);
   let activeBlock;
   if (state.isLoading) {
@@ -34,4 +34,6 @@ export function SearchResultList() {
   }
 
   return activeBlock as JSX.Element;
-}
+};
+
+export default SearchResultList;

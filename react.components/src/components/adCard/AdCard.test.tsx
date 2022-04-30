@@ -1,4 +1,4 @@
-import { AdCard } from './AdCard';
+import AdCard from './AdCard';
 import { reducer, ContextApp } from '../../App';
 import { data } from '../../mockedData';
 import { mockedState } from '../../mockedState';

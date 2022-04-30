@@ -1,5 +1,5 @@
-import { ResultsPerPage } from './ResultsPerPage';
-import { MainPage } from '../../pages/MainPage/MainPage';
+import ResultsPerPage from './ResultsPerPage';
+import MainPage from '../../pages/MainPage/MainPage';
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp, reducer } from '../../App';
 import { mockedState } from '../../mockedState';

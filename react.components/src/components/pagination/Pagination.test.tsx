@@ -1,5 +1,5 @@
-import { MainPage } from '../../pages/MainPage/MainPage';
-import { Pagination } from './Pagination';
+import MainPage from '../../pages/MainPage/MainPage';
+import Pagination from './Pagination';
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp, reducer } from '../../App';
 import { mockedState } from '../../mockedState';

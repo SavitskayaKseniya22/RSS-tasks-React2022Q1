@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp } from '../../App';
-import { SearchResultList } from './SearchResultList';
+import SearchResultList from './SearchResultList';
 import {
   mockedStateLoading,
   mockedStateError,

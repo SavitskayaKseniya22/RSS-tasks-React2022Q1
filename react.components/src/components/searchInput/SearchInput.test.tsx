@@ -1,5 +1,5 @@
-import { MainPage } from '../../pages/MainPage/MainPage';
-import { SearchInput } from './SearchInput';
+import MainPage from '../../pages/MainPage/MainPage';
+import SearchInput from './SearchInput';
 import { BrowserRouter } from 'react-router-dom';
 import { reducer, ContextApp } from '../../App';
 import { mockedResponse } from '../../mockedResponse';
@@ -64,50 +64,6 @@ describe('SearchInput tests', () => {
     });
 
     expect(window.localStorage.getItem('searchValue')).toBe('car');
-  });
-
-  test('check restore value', async () => {
-    jest.spyOn(Object.getPrototypeOf(window.localStorage), 'setItem');
-    jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem');
-    Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
-    Object.setPrototypeOf(window.localStorage.getItem, jest.fn());
-
-    await waitFor(() => {
-      window.localStorage.setItem('searchValue', 'car');
-    });
-
-    const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, {
-        value: window.localStorage.getItem('searchValue') || '',
-        response: [],
-        isLoading: false,
-        isSearchOver: false,
-        isError: false,
-        activeCard: undefined,
-        sort: 'latest',
-        itemsPerPage: '20',
-        pageNumber: '1',
-        maxPageNumber: 10,
-        shouldUpdate: false,
-        savedCards: [],
-      });
-
-      return (
-        <ContextApp.Provider value={{ state, dispatch }}>
-          <SearchInput />
-        </ContextApp.Provider>
-      );
-    };
-    render(<Wrapper />);
-    expect(window.localStorage.setItem).toHaveBeenCalledWith('searchValue', 'car');
-    expect(window.localStorage.getItem).toHaveBeenCalled();
-    expect(window.localStorage.getItem).toHaveBeenCalledWith('searchValue');
-    //expect(window.localStorage.getItem).toHaveReturnedWith('car');
-    //const search = screen.getByTestId('search-input') as HTMLInputElement;
-    /*
-    await waitFor(() => {
-      expect(search.value).toBe(window.localStorage.getItem('searchValue'));
-    });*/
   });
 
   test('check search work with results', async () => {

@@ -2,7 +2,7 @@ import { ContextApp } from '../../App';
 import { ChangeEvent, useContext } from 'react';
 import '../SearchForm/searchForm.css';
 
-export function Sort() {
+const Sort = () => {
   const { state, dispatch } = useContext(ContextApp);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -30,4 +30,6 @@ export function Sort() {
       <option value="popular">popular</option>
     </select>
   );
-}
+};
+
+export default Sort;

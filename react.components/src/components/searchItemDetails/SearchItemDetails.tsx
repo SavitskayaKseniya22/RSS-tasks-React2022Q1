@@ -3,7 +3,7 @@ import { ContextApp } from '../../App';
 import { useContext } from 'react';
 import '../SearchItem/searchItem.css';
 
-export function SearchItemDetails() {
+const SearchItemDetails = () => {
   const { state } = useContext(ContextApp);
 
   return (
@@ -62,4 +62,6 @@ export function SearchItemDetails() {
       </NavLink>
     </div>
   );
-}
+};
+
+export default SearchItemDetails;

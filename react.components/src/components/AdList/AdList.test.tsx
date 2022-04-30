@@ -1,4 +1,4 @@
-import { AdList } from './AdList';
+import AdList from './AdList';
 import { ContextApp } from '../../App';
 import { mockedState } from '../../mockedState';
 import { render, screen } from '@testing-library/react';

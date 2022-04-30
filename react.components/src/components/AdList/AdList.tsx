@@ -1,8 +1,8 @@
-import { AdCard } from '../AdCard/AdCard';
+import AdCard from '../AdCard/AdCard';
 import { ContextApp } from '../../App';
 import { useContext } from 'react';
 
-export function AdList() {
+const AdList = () => {
   const { state } = useContext(ContextApp);
 
   return (
@@ -12,4 +12,6 @@ export function AdList() {
       ))}
     </ul>
   );
-}
+};
+
+export default AdList;

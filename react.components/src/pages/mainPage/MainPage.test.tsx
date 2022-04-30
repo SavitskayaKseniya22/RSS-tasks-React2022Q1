@@ -1,5 +1,5 @@
 import App, { ContextApp } from '../../App';
-import { MainPage } from './MainPage';
+import MainPage from './MainPage';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 import { mockedState } from '../../mockedState';
 import { render, screen, waitFor } from '@testing-library/react';
