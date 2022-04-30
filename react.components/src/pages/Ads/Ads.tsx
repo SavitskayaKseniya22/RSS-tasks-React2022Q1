@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { AdsList } from '../../components/AdsList/AdsList';
 import { Form } from '../../components/Form/Form';
 import { CardProps } from '../../interfaces';
+import { useState } from 'react';
 import './ads.css';
 
 export const Ads = () => {

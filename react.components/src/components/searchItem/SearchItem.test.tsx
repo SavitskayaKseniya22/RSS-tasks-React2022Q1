@@ -1,6 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { mockedResponseItem, mockedResponseItemEmpty } from '../../mockedResponseItem';
 import { SearchItem } from './SearchItem';
+import { mockedResponseItem, mockedResponseItemEmpty } from '../../mockedResponseItem';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 describe('SearchItem test', () => {
   test('check searchItem appearance', () => {

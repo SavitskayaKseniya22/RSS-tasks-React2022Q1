@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
 import { SearchResultList } from './SearchResultList';
+import { render, screen } from '@testing-library/react';
 
 const SearchResultListMockIsDownloading = {
   value: 'text',

@@ -1,10 +1,10 @@
-import { ChangeEvent, FormEvent, useEffect } from 'react';
 import {
   SearchInputProps,
   ResponseItemType,
   SearchItemDetailType,
   ResponseType,
 } from '../../interfaces';
+import { ChangeEvent, FormEvent, useEffect } from 'react';
 import './searchInput.css';
 
 export const SearchInput = (props: SearchInputProps) => {

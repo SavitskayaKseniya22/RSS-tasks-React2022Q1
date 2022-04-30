@@ -1,7 +1,7 @@
-import { FormEvent } from 'react';
-import './form.css';
-import { useForm } from 'react-hook-form';
 import { CardProps } from '../../interfaces';
+import { FormEvent } from 'react';
+import { useForm } from 'react-hook-form';
+import './form.css';
 
 export const Form = (props: { changeState: (object: CardProps) => void }) => {
   const {

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import { SearchItemType } from '../../interfaces';
+import React, { useState } from 'react';
 import './searchItem.css';
 
 export const SearchItem = (props: SearchItemType) => {

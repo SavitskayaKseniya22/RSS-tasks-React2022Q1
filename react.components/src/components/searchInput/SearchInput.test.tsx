@@ -1,7 +1,7 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import fetchMock from 'fetch-mock';
-import { mockedResponse } from '../../mockedResponse';
 import { MainPage } from '../../pages/MainPage/MainPage';
+import { mockedResponse } from '../../mockedResponse';
+import fetchMock from 'fetch-mock';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 describe('SearchInput tests', () => {
   afterEach(() => {

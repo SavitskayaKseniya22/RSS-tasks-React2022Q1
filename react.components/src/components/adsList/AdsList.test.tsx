@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
 import { AdsList } from './AdsList';
+import { render, screen } from '@testing-library/react';
 
 test('check form appearance', () => {
   render(

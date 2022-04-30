@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import App from './App';
+import { MemoryRouter } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
 
 test('check 404 page', () => {
   render(

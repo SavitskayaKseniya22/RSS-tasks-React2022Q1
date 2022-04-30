@@ -1,5 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
 import { AdCard } from './AdCard';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 test('check card appearance', () => {
   render(<AdCard />);

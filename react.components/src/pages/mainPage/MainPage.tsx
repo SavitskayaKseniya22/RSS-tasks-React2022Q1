@@ -1,8 +1,8 @@
+import { SearchInput } from '../../components/SearchInput/SearchInput';
+import { SearchResultList } from '../../components/SearchResultList/SearchResultList';
+import { MainPageType, SearchItemDetailType } from '../../interfaces';
 import { useState } from 'react';
 import './mainPage.css';
-import { SearchInput } from '../../components/SearchInput/SearchInput';
-import { MainPageType, SearchItemDetailType } from '../../interfaces';
-import { SearchResultList } from '../../components/SearchResultList/SearchResultList';
 
 export const MainPage = () => {
   const initialValues: MainPageType = {

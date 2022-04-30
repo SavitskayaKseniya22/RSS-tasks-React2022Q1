@@ -1,6 +1,6 @@
+import { CardProps } from '../../interfaces';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { CardProps } from '../../interfaces';
 
 import { Form } from './Form';
 describe('form test', () => {

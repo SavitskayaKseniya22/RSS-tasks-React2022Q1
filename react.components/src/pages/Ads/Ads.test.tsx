@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
 import { Ads } from './Ads';
+import { render, screen } from '@testing-library/react';
 
 test('check Ads appearance', () => {
   render(<Ads />);
