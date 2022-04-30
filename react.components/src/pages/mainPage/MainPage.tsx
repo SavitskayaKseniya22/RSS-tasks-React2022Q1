@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import './mainPage.css';
-import { SearchInput } from '../../components/searchInput/SearchInput';
+import { SearchInput } from '../../components/SearchInput/SearchInput';
 import { MainPageType, SearchItemDetailType } from '../../interfaces';
-import { SearchResultList } from '../../components/searchResultList/SearchResultList';
+import { SearchResultList } from '../../components/SearchResultList/SearchResultList';
 
-export function MainPage() {
+export const MainPage = () => {
   const initialValues: MainPageType = {
     value: window.localStorage.getItem('searchValue') || '',
     response: [],
@@ -12,15 +12,15 @@ export function MainPage() {
     isSearchOver: false,
     isError: false,
   };
-  const [state, setState] = useState(initialValues);
+  const [mainState, setMainState] = useState(initialValues);
 
   const handleChange = (value: string) => {
-    setState({ ...state, value: value });
+    setMainState({ ...mainState, value: value });
   };
 
   const handleDownload = (response: SearchItemDetailType[], load: boolean, error?: boolean) => {
-    setState({
-      ...state,
+    setMainState({
+      ...mainState,
       response: response,
       isDownloading: load,
       isSearchOver: !load,
@@ -31,11 +31,11 @@ export function MainPage() {
   return (
     <main data-testid="main-page">
       <SearchInput
-        value={state.value}
+        value={mainState.value}
         handleChange={handleChange}
         handleDownload={handleDownload}
       />
-      <SearchResultList data={state} />
+      <SearchResultList data={mainState} />
     </main>
   );
-}
+};

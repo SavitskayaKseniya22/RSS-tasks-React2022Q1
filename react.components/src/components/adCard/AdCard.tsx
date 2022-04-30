@@ -1,62 +1,61 @@
-import React, { useState } from 'react';
+import { CardProps } from '../../interfaces';
+import { useState } from 'react';
+import './adCard.css';
 import emailImg from '../../assets/svg/mail.svg';
 import phoneImg from '../../assets/svg/phone.svg';
 import linkImg from '../../assets/svg/forward-next-arrow.svg';
 import tempImgHouse from '../../assets/svg/temp-house.jpg';
 import likeImg from '../../assets/svg/like.svg';
-import './adCard.css';
-import { CardProps } from '../../interfaces';
 
-export function AdCard(props: { item: CardProps }) {
-  const [state, setState] = useState({
-    isFavorite: false,
-  });
+export const AdCard = (props: { item: CardProps }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { item } = props;
 
   const handleClick = () => {
-    setState((state) => ({ isFavorite: !state.isFavorite }));
+    setIsFavorite((isFavorite) => !isFavorite);
   };
 
   return (
     <li className="card" data-testid="card-item">
-      <img src={props.item.img} alt="lot img" />
+      <img src={item.img} alt="lot img" />
       <h3>
-        <strong>{props.item.title}</strong>
+        <strong>{item.title}</strong>
       </h3>
       <div className="card__adress">
-        <i>{props.item.adress}</i>
+        <i>{item.adress}</i>
       </div>
       <div className="card__description" data-testid="card-item__description">
-        <p className="card__description-text">{props.item.description}</p>
+        <p className="card__description-text">{item.description}</p>
       </div>
       <p>
-        Date of construction: <span className="card__date">{props.item.date}</span>{' '}
+        Date of construction: <span className="card__date">{item.date}</span>{' '}
       </p>
       <span className="card__price">
-        {props.item.price}
-        {props.item.currency}
+        {item.price}
+        {item.currency}
       </span>
-      <span className="card__area">{props.item.area}&#13217;</span>
-      <span className="card__type">{props.item.typeAdd}</span>
+      <span className="card__area">{item.area}&#13217;</span>
+      <span className="card__type">{item.typeAdd}</span>
 
-      {props.item.isReady ? (
+      {item.isReady ? (
         <span className="card__ready card__ready-ok">Ready to use &#10003;</span>
       ) : (
         <span className="card__ready card__ready-wait">Need to wait &#10007;</span>
       )}
 
       <div className="card__links" data-testid="card-item__links">
-        <a href={'tel:' + props.item.phone} className="card__phone">
+        <a href={'tel:' + item.phone} className="card__phone">
           <img src={phoneImg} alt="call me" />
         </a>
-        <a href={'mailto:' + props.item.email} className="card__email">
+        <a href={'mailto:' + item.email} className="card__email">
           <img src={emailImg} alt="email me" />
         </a>
-        <a href={props.item.link} target="_blank" className="card__link-to-order" rel="noreferrer">
+        <a href={item.link} target="_blank" className="card__link-to-order" rel="noreferrer">
           <img src={linkImg} alt="go to site" />
         </a>
       </div>
       <button
-        className={state.isFavorite ? 'card__mark-like favorite-add' : 'card__mark-like'}
+        className={isFavorite ? 'card__mark-like favorite-add' : 'card__mark-like'}
         onClick={handleClick}
         data-testid="card__mark-like"
       >
@@ -64,7 +63,7 @@ export function AdCard(props: { item: CardProps }) {
       </button>
     </li>
   );
-}
+};
 
 AdCard.defaultProps = {
   item: {
