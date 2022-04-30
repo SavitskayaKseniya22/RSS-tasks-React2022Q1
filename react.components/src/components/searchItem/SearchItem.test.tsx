@@ -1,10 +1,8 @@
 import { render, screen } from '@testing-library/react';
-
 import { BrowserRouter } from 'react-router-dom';
-import { ContextApp } from '../../../App';
-import { mockedResponseItem } from '../../../mockedResponse';
-import { mockedState } from '../../../mockedState';
-
+import { ContextApp } from '../../App';
+import { mockedResponseItem } from '../../mockedResponse';
+import { mockedState } from '../../mockedState';
 import { SearchItem } from './SearchItem';
 
 describe('SearchItem test', () => {

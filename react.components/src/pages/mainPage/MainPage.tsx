@@ -1,5 +1,5 @@
-import { SearchForm } from '../../components/mainPage/SearchForm/SearchForm';
-import { SearchResultList } from '../../components/mainPage/SearchResultList/SearchResultList';
+import { SearchForm } from '../../components/SearchForm/SearchForm';
+import { SearchResultList } from '../../components/SearchResultList/SearchResultList';
 import './mainPage.css';
 
 export function MainPage() {

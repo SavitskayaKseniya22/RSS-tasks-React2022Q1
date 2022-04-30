@@ -1,5 +1,4 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-
 import fetchMock from 'fetch-mock';
 import { useReducer } from 'react';
 import { BrowserRouter } from 'react-router-dom';

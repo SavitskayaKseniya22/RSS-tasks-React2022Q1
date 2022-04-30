@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ContextApp } from '../../../App';
-import { SearchItemDetailType } from '../../../interfaces';
+import { ContextApp } from '../../App';
+import { SearchItemDetailType } from '../../interfaces';
 
 import './searchItem.css';
 

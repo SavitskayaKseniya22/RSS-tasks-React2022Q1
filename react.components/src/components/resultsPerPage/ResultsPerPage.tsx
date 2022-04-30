@@ -1,5 +1,5 @@
 import { ChangeEvent, useContext } from 'react';
-import { ContextApp } from '../../../App';
+import { ContextApp } from '../../App';
 
 import '../SearchForm/searchForm.css';
 

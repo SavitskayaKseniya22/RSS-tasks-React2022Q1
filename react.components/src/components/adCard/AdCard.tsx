@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import { CardProps } from '../../interfaces';
+import emailImg from '../../assets/svg/mail.svg';
+import phoneImg from '../../assets/svg/phone.svg';
+import linkImg from '../../assets/svg/forward-next-arrow.svg';
+import likeImg from '../../assets/svg/like.svg';
 
 export function AdCard(props: { item: CardProps }) {
   const { item } = props;
