@@ -1,10 +1,10 @@
-import { SearchInput } from '../SearchInput/SearchInput';
-import { ContextApp } from '../../App';
 import { Sort } from '../Sort/Sort';
-import { useEffect, FormEvent, useContext } from 'react';
-import { SearchItemDetailType, ResponseItemType, ResponseType } from '../../interfaces';
+import { SearchInput } from '../SearchInput/SearchInput';
 import { ResultsPerPage } from '../ResultsPerPage/ResultsPerPage';
 import { Pagination } from '../Pagination/Pagination';
+import { ContextApp } from '../../App';
+import { SearchItemDetailType, ResponseItemType, ResponseType } from '../../interfaces';
+import { useEffect, FormEvent, useContext } from 'react';
 
 export function SearchForm() {
   const { state, dispatch } = useContext(ContextApp);

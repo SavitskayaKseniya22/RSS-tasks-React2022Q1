@@ -1,12 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { useReducer } from 'react';
+import { ResultsPerPage } from './ResultsPerPage';
+import { MainPage } from '../../pages/MainPage/MainPage';
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp, reducer } from '../../App';
 import { mockedState } from '../../mockedState';
-import { MainPage } from '../../pages/MainPage/MainPage';
-
-import { ResultsPerPage } from './ResultsPerPage';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { useReducer } from 'react';
 
 describe('ResultsPerPage tests', () => {
   test('check Sort appearance', async () => {

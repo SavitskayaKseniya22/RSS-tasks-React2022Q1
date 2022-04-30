@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp } from '../../App';
+import { SearchResultList } from './SearchResultList';
 import {
   mockedStateLoading,
   mockedStateError,
@@ -8,8 +8,7 @@ import {
   mockedStateStart,
   mockedState,
 } from '../../mockedState';
-
-import { SearchResultList } from './SearchResultList';
+import { render, screen } from '@testing-library/react';
 
 describe('SearchResults tests', () => {
   test('check SearchResultList page download', () => {

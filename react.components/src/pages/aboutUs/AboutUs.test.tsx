@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import App from '../../App';
 import { AboutUs } from './AboutUs';
+import { MemoryRouter } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
 
 describe('AboutUs test', () => {
   test('check AboutUs page appearance', () => {

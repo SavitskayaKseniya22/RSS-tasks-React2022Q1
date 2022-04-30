@@ -1,6 +1,5 @@
-import React from 'react';
-import { ChangeEvent, useContext } from 'react';
 import { ContextApp } from '../../App';
+import { ChangeEvent, useContext } from 'react';
 import '../SearchForm/searchForm.css';
 
 export function Sort() {

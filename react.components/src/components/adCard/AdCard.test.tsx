@@ -1,10 +1,10 @@
-import { fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { useReducer } from 'react';
+import { AdCard } from './AdCard';
 import { reducer, ContextApp } from '../../App';
 import { data } from '../../mockedData';
 import { mockedState } from '../../mockedState';
-import { AdCard } from './AdCard';
+import { fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { useReducer } from 'react';
 import { render, screen } from '@testing-library/react';
 
 describe('check forming card with data', () => {

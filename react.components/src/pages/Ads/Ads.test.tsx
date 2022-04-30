@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { Ads } from './Ads';
 import { MemoryRouter } from 'react-router-dom';
 import App, { ContextApp } from '../../App';
 import { mockedState } from '../../mockedState';
-import { Ads } from './Ads';
+import { render, screen } from '@testing-library/react';
 
 describe('myAds test', () => {
   test('check Ads page appearance with link', () => {

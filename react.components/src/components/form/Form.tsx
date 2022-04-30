@@ -1,8 +1,8 @@
-import { FormEvent, useContext, useEffect } from 'react';
-import './form.css';
-import { useForm } from 'react-hook-form';
-import { CardProps } from '../../interfaces';
 import { ContextApp } from '../../App';
+import { CardProps } from '../../interfaces';
+import { FormEvent, useContext, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import './form.css';
 
 export function Form() {
   const { state, dispatch } = useContext(ContextApp);

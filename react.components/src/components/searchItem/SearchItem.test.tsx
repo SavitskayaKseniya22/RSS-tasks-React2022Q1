@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { SearchItem } from './SearchItem';
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp } from '../../App';
 import { mockedResponseItem } from '../../mockedResponse';
 import { mockedState } from '../../mockedState';
-import { SearchItem } from './SearchItem';
+import { render, screen } from '@testing-library/react';
 
 describe('SearchItem test', () => {
   test('check searchItem appearance', () => {

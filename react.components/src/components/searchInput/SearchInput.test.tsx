@@ -1,13 +1,12 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import fetchMock from 'fetch-mock';
-import { useReducer } from 'react';
+import { MainPage } from '../../pages/MainPage/MainPage';
+import { SearchInput } from './SearchInput';
 import { BrowserRouter } from 'react-router-dom';
 import { reducer, ContextApp } from '../../App';
 import { mockedResponse } from '../../mockedResponse';
 import { mockedStateStart } from '../../mockedState';
-import { MainPage } from '../../pages/MainPage/MainPage';
-
-import { SearchInput } from './SearchInput';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import fetchMock from 'fetch-mock';
+import { useReducer } from 'react';
 
 describe('SearchInput tests', () => {
   afterEach(() => {

@@ -1,6 +1,6 @@
+import { AdList } from './AdList';
 import { ContextApp } from '../../App';
 import { mockedState } from '../../mockedState';
-import { AdList } from './AdList';
 import { render, screen } from '@testing-library/react';
 
 test('check AdList appearance', () => {

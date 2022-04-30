@@ -1,15 +1,14 @@
+import React from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import './App.css';
 import { MainPage } from './pages/MainPage/MainPage';
 import { Ads } from './pages/Ads/Ads';
-import { Dispatch, useReducer } from 'react';
-import { GlobalTypes, ReducerTypes } from './interfaces';
-import React from 'react';
-
 import { AboutUs } from './pages/AboutUs/AboutUs';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { SearchItemDetails } from './components/SearchItemDetails/SearchItemDetails';
+import { Dispatch, useReducer } from 'react';
+import { GlobalTypes, ReducerTypes } from './interfaces';
+import './App.css';
 
 export const initialValues: GlobalTypes = {
   value: window.localStorage.getItem('searchValue') || '',

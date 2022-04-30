@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import { ContextApp } from '../../App';
 import { AdCard } from '../AdCard/AdCard';
+import { ContextApp } from '../../App';
+import { useContext } from 'react';
 
 export function AdList() {
   const { state } = useContext(ContextApp);

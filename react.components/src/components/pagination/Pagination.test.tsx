@@ -1,12 +1,11 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { useReducer } from 'react';
+import { MainPage } from '../../pages/MainPage/MainPage';
+import { Pagination } from './Pagination';
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp, reducer } from '../../App';
 import { mockedState } from '../../mockedState';
-import { MainPage } from '../../pages/MainPage/MainPage';
-
-import { Pagination } from './Pagination';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { useReducer } from 'react';
 
 describe('Pagination tests', () => {
   test('check Pagination appearance', async () => {

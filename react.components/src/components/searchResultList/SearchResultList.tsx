@@ -1,6 +1,6 @@
-import { useContext } from 'react';
 import { SearchItem } from '../SearchItem/SearchItem';
 import { ContextApp } from '../../App';
+import { useContext } from 'react';
 
 export function SearchResultList() {
   const { state } = useContext(ContextApp);

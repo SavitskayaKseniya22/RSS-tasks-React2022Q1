@@ -1,11 +1,11 @@
+import { Ads } from '../../pages/Ads/Ads';
+import { Form } from './Form';
+import { reducer, ContextApp } from '../../App';
+import { mockedStateStart } from '../../mockedState';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useReducer } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { reducer, ContextApp } from '../../App';
-import { mockedStateStart } from '../../mockedState';
-import { Ads } from '../../pages/Ads/Ads';
-import { Form } from './Form';
 
 describe('form test', () => {
   test('check form appearance', () => {

@@ -1,6 +1,6 @@
+import { ContextApp } from '../../App';
 import { ChangeEvent, useContext } from 'react';
 import { MouseEvent } from 'react';
-import { ContextApp } from '../../App';
 import '../SearchForm/searchForm.css';
 
 export function Pagination() {

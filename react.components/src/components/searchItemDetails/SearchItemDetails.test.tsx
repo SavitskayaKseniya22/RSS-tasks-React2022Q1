@@ -1,9 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ContextApp } from '../../App';
-import { mockedState, mockedStateWithEmptyActiveCard } from '../../mockedState';
-
 import { SearchItemDetails } from './SearchItemDetails';
+import { mockedState, mockedStateWithEmptyActiveCard } from '../../mockedState';
+import { render, screen } from '@testing-library/react';
 
 describe('SearchItemDetails test', () => {
   test('check SearchItemDetails for full content', () => {

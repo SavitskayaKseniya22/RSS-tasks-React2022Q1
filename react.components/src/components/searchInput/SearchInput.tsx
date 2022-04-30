@@ -1,5 +1,5 @@
-import { ChangeEvent, useContext, useEffect } from 'react';
 import { ContextApp } from '../../App';
+import { ChangeEvent, useContext, useEffect } from 'react';
 import '../SearchForm/searchForm.css';
 
 export function SearchInput() {

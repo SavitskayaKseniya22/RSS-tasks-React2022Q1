@@ -1,6 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
 import { Header } from './Header';
+import { BrowserRouter } from 'react-router-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 describe('header tests', () => {
   test('check link appearance', () => {

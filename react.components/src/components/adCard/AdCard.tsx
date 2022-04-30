@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { CardProps } from '../../interfaces';
+import { useState } from 'react';
+import './adCard.css';
 import emailImg from '../../assets/svg/mail.svg';
 import phoneImg from '../../assets/svg/phone.svg';
 import linkImg from '../../assets/svg/forward-next-arrow.svg';

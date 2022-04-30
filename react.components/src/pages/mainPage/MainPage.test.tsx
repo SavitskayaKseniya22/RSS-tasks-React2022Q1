@@ -1,8 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 import App, { ContextApp } from '../../App';
-import { mockedState } from '../../mockedState';
 import { MainPage } from './MainPage';
+import { MemoryRouter, BrowserRouter } from 'react-router-dom';
+import { mockedState } from '../../mockedState';
+import { render, screen, waitFor } from '@testing-library/react';
 
 describe('MainPage test', () => {
   test('check MainPage page appearance', () => {
