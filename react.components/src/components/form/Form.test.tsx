@@ -1,17 +1,17 @@
 import { Ads } from '../../pages/Ads/Ads';
 import { Form } from './Form';
-import { reducer, ContextApp } from '../../App';
+import App, { reducer, ContextApp } from '../../App';
 import { mockedStateStart } from '../../mockedState';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useReducer } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { MainPage } from '../../pages/MainPage/MainPage';
 
 describe('form test', () => {
   test('check form appearance', () => {
     render(<Form />);
     const adPage = screen.getByTestId('form__container');
-    expect(adPage).toBeInTheDocument();
     expect(adPage).toContainElement(screen.getByTestId('form-ad'));
   });
 
@@ -22,12 +22,11 @@ describe('form test', () => {
     expect(title.value).toEqual('text input');
   });
 
-  test('check handleinput title work', () => {
+  test('check submit button disabled work', () => {
     render(<Form />);
-    const title = screen.getByTestId('form__title') as HTMLInputElement;
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     expect(submit.disabled).toEqual(true);
-    fireEvent.input(title, { target: { value: 'text input' } });
+    fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'text input' } });
     expect(submit.disabled).toEqual(false);
   });
 
@@ -65,12 +64,7 @@ describe('form test', () => {
     render(<Form />);
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'text' } });
-    fireEvent.input(screen.getByTestId('form__description'), { target: { value: 'text' } });
-    fireEvent.input(screen.getByTestId('form__tel'), { target: { value: 'text' } });
-    fireEvent.input(screen.getByTestId('form__email'), { target: { value: 'text' } });
-    fireEvent.input(screen.getByTestId('form__price'), { target: { value: 'text' } });
     fireEvent.input(screen.getByTestId('form__date'), { target: { value: 'text' } });
-    fireEvent.input(screen.getByTestId('form__area'), { target: { value: 'text' } });
     fireEvent.click(submit);
 
     await waitFor(() => expect(screen.getByTestId('form-ad')).toHaveClass('form form_invalid'));
@@ -116,5 +110,41 @@ describe('form test', () => {
     expect(screen.getByTestId('form-ad')).toHaveClass('form form_valid');
     await waitFor(() => expect(screen.getByTestId('ads').childNodes.length).toBe(3));
     await waitFor(() => expect(screen.getByTestId('ads-list').childNodes.length).toBe(1));
+  });
+
+  test('test restore data after unmount/mount', async () => {
+    const Wrapper = () => {
+      return (
+        <MemoryRouter initialEntries={['/ads']}>
+          <App />
+        </MemoryRouter>
+      );
+    };
+    render(<Wrapper />);
+
+    fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'texttext' } });
+    userEvent.selectOptions(screen.getByTestId('form__currency'), ['₽']);
+    userEvent.click(screen.getByTestId('form__ready-chechbox'));
+
+    const file = new File(['img'], 'img.png', { type: 'image/png' });
+    const fileUploader = screen.getByTestId('form__file') as HTMLInputElement;
+    await waitFor(() => userEvent.upload(fileUploader, file));
+
+    expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('texttext');
+    expect(screen.queryByText('Description:')).toBeInTheDocument();
+
+    await waitFor(() => userEvent.click(screen.getByTestId('main-page__link')));
+
+    expect(screen.queryByText('Description:')).not.toBeInTheDocument();
+
+    await waitFor(() => userEvent.click(screen.getByTestId('ads__link')));
+
+    expect(screen.queryByText('Description:')).toBeInTheDocument();
+    expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('texttext');
+    expect((screen.getByTestId('form__currency') as HTMLSelectElement).value).toEqual('₽');
+    expect(screen.getByTestId('form__ready-chechbox')).toBeChecked();
+
+    expect(fileUploader.files?.[0]).toStrictEqual(file);
+    expect(fileUploader.files).toHaveLength(1);
   });
 });

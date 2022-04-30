@@ -66,7 +66,7 @@ export function reducer(state: GlobalTypes, action: ReducerTypes): GlobalTypes {
     case 'handleAddsForm':
       return {
         ...state,
-        addsFormValues: action.payload.addsFormValues,
+        adsFormValues: action.payload.adsFormValues,
       };
 
     default:

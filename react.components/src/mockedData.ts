@@ -18,6 +18,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247080,
   },
   {
     adress: '4902 Marcella Ave, Laredo, Texas(TX), 78041',
@@ -35,6 +36,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247081,
   },
   {
     adress: '555 Roark Ln, Vicco, Kentucky(KY), 41773',
@@ -52,6 +54,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247084,
   },
   {
     adress: '8211 Woodview Drive, Onalaska, Wisconsin(WI), 54650',
@@ -69,6 +72,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247067,
   },
   {
     adress: '3406 Vinton St, Hopewell, Virginia(VA), 23860',
@@ -86,6 +90,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247088,
   },
   {
     adress: '8211 Woodview Drive, Onalaska, Wisconsin(WI), 54650',
@@ -103,6 +108,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247080,
   },
   {
     adress: '3406 Vinton St, Hopewell, Virginia(VA), 23860',
@@ -120,6 +126,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 165134224704,
   },
   {
     adress: '2240 Pinehurst Rd, Snellville, Georgia(GA), 30078',
@@ -137,6 +144,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247086,
   },
 
   {
@@ -155,6 +163,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247055,
   },
   {
     adress: '8211 Woodview Drive, Onalaska, Wisconsin(WI), 54650',
@@ -172,6 +181,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247123,
   },
   {
     adress: '3406 Vinton St, Hopewell, Virginia(VA), 23860',
@@ -189,6 +199,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247089,
   },
   {
     adress: '2240 Pinehurst Rd, Snellville, Georgia(GA), 30078',
@@ -206,6 +217,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247010,
   },
   {
     adress: '555 Roark Ln, Vicco, Kentucky(KY), 41773',
@@ -223,6 +235,7 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247079,
   },
   {
     adress: '2240 Pinehurst Rd, Snellville, Georgia(GA), 30078',
@@ -240,5 +253,6 @@ export const data: CardProps[] = [
     currency: '$',
     img: tempImgHouse,
     isFavorite: false,
+    adCreationDate: 1651342247077,
   },
 ];

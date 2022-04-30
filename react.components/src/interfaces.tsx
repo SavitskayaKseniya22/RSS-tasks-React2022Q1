@@ -11,7 +11,7 @@ export interface GlobalTypes {
   maxPageNumber?: number;
   shouldUpdate?: boolean;
   savedCards?: CardProps[];
-  addsFormValues?: CardProps;
+  adsFormValues?: CardProps;
 }
 
 export interface SearchItemDetailType {

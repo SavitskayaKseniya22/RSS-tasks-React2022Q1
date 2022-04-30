@@ -16,7 +16,7 @@ export function Form() {
   } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
-    defaultValues: state.addsFormValues,
+    defaultValues: state.adsFormValues,
   });
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export function Form() {
         type: 'handleAddsForm',
         payload: {
           ...state,
-          addsFormValues: values,
+          adsFormValues: values,
         },
       });
     };
@@ -233,7 +233,7 @@ export function Form() {
               onInput={handleInput}
               placeholder="Enter price"
             />
-            <select {...register('currency')} defaultValue="$">
+            <select {...register('currency')} defaultValue="$" data-testid="form__currency">
               <option value="$">&#36;</option>
               <option value="€">&#8364;</option>
               <option value="₽">&#8381;</option>
@@ -266,7 +266,7 @@ export function Form() {
         <div className="middle-field ad-type">
           <h3>Type of ad:</h3>
 
-          <input type="radio" id="sale" value="sale" defaultChecked {...register('typeAdd')} />
+          <input type="radio" id="sale" value="sale" {...register('typeAdd')} />
           <label className="switcher" htmlFor="sale">
             <span>Sale</span>
           </label>
@@ -279,7 +279,7 @@ export function Form() {
 
         <label className="middle-field">
           <h3>Ready for use</h3>
-          <input type="checkbox" {...register('isReady')} />
+          <input type="checkbox" {...register('isReady')} data-testid="form__ready-chechbox" />
         </label>
 
         <label className="big-field">
