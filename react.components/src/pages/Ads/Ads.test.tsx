@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { MyAds } from './MyAds';
+import { Ads } from './Ads';
 
-test('check MyAds appearance', () => {
-  render(<MyAds />);
-  expect(screen.getByTestId('my-ads')).toBeInTheDocument();
+test('check Ads appearance', () => {
+  render(<Ads />);
+  expect(screen.getByTestId('ads')).toBeInTheDocument();
   expect(screen.getByText('my advertisements')).toBeInTheDocument();
   expect(screen.getByTestId('form-ad')).toBeInTheDocument();
-  screen.debug();
 });
