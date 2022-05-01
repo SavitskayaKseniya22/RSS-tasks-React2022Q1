@@ -1,4 +1,4 @@
-import { SearchItem } from '../../components/SearchItem/SearchItem';
+import { SearchItem } from '../SearchItem/SearchItem';
 import { MainPageType } from '../../interfaces';
 
 export const SearchResultList = (props: { data: MainPageType }) => {
@@ -18,8 +18,8 @@ export const SearchResultList = (props: { data: MainPageType }) => {
   } else if (props.data.response.length) {
     activeBlock = (
       <ul className="Card-list" data-testid="card-list">
-        {props.data.response.map((elem, index) => (
-          <SearchItem key={index} item={elem} />
+        {props.data.response.map((elem) => (
+          <SearchItem key={elem.src} item={elem} />
         ))}
       </ul>
     );

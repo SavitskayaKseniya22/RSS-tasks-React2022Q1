@@ -41,6 +41,7 @@ export const Form = (props: { changeState: (object: CardProps) => void }) => {
       isReady: data.isReady,
       currency: data.currency,
       img: data.img,
+      adCreationDate: Date.now(),
     };
 
     if (data.img) {

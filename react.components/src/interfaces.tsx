@@ -129,4 +129,5 @@ export interface CardProps {
   isReady: boolean;
   currency: string;
   img: string;
+  adCreationDate?: number;
 }
