@@ -19,11 +19,11 @@ export const Header = () => {
         about us
       </NavLink>
       <NavLink
-        data-testid="my-ads__link"
+        data-testid="ads__link"
         className={({ isActive }) => (isActive ? 'active-link' : 'inActiveLink')}
         to="/ads"
       >
-        my ads
+        ads
       </NavLink>
     </header>
   );

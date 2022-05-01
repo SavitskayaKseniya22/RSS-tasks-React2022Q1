@@ -13,7 +13,7 @@ export const Ads = () => {
 
   return (
     <div data-testid="ads" className="ads">
-      <h1>my advertisements</h1>
+      <h1>advertisements</h1>
       <Form changeState={changeState} />
       {savedCards.length > 0 && <AdsList savedCards={savedCards} />}
     </div>
