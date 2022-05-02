@@ -6,9 +6,11 @@ import SearchItemDetails from './components/SearchItemDetails/SearchItemDetails'
 import AboutUs from './pages/AboutUs/AboutUs';
 import Ads from './pages/Ads/Ads';
 import MainPage from './pages/MainPage/MainPage';
-import { Dispatch, useReducer } from 'react';
+import { configureStore } from '@reduxjs/toolkit';
 import { GlobalTypes, ReducerTypes } from './interfaces';
 import './App.css';
+
+import { Provider } from 'react-redux';
 
 export const initialValues: GlobalTypes = {
   value: window.localStorage.getItem('searchValue') || '',
@@ -25,15 +27,7 @@ export const initialValues: GlobalTypes = {
   savedCards: [],
 };
 
-export const ContextApp = React.createContext<{
-  state: GlobalTypes;
-  dispatch: Dispatch<ReducerTypes>;
-}>({
-  state: initialValues,
-  dispatch: () => null,
-});
-
-export function reducer(state: GlobalTypes, action: ReducerTypes): GlobalTypes {
+export const reducer = (state = initialValues, action: ReducerTypes) => {
   switch (action.type) {
     case 'handleDownload':
       return {
@@ -72,14 +66,14 @@ export function reducer(state: GlobalTypes, action: ReducerTypes): GlobalTypes {
     default:
       return state;
   }
-}
+};
+
+export const store = configureStore({ reducer });
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialValues);
-
   return (
     <div className="App" data-testid="app">
-      <ContextApp.Provider value={{ state, dispatch }}>
+      <Provider store={store}>
         <Header />
         <Footer />
         <Outlet />
@@ -89,7 +83,7 @@ const App = () => {
           <Route path="/about-us" element={<AboutUs />} />
           <Route
             path="/card"
-            element={state.activeCard ? <SearchItemDetails /> : <Navigate to="/" />}
+            element={store.getState().activeCard ? <SearchItemDetails /> : <Navigate to="/" />}
           />
 
           <Route
@@ -101,7 +95,7 @@ const App = () => {
             }
           />
         </Routes>
-      </ContextApp.Provider>
+      </Provider>
     </div>
   );
 };
