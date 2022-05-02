@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { ContextApp } from '../../App';
-import { SearchItemDetailType } from '../../interfaces';
+import { GlobalTypes, SearchItemDetailType } from '../../interfaces';
 import './searchItem.css';
 
 const SearchItem = (props: { item: SearchItemDetailType }) => {
-  const { dispatch } = useContext(ContextApp);
+  const state = useSelector((state: GlobalTypes) => state, shallowEqual);
+  const dispatch = useDispatch();
+
   const handleClick = (
     e:
       | React.MouseEvent<HTMLButtonElement>
@@ -14,7 +16,7 @@ const SearchItem = (props: { item: SearchItemDetailType }) => {
   ) => {
     if (e.target !== e.currentTarget) return;
 
-    dispatch({ type: 'toggleCard', payload: { activeCard: props.item } });
+    dispatch({ type: 'toggleCard', payload: { ...state, activeCard: props.item } });
   };
 
   return (

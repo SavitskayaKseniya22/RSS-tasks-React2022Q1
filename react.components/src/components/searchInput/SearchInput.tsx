@@ -1,26 +1,26 @@
-import { ContextApp } from '../../App';
-import { ChangeEvent, useContext, useEffect } from 'react';
+import { ChangeEvent, useEffect } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { GlobalTypes } from '../../interfaces';
 import '../SearchForm/searchForm.css';
 
 const SearchInput = () => {
-  const { state, dispatch } = useContext(ContextApp);
+  const value = useSelector((state: GlobalTypes) => state.value, shallowEqual);
+  const state = useSelector((state: GlobalTypes) => state, shallowEqual);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     return () => {
-      if (state.value) {
-        window.localStorage.setItem('searchValue', state.value);
+      if (value) {
+        window.localStorage.setItem('searchValue', value);
       }
     };
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
     dispatch({
       type: 'handleSearchForm',
-      payload: {
-        ...state,
-        value,
-      },
+      payload: { ...state, value: e.target.value },
     });
   };
 
@@ -28,7 +28,7 @@ const SearchInput = () => {
     <input
       data-testid="search-input"
       className="search-input"
-      value={state.value}
+      value={value}
       onChange={handleChange}
       placeholder="search"
     />

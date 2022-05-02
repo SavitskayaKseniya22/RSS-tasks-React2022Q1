@@ -1,11 +1,15 @@
-import { ContextApp } from '../../App';
-import { CardProps } from '../../interfaces';
-import { FormEvent, useContext, useEffect } from 'react';
+import { CardProps, GlobalTypes } from '../../interfaces';
+import { FormEvent, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import './form.css';
 
 const Form = () => {
-  const { state, dispatch } = useContext(ContextApp);
+  const adsFormValues = useSelector((state: GlobalTypes) => state.adsFormValues, shallowEqual);
+  const savedCards = useSelector((state: GlobalTypes) => state.savedCards, shallowEqual);
+  const state = useSelector((state: GlobalTypes) => state, shallowEqual);
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -16,7 +20,7 @@ const Form = () => {
   } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
-    defaultValues: state.adsFormValues,
+    defaultValues: adsFormValues,
   });
 
   useEffect(() => {
@@ -24,10 +28,7 @@ const Form = () => {
       const values = getValues();
       dispatch({
         type: 'handleAddsForm',
-        payload: {
-          ...state,
-          adsFormValues: values,
-        },
+        payload: { ...state, adsFormValues: values },
       });
     };
   }, []);
@@ -71,7 +72,7 @@ const Form = () => {
         object.img = fileReader.result as string;
         dispatch({
           type: 'handleSavedCards',
-          payload: { ...state, savedCards: [...(state.savedCards as CardProps[]), object] },
+          payload: { ...state, savedCards: [...(savedCards as CardProps[]), object] },
         });
       };
       fileReader.readAsDataURL(file);

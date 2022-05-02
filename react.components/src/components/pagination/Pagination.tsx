@@ -1,10 +1,15 @@
-import { ContextApp } from '../../App';
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent } from 'react';
 import { MouseEvent } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { GlobalTypes } from '../../interfaces';
 import '../SearchForm/searchForm.css';
 
 const Pagination = () => {
-  const { state, dispatch } = useContext(ContextApp);
+  const pageNumber = useSelector((state: GlobalTypes) => state.pageNumber, shallowEqual);
+  const maxPageNumber = useSelector((state: GlobalTypes) => state.maxPageNumber, shallowEqual);
+  const state = useSelector((state: GlobalTypes) => state, shallowEqual);
+
+  const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -19,11 +24,7 @@ const Pagination = () => {
   const changePageNumber = (value: string) => {
     dispatch({
       type: 'handleSearchForm',
-      payload: {
-        ...state,
-        pageNumber: value,
-        shouldUpdate: true,
-      },
+      payload: { ...state, pageNumber: value, shouldUpdate: true },
     });
   };
 
@@ -33,17 +34,17 @@ const Pagination = () => {
         1
       </button>
 
-      {state.pageNumber && +state.pageNumber >= 3 ? (
+      {pageNumber && +pageNumber >= 3 ? (
         <button type="button" onClick={handleClick}>
-          {+state.pageNumber - 2}
+          {+pageNumber - 2}
         </button>
       ) : (
         <button type="button" disabled></button>
       )}
 
-      {state.pageNumber && +state.pageNumber >= 2 ? (
+      {pageNumber && +pageNumber >= 2 ? (
         <button type="button" onClick={handleClick}>
-          {+state.pageNumber - 1}
+          {+pageNumber - 1}
         </button>
       ) : (
         <button type="button" disabled></button>
@@ -53,30 +54,30 @@ const Pagination = () => {
         type="number"
         min="1"
         className="active-page-number"
-        value={state.pageNumber}
+        value={pageNumber}
         onChange={handleChange}
         placeholder="go to"
         data-testid="search-page-number"
       />
 
-      {state.pageNumber && state.maxPageNumber && +state.pageNumber + 1 <= state.maxPageNumber ? (
+      {pageNumber && maxPageNumber && +pageNumber + 1 <= maxPageNumber ? (
         <button type="button" onClick={handleClick}>
-          {+state.pageNumber + 1}
+          {+pageNumber + 1}
         </button>
       ) : (
         <button type="button" disabled></button>
       )}
 
-      {state.pageNumber && state.maxPageNumber && +state.pageNumber + 2 <= state.maxPageNumber ? (
+      {pageNumber && maxPageNumber && +pageNumber + 2 <= maxPageNumber ? (
         <button type="button" onClick={handleClick}>
-          {+state.pageNumber + 2}
+          {+pageNumber + 2}
         </button>
       ) : (
         <button type="button" disabled></button>
       )}
 
       <button type="button" onClick={handleClick} data-testid="search-page-number-end">
-        {state.maxPageNumber}
+        {maxPageNumber}
       </button>
     </div>
   );

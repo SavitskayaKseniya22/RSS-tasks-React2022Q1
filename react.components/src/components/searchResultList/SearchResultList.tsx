@@ -1,11 +1,15 @@
 import SearchItem from '../SearchItem/SearchItem';
-import { ContextApp } from '../../App';
-import { useContext } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import { GlobalTypes } from '../../interfaces';
 
 const SearchResultList = () => {
-  const { state } = useContext(ContextApp);
+  const isLoading = useSelector((state: GlobalTypes) => state.isLoading, shallowEqual);
+  const isError = useSelector((state: GlobalTypes) => state.isError, shallowEqual);
+  const response = useSelector((state: GlobalTypes) => state.response, shallowEqual);
+  const isSearchOver = useSelector((state: GlobalTypes) => state.isSearchOver, shallowEqual);
+
   let activeBlock;
-  if (state.isLoading) {
+  if (isLoading) {
     activeBlock = (
       <div className="empty-search" data-testid="active-search">
         <div className="active-search">
@@ -13,23 +17,23 @@ const SearchResultList = () => {
         </div>
       </div>
     );
-  } else if (state.isError) {
+  } else if (isError) {
     activeBlock = (
       <p className="empty-search" data-testid="error-search">
         something went wrong
       </p>
     );
-  } else if (state.response?.length) {
+  } else if (response?.length) {
     activeBlock = (
       <ul className="Card-list" data-testid="card-list">
-        {state.response.map((elem) => (
+        {response.map((elem) => (
           <SearchItem key={elem.src} item={elem} />
         ))}
       </ul>
     );
-  } else if (!state.response?.length && state.isSearchOver) {
+  } else if (!response?.length && isSearchOver) {
     activeBlock = <p className="empty-search">no images found</p>;
-  } else if (!state.response?.length && !state.isSearchOver) {
+  } else if (!response?.length && !isSearchOver) {
     activeBlock = <p className="empty-search">search for something</p>;
   }
 

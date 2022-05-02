@@ -1,6 +1,6 @@
 import Ads from '../../pages/Ads/Ads';
 import Form from './Form';
-import App, { reducer } from '../../App';
+import App from '../../App';
 import { mockedStateStart } from '../../mockedState';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

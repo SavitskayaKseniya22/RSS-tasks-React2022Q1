@@ -1,17 +1,17 @@
-import { ContextApp } from '../../App';
 import AdList from '../../components/AdList/AdList';
 import Form from '../../components/Form/Form';
-import { useContext } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import { GlobalTypes } from '../../interfaces';
 import './Ads.css';
 
 const Ads = () => {
-  const { state } = useContext(ContextApp);
+  const savedCards = useSelector((state: GlobalTypes) => state.savedCards, shallowEqual);
 
   return (
     <div data-testid="ads" className="ads">
       <h1>advertisements</h1>
       <Form />
-      {state.savedCards && state.savedCards.length > 0 && <AdList />}
+      {savedCards && savedCards.length > 0 && <AdList />}
     </div>
   );
 };

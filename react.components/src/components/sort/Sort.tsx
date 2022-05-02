@@ -1,19 +1,17 @@
-import { ContextApp } from '../../App';
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { GlobalTypes } from '../../interfaces';
 import '../SearchForm/searchForm.css';
 
 const Sort = () => {
-  const { state, dispatch } = useContext(ContextApp);
+  const state = useSelector((state: GlobalTypes) => state, shallowEqual);
+  const sort = useSelector((state: GlobalTypes) => state.sort, shallowEqual);
+  const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
     dispatch({
       type: 'handleSearchForm',
-      payload: {
-        ...state,
-        sort: value,
-        shouldUpdate: true,
-      },
+      payload: { ...state, sort: e.target.value, shouldUpdate: true },
     });
   };
 
@@ -22,7 +20,7 @@ const Sort = () => {
       name="sort"
       className="search-sort"
       onChange={handleChange}
-      value={state.sort}
+      value={sort}
       data-testid="search-sort"
     >
       <option value="oldest">oldest</option>

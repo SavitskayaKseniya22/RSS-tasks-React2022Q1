@@ -1,13 +1,13 @@
 import AdCard from '../AdCard/AdCard';
-import { ContextApp } from '../../App';
-import { useContext } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import { GlobalTypes } from '../../interfaces';
 
 const AdList = () => {
-  const { state } = useContext(ContextApp);
+  const savedCards = useSelector((state: GlobalTypes) => state.savedCards, shallowEqual);
 
   return (
     <ul className="ads-list" data-testid="ads-list">
-      {state.savedCards?.map((elem) => (
+      {savedCards?.map((elem) => (
         <AdCard key={elem.adCreationDate + elem.title} item={elem} />
       ))}
     </ul>
