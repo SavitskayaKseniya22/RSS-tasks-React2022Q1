@@ -1,19 +1,11 @@
 import { CardProps } from '../../interfaces';
-import { useState } from 'react';
-import './adCard.css';
 import emailImg from '../../assets/svg/mail.svg';
 import phoneImg from '../../assets/svg/phone.svg';
 import linkImg from '../../assets/svg/forward-next-arrow.svg';
-import likeImg from '../../assets/svg/like.svg';
+import './adCard.css';
 
 const AdCard = (props: { item: CardProps }) => {
   const { item } = props;
-  const [isFavorite, setIsFavorite] = useState(item.isFavorite);
-
-  const handleClick = () => {
-    setIsFavorite((isFavorite) => !isFavorite);
-    item.isFavorite = !isFavorite;
-  };
 
   return (
     <li className="card" data-testid="card-item">
@@ -54,13 +46,6 @@ const AdCard = (props: { item: CardProps }) => {
           <img src={linkImg} alt="go to site" />
         </a>
       </div>
-      <button
-        className={isFavorite ? 'card__mark-like favorite-add' : 'card__mark-like'}
-        onClick={handleClick}
-        data-testid="card__mark-like"
-      >
-        <img src={likeImg} alt="like" />
-      </button>
     </li>
   );
 };

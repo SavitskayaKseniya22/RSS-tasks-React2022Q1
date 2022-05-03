@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { handleValueInSearchInput } from '../../store';
 import { GlobalTypes } from '../../interfaces';
 import '../SearchForm/searchForm.css';
 
@@ -10,6 +11,7 @@ const SearchInput = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(state);
     return () => {
       if (value) {
         window.localStorage.setItem('searchValue', value);
@@ -18,10 +20,7 @@ const SearchInput = () => {
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: 'handleSearchForm',
-      payload: { ...state, value: e.target.value },
-    });
+    dispatch(handleValueInSearchInput(e.target.value));
   };
 
   return (

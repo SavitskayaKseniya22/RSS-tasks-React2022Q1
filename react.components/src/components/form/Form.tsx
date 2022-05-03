@@ -2,12 +2,10 @@ import { CardProps, GlobalTypes } from '../../interfaces';
 import { FormEvent, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { handleAdsForm, handleSavedCards } from '../../store';
 import './form.css';
-
 const Form = () => {
   const adsFormValues = useSelector((state: GlobalTypes) => state.adsFormValues, shallowEqual);
-  const savedCards = useSelector((state: GlobalTypes) => state.savedCards, shallowEqual);
-  const state = useSelector((state: GlobalTypes) => state, shallowEqual);
   const dispatch = useDispatch();
 
   const {
@@ -25,11 +23,7 @@ const Form = () => {
 
   useEffect(() => {
     return () => {
-      const values = getValues();
-      dispatch({
-        type: 'handleAddsForm',
-        payload: { ...state, adsFormValues: values },
-      });
+      dispatch(handleAdsForm(getValues()));
     };
   }, []);
 
@@ -48,7 +42,7 @@ const Form = () => {
   };
 
   function onSubmit(data: CardProps) {
-    const object = {
+    const object: CardProps = {
       title: data.title,
       description: data.description,
       email: data.email,
@@ -70,10 +64,7 @@ const Form = () => {
 
       fileReader.onloadend = () => {
         object.img = fileReader.result as string;
-        dispatch({
-          type: 'handleSavedCards',
-          payload: { ...state, savedCards: [...(savedCards as CardProps[]), object] },
-        });
+        dispatch(handleSavedCards(object));
       };
       fileReader.readAsDataURL(file);
     }
@@ -265,14 +256,30 @@ const Form = () => {
         </label>
 
         <div className="middle-field ad-type">
-          <h3>Type of ad:</h3>
+          <h3 className={errors.typeAdd ? 'error-note' : undefined}>Type of ad:</h3>
 
-          <input type="radio" id="sale" value="sale" {...register('typeAdd')} />
+          <input
+            type="radio"
+            id="sale"
+            value="sale"
+            onInput={handleInput}
+            {...register('typeAdd', {
+              required: true,
+            })}
+          />
           <label className="switcher" htmlFor="sale">
             <span>Sale</span>
           </label>
 
-          <input type="radio" id="rent" value="rent" {...register('typeAdd')} />
+          <input
+            type="radio"
+            id="rent"
+            value="rent"
+            onInput={handleInput}
+            {...register('typeAdd', {
+              required: true,
+            })}
+          />
           <label className="switcher" htmlFor="rent">
             <span>Rent</span>
           </label>

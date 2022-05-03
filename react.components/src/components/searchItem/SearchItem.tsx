@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { GlobalTypes, SearchItemDetailType } from '../../interfaces';
+import { SearchItemDetailType } from '../../interfaces';
+import { handleActiveCard } from '../../store';
 import './searchItem.css';
 
 const SearchItem = (props: { item: SearchItemDetailType }) => {
-  const state = useSelector((state: GlobalTypes) => state, shallowEqual);
   const dispatch = useDispatch();
 
   const handleClick = (
@@ -16,7 +16,7 @@ const SearchItem = (props: { item: SearchItemDetailType }) => {
   ) => {
     if (e.target !== e.currentTarget) return;
 
-    dispatch({ type: 'toggleCard', payload: { ...state, activeCard: props.item } });
+    dispatch(handleActiveCard(props.item));
   };
 
   return (

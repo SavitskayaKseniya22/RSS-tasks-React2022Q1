@@ -1,18 +1,15 @@
 import { ChangeEvent } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { handleSort } from '../../store';
 import { GlobalTypes } from '../../interfaces';
 import '../SearchForm/searchForm.css';
 
 const Sort = () => {
-  const state = useSelector((state: GlobalTypes) => state, shallowEqual);
   const sort = useSelector((state: GlobalTypes) => state.sort, shallowEqual);
   const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch({
-      type: 'handleSearchForm',
-      payload: { ...state, sort: e.target.value, shouldUpdate: true },
-    });
+    dispatch(handleSort(e.target.value));
   };
 
   return (

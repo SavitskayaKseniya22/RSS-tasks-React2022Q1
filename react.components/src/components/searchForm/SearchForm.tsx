@@ -2,14 +2,20 @@ import Sort from '../Sort/Sort';
 import SearchInput from '../SearchInput/SearchInput';
 import ResultsPerPage from '../ResultsPerPage/ResultsPerPage';
 import Pagination from '../Pagination/Pagination';
+import { useEffect, FormEvent } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import {
+  handleDataAndUpdateStatus,
+  handleError,
+  handleLoadingStatus,
+  handleShouldUpdateStatus,
+} from '../../store';
 import {
   SearchItemDetailType,
   ResponseItemType,
   ResponseType,
   GlobalTypes,
 } from '../../interfaces';
-import { useEffect, FormEvent } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
 const SearchForm = () => {
   const shouldUpdate = useSelector((state: GlobalTypes) => state.shouldUpdate, shallowEqual);
@@ -29,32 +35,20 @@ const SearchForm = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch({ type: 'handleSearchForm', payload: { ...state, shouldUpdate: true } });
+    dispatch(handleShouldUpdateStatus(true));
   };
 
   const getApiResponse = async () => {
-    dispatch({ type: 'handleDownload', payload: { ...state, isLoading: true } });
+    dispatch(handleLoadingStatus(true));
     try {
       const url = `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=${pageNumber}&per_page=${itemsPerPage}&query=${value}&order_by=${sort}`;
       const res = await fetch(url);
       const response = (await res.json()) as ResponseType;
-
       const data = getShortData(response);
-
-      dispatch({
-        type: 'handleDownload',
-        payload: { ...state, response: data, isLoading: false },
-      });
-      dispatch({
-        type: 'handleSearchForm',
-        payload: { ...state, maxPageNumber: response.total_pages, shouldUpdate: false },
-      });
+      const totalPages = response.total_pages;
+      dispatch(handleDataAndUpdateStatus({ data, totalPages }));
     } catch (error) {
-      dispatch({
-        type: 'handleDownload',
-        payload: { ...state, isLoading: false, isError: true },
-      });
-      dispatch({ type: 'handleSearchForm', payload: { ...state, shouldUpdate: false } });
+      dispatch(handleError());
     }
   };
 

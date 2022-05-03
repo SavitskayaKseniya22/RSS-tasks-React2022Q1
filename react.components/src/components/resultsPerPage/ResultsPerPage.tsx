@@ -1,17 +1,15 @@
 import { ChangeEvent } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { handleItemPerPage } from '../../store';
 import { GlobalTypes } from '../../interfaces';
 import '../SearchForm/searchForm.css';
 
 const ResultsPerPage = () => {
   const itemsPerPage = useSelector((state: GlobalTypes) => state.itemsPerPage, shallowEqual);
-  const state = useSelector((state: GlobalTypes) => state, shallowEqual);
   const dispatch = useDispatch();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: 'handleSearchForm',
-      payload: { ...state, pageNumber: '1', itemsPerPage: e.target.value, shouldUpdate: true },
-    });
+    dispatch(handleItemPerPage(e.target.value));
   };
 
   return (

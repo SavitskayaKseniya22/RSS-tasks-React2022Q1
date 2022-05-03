@@ -2,6 +2,7 @@ import { ChangeEvent } from 'react';
 import { MouseEvent } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { GlobalTypes } from '../../interfaces';
+import { handlePageNumber } from '../../store';
 import '../SearchForm/searchForm.css';
 
 const Pagination = () => {
@@ -22,10 +23,7 @@ const Pagination = () => {
   };
 
   const changePageNumber = (value: string) => {
-    dispatch({
-      type: 'handleSearchForm',
-      payload: { ...state, pageNumber: value, shouldUpdate: true },
-    });
+    dispatch(handlePageNumber(value));
   };
 
   return (
