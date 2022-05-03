@@ -1,7 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { GlobalTypes, ReducerTypes } from './interfaces';
+import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CardProps, GlobalTypes, SearchItemDetailType } from './interfaces';
 
-export const initialValues: GlobalTypes = {
+export const initialState: GlobalTypes = {
   value: window.localStorage.getItem('searchValue') || '',
   response: [],
   isLoading: false,
@@ -16,45 +16,82 @@ export const initialValues: GlobalTypes = {
   savedCards: [],
 };
 
-export const reducer = (state = initialValues, action: ReducerTypes) => {
-  switch (action.type) {
-    case 'handleDownload':
-      return {
-        ...state,
-        response: action.payload.response,
-        isLoading: action.payload.isLoading,
-        isSearchOver: !action.payload.isLoading,
-        isError: action.payload.isError || false,
-      };
+export const mainReducer = createSlice({
+  name: 'app',
+  initialState,
+  reducers: {
+    handleValueInSearchInput: (state, action: PayloadAction<string>) => {
+      state.value = action.payload;
+    },
 
-    case 'toggleCard':
-      return { ...state, activeCard: action.payload.activeCard };
+    handlePageNumber: (state, action: PayloadAction<string>) => {
+      state.pageNumber = action.payload;
+      state.shouldUpdate = true;
+    },
 
-    case 'handleSearchForm':
-      return {
-        ...state,
-        sort: action.payload.sort,
-        itemsPerPage: action.payload.itemsPerPage,
-        pageNumber: action.payload.pageNumber,
-        maxPageNumber: action.payload.maxPageNumber,
-        value: action.payload.value,
-        shouldUpdate: action.payload.shouldUpdate,
-      };
+    handleItemPerPage: (state, action: PayloadAction<string>) => {
+      state.itemsPerPage = action.payload;
+      state.pageNumber = '1';
+      state.shouldUpdate = true;
+    },
 
-    case 'handleSavedCards':
-      return {
-        ...state,
-        savedCards: action.payload.savedCards,
-      };
-    case 'handleAddsForm':
-      return {
-        ...state,
-        adsFormValues: action.payload.adsFormValues,
-      };
+    handleSort: (state, action: PayloadAction<string>) => {
+      state.sort = action.payload;
+      state.shouldUpdate = true;
+    },
 
-    default:
-      return state;
-  }
-};
+    handleShouldUpdateStatus: (state, action: PayloadAction<boolean>) => {
+      state.shouldUpdate = action.payload;
+    },
 
-export const store = configureStore({ reducer });
+    handleLoadingStatus: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+      state.isSearchOver = !action.payload;
+    },
+
+    handleDataAndUpdateStatus: (
+      state,
+      action: PayloadAction<{ data: SearchItemDetailType[]; totalPages: number }>
+    ) => {
+      state.isLoading = false;
+      state.isSearchOver = true;
+      state.shouldUpdate = false;
+      state.response = action.payload.data;
+      state.maxPageNumber = action.payload.totalPages;
+    },
+
+    handleError: (state) => {
+      state.isLoading = false;
+      state.shouldUpdate = false;
+      state.isError = true;
+    },
+
+    handleActiveCard: (state, action: PayloadAction<SearchItemDetailType>) => {
+      state.activeCard = action.payload;
+    },
+
+    handleSavedCards: (state, action: PayloadAction<CardProps>) => {
+      state.savedCards?.push(action.payload);
+    },
+
+    handleAdsForm: (state, action: PayloadAction<CardProps>) => {
+      state.adsFormValues = action.payload;
+    },
+  },
+});
+
+export const store = configureStore(mainReducer);
+
+export const {
+  handleValueInSearchInput,
+  handlePageNumber,
+  handleItemPerPage,
+  handleShouldUpdateStatus,
+  handleSort,
+  handleDataAndUpdateStatus,
+  handleLoadingStatus,
+  handleError,
+  handleActiveCard,
+  handleSavedCards,
+  handleAdsForm,
+} = mainReducer.actions;
