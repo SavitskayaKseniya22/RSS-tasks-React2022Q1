@@ -5,6 +5,8 @@ import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useReducer } from 'react';
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { mockStore } from '../../mockedStore';
 
 describe('check forming card with data', () => {
   test('check card appearance', () => {
@@ -21,35 +23,4 @@ describe('check forming card with data', () => {
     const cardLinks = screen.getByTestId('card-item__links');
     expect(card).toContainElement(cardLinks);
   });
-
-  test('check like button', () => {
-    render(<AdCard item={data[0]} />);
-    const card = screen.getByTestId('card-item');
-    const likeButton = screen.getByTestId('card__mark-like');
-    expect(card).toContainElement(likeButton);
-    fireEvent.click(likeButton);
-    expect(likeButton).toHaveClass('favorite-add');
-    fireEvent.click(likeButton);
-    expect(likeButton).not.toHaveClass('favorite-add');
-  });
-  /*
-  test('check restore like condition after unmount', async () => {
-    const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, mockedState);
-
-      return (
-        <ContextApp.Provider value={{ state, dispatch }}>
-          <AdCard item={data[0]} />
-        </ContextApp.Provider>
-      );
-    };
-    const { unmount } = render(<Wrapper />);
-    const likeButton = screen.getByTestId('card__mark-like');
-    expect(likeButton).not.toHaveClass('favorite-add');
-    userEvent.click(likeButton);
-    expect(likeButton).toHaveClass('favorite-add');
-    unmount();
-    render(<Wrapper />);
-    expect(likeButton).toHaveClass('favorite-add');
-  });*/
 });

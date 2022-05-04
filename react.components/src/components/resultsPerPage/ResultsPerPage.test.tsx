@@ -1,23 +1,19 @@
 import ResultsPerPage from './ResultsPerPage';
 import MainPage from '../../pages/MainPage/MainPage';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { mockedState } from '../../mockedState';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useReducer } from 'react';
+
+import { Provider } from 'react-redux';
+import { mockStore } from '../../mockedStore';
 
 describe('ResultsPerPage tests', () => {
-  /*
   test('check Sort appearance', async () => {
     render(
-      <ContextApp.Provider
-        value={{
-          state: mockedState,
-          dispatch: () => null,
-        }}
-      >
+      <Provider store={mockStore}>
         <ResultsPerPage />
-      </ContextApp.Provider>
+      </Provider>
     );
 
     await waitFor(() => expect(screen.getByTestId('search-per-page')).toBeInTheDocument());
@@ -27,18 +23,13 @@ describe('ResultsPerPage tests', () => {
   });
 
   test('check Sort select new option', async () => {
-    const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, mockedState);
-      return (
-        <BrowserRouter>
-          <ContextApp.Provider value={{ state, dispatch }}>
-            <MainPage />
-          </ContextApp.Provider>
-        </BrowserRouter>
-      );
-    };
-
-    render(<Wrapper />);
+    render(
+      <Provider store={mockStore}>
+        <MemoryRouter initialEntries={['/']}>
+          <MainPage />
+        </MemoryRouter>
+      </Provider>
+    );
 
     await waitFor(() => userEvent.type(screen.getByTestId('search-per-page'), '30'));
     await waitFor(() =>
@@ -51,5 +42,5 @@ describe('ResultsPerPage tests', () => {
     await waitFor(() => {
       expect(screen.queryByText('Loading data')).not.toBeInTheDocument();
     });
-  });*/
+  });
 });

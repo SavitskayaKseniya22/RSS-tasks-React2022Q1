@@ -1,57 +1,35 @@
 import { BrowserRouter } from 'react-router-dom';
 import SearchItemDetails from './SearchItemDetails';
-import { mockedState, mockedStateWithEmptyActiveCard } from '../../mockedState';
+import { mockedState } from '../../mockedState';
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { mockStore } from '../../mockedStore';
 
 describe('SearchItemDetails test', () => {
-  /*
   test('check SearchItemDetails for full content', () => {
     render(
       <BrowserRouter>
-        <ContextApp.Provider
-          value={{
-            state: mockedState,
-            dispatch: () => null,
-          }}
-        >
+        <Provider store={mockStore}>
           <SearchItemDetails />
-        </ContextApp.Provider>
+        </Provider>
       </BrowserRouter>
     );
 
-    expect(screen.queryByText(mockedState.activeCard.description)).toBeInTheDocument();
-    expect(screen.queryByText(mockedState.activeCard.location)).toBeInTheDocument();
+    const { activeCard } = mockedState;
+
+    expect(screen.queryByText(activeCard?.description as string)).toBeInTheDocument();
+    expect(screen.queryByText(activeCard?.location as string)).toBeInTheDocument();
     expect(screen.getByTestId('item__description')).toHaveTextContent(
-      mockedState.activeCard.description
+      activeCard?.description as string
     );
     expect(screen.getByTestId('item__likes')).toHaveTextContent(
-      mockedState.activeCard.likes as unknown as string
+      activeCard?.likes as unknown as string
     );
-    expect(screen.getByTestId('item__author')).toHaveTextContent(mockedState.activeCard.author);
+    expect(screen.getByTestId('item__author')).toHaveTextContent(activeCard?.author as string);
     expect(screen.getByTestId('item__portfolio')).toBeInTheDocument();
-    expect(screen.getByTestId('item__location')).toHaveTextContent(mockedState.activeCard.location);
+    expect(screen.getByTestId('item__location')).toHaveTextContent(activeCard?.location as string);
     expect(screen.getByTestId('item__size')).toHaveTextContent(
-      mockedState.activeCard.width as unknown as string
+      activeCard?.width as unknown as string
     );
   });
-
-  test('check SearchItemDetails with half-empty response', () => {
-    render(
-      <BrowserRouter>
-        <ContextApp.Provider
-          value={{
-            state: mockedStateWithEmptyActiveCard,
-            dispatch: () => null,
-          }}
-        >
-          <SearchItemDetails />
-        </ContextApp.Provider>
-      </BrowserRouter>
-    );
-    expect(screen.getByTestId('item__description')).toHaveTextContent('Nice picture');
-    expect(screen.getByTestId('item__likes')).toHaveTextContent('0');
-    expect(screen.queryByText('&#8690')).not.toBeInTheDocument();
-    expect(screen.getByTestId('item__location')).toHaveTextContent('Unknown');
-    expect(screen.getByTestId('item__size')).toHaveTextContent('Unknown');
-  });*/
 });

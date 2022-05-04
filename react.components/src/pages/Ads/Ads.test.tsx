@@ -1,22 +1,29 @@
 import Ads from './Ads';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../../App';
-import { mockedState } from '../../mockedState';
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
+import { mockStore } from '../../mockedStore';
 
 describe('myAds test', () => {
-  /*
   test('check Ads page appearance with link', () => {
     render(
-      <MemoryRouter initialEntries={['/ads']}>
-        <App />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/ads']}>
+          <App />
+        </MemoryRouter>
+      </Provider>
     );
     expect(screen.getByTestId('ads')).toBeInTheDocument();
   });
 
   test('check Ads page appearance without state', () => {
-    render(<Ads />);
+    render(
+      <Provider store={store}>
+        <Ads />
+      </Provider>
+    );
 
     expect(screen.getByTestId('ads')).toBeInTheDocument();
     expect(screen.getByText('advertisements')).toBeInTheDocument();
@@ -26,14 +33,9 @@ describe('myAds test', () => {
 
   test('check Ads page appearance with state', () => {
     render(
-      <ContextApp.Provider
-        value={{
-          state: mockedState,
-          dispatch: () => null,
-        }}
-      >
+      <Provider store={mockStore}>
         <Ads />
-      </ContextApp.Provider>
+      </Provider>
     );
 
     expect(screen.getByTestId('ads')).toBeInTheDocument();
@@ -41,5 +43,5 @@ describe('myAds test', () => {
     expect(screen.getByTestId('form-ad')).toBeInTheDocument();
     expect(screen.getByTestId('ads-list')).toBeInTheDocument();
     expect(screen.getByTestId('ads').childNodes.length).toBe(3);
-  });*/
+  });
 });

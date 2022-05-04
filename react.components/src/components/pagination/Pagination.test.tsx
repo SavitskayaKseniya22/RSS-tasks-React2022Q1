@@ -4,20 +4,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { mockedState } from '../../mockedState';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useReducer } from 'react';
+import { Provider } from 'react-redux';
+import { mockStore } from '../../mockedStore';
 
 describe('Pagination tests', () => {
-  /*
   test('check Pagination appearance', async () => {
     render(
-      <ContextApp.Provider
-        value={{
-          state: mockedState,
-          dispatch: () => null,
-        }}
-      >
-        <Pagination />
-      </ContextApp.Provider>
+      <BrowserRouter>
+        <Provider store={mockStore}>
+          <Pagination />
+        </Provider>
+      </BrowserRouter>
     );
 
     await waitFor(() => expect(screen.getByTestId('search-page-number')).toBeInTheDocument());
@@ -35,16 +32,13 @@ describe('Pagination tests', () => {
   });
 
   test('check Pagination change page in input', async () => {
-    const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, mockedState);
-      return (
-        <ContextApp.Provider value={{ state, dispatch }}>
+    render(
+      <BrowserRouter>
+        <Provider store={mockStore}>
           <Pagination />
-        </ContextApp.Provider>
-      );
-    };
-
-    render(<Wrapper />);
+        </Provider>
+      </BrowserRouter>
+    );
     await waitFor(() =>
       fireEvent.change(screen.getByTestId('search-page-number'), { target: { value: '30' } })
     );
@@ -55,18 +49,13 @@ describe('Pagination tests', () => {
   });
 
   test('check Pagination buttons start and end', async () => {
-    const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, mockedState);
-      return (
-        <BrowserRouter>
-          <ContextApp.Provider value={{ state, dispatch }}>
-            <MainPage />
-          </ContextApp.Provider>
-        </BrowserRouter>
-      );
-    };
-
-    render(<Wrapper />);
+    render(
+      <BrowserRouter>
+        <Provider store={mockStore}>
+          <MainPage />
+        </Provider>
+      </BrowserRouter>
+    );
 
     await waitFor(() => userEvent.click(screen.getByTestId('search-page-number-start')));
     await waitFor(() =>
@@ -86,5 +75,5 @@ describe('Pagination tests', () => {
       )
     );
     await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());
-  });*/
+  });
 });

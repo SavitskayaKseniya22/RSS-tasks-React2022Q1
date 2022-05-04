@@ -1,5 +1,23 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { CardProps, GlobalTypes, SearchItemDetailType } from './interfaces';
+
+export const defaultValues = {
+  adress: undefined,
+  link: undefined,
+  description: '',
+  title: '',
+  phone: '',
+  email: '',
+  img: '',
+  date: '',
+  price: '',
+  typeAdd: '',
+  isReady: false,
+  area: '',
+  currency: '$',
+  adCreationDate: 0,
+};
 
 export const initialState: GlobalTypes = {
   value: window.localStorage.getItem('searchValue') || '',
@@ -14,6 +32,7 @@ export const initialState: GlobalTypes = {
   maxPageNumber: 10,
   shouldUpdate: true,
   savedCards: [],
+  adsFormValues: defaultValues,
 };
 
 export const mainReducer = createSlice({

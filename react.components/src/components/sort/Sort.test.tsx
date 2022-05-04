@@ -6,19 +6,16 @@ import { mockedState } from '../../mockedState';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useReducer } from 'react';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
+import { mockStore } from '../../mockedStore';
 
 describe('Sort tests', () => {
-  /*
   test('check Sort appearance', async () => {
     render(
-      <ContextApp.Provider
-        value={{
-          state: mockedState,
-          dispatch: () => null,
-        }}
-      >
+      <Provider store={mockStore}>
         <Sort />
-      </ContextApp.Provider>
+      </Provider>
     );
 
     await waitFor(() => expect(screen.getByTestId('search-sort')).toBeInTheDocument());
@@ -28,18 +25,13 @@ describe('Sort tests', () => {
   });
 
   test('check Sort select new option', async () => {
-    const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, mockedState);
-      return (
+    render(
+      <Provider store={mockStore}>
         <BrowserRouter>
-          <ContextApp.Provider value={{ state, dispatch }}>
-            <MainPage />
-          </ContextApp.Provider>
+          <MainPage />
         </BrowserRouter>
-      );
-    };
-
-    render(<Wrapper />);
+      </Provider>
+    );
 
     await waitFor(() => userEvent.selectOptions(screen.getByTestId('search-sort'), ['popular']));
     await waitFor(() =>
@@ -50,5 +42,5 @@ describe('Sort tests', () => {
     await waitFor(() => {
       expect(screen.queryByText('Loading data')).not.toBeInTheDocument();
     });
-  });*/
+  });
 });

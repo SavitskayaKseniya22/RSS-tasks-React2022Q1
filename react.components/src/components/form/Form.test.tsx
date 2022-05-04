@@ -1,37 +1,56 @@
 import Ads from '../../pages/Ads/Ads';
 import Form from './Form';
 import App from '../../App';
-import { mockedStateStart } from '../../mockedState';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useReducer } from 'react';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { mockStore } from '../../mockedStore';
+import { store } from '../../store';
 
 describe('form test', () => {
-  /*
   test('check form appearance', () => {
-    render(<Form />);
+    render(
+      <Provider store={mockStore}>
+        <Form />
+      </Provider>
+    );
     const adPage = screen.getByTestId('form__container');
     expect(adPage).toContainElement(screen.getByTestId('form-ad'));
   });
 
   test('check input title work', () => {
-    render(<Form />);
+    render(
+      <Provider store={mockStore}>
+        <Form />
+      </Provider>
+    );
     const title = screen.getByTestId('form__title') as HTMLInputElement;
     fireEvent.input(title, { target: { value: 'text input' } });
     expect(title.value).toEqual('text input');
   });
 
-  test('check submit button disabled work', () => {
-    render(<Form />);
+  test('check submit button disabled work', async () => {
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     expect(submit.disabled).toEqual(true);
-    fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'text input' } });
+    await waitFor(() =>
+      fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'text input' } })
+    );
+
     expect(submit.disabled).toEqual(false);
   });
 
   test('check title error work', async () => {
-    render(<Form />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     const title = screen.getByTestId('form__title') as HTMLInputElement;
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     expect(submit.disabled).toEqual(true);
@@ -48,7 +67,11 @@ describe('form test', () => {
   });
 
   test('check date input', async () => {
-    render(<Form />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     const date = screen.getByTestId('form__date') as HTMLInputElement;
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     fireEvent.input(date, { target: { value: '2023-04-04' } });
@@ -61,7 +84,11 @@ describe('form test', () => {
   });
 
   test('check the entire form for a submission error', async () => {
-    render(<Form />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'text' } });
     fireEvent.input(screen.getByTestId('form__date'), { target: { value: 'text' } });
@@ -71,18 +98,13 @@ describe('form test', () => {
   });
 
   test('reset test form after correct submission and add cart to page', async () => {
-    const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, mockedStateStart);
-      return (
-        <BrowserRouter>
-          <ContextApp.Provider value={{ state, dispatch }}>
-            <Ads />
-          </ContextApp.Provider>
-        </BrowserRouter>
-      );
-    };
-
-    render(<Wrapper />);
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <Ads />
+        </Provider>
+      </BrowserRouter>
+    );
     const submit = screen.getByTestId('form__submit') as HTMLInputElement;
     fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'texttext' } });
     fireEvent.input(screen.getByTestId('form__description'), {
@@ -93,6 +115,7 @@ describe('form test', () => {
     fireEvent.input(screen.getByTestId('form__price'), { target: { value: '55555' } });
     fireEvent.input(screen.getByTestId('form__date'), { target: { value: '2021-04-04' } });
     fireEvent.input(screen.getByTestId('form__area'), { target: { value: '55555' } });
+    fireEvent.click(screen.getByLabelText('Sale'));
 
     const file = new File(['img'], 'img.png', { type: 'image/png' });
 
@@ -103,7 +126,7 @@ describe('form test', () => {
     expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('texttext');
 
     await waitFor(() => fireEvent.click(submit));
-
+    screen.debug();
     await waitFor(() =>
       expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('')
     );
@@ -113,14 +136,13 @@ describe('form test', () => {
   });
 
   test('test restore data after unmount/mount', async () => {
-    const Wrapper = () => {
-      return (
-        <MemoryRouter initialEntries={['/ads']}>
+    render(
+      <MemoryRouter initialEntries={['/ads']}>
+        <Provider store={mockStore}>
           <App />
-        </MemoryRouter>
-      );
-    };
-    render(<Wrapper />);
+        </Provider>
+      </MemoryRouter>
+    );
 
     fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'texttext' } });
     userEvent.selectOptions(screen.getByTestId('form__currency'), ['₽']);
@@ -146,5 +168,5 @@ describe('form test', () => {
 
     expect(fileUploader.files?.[0]).toStrictEqual(file);
     expect(fileUploader.files).toHaveLength(1);
-  });*/
+  });
 });

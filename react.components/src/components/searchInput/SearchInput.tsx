@@ -6,12 +6,9 @@ import '../SearchForm/searchForm.css';
 
 const SearchInput = () => {
   const value = useSelector((state: GlobalTypes) => state.value, shallowEqual);
-  const state = useSelector((state: GlobalTypes) => state, shallowEqual);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(state);
     return () => {
       if (value) {
         window.localStorage.setItem('searchValue', value);

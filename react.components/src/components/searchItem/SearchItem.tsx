@@ -21,7 +21,7 @@ const SearchItem = (props: { item: SearchItemDetailType }) => {
 
   return (
     <li className="item" data-testid="card-item">
-      <NavLink data-testid="card__link" to="/card">
+      <NavLink data-testid="item__link" to="/card">
         <img
           data-testid="item__img_preview"
           className="item__img_preview"

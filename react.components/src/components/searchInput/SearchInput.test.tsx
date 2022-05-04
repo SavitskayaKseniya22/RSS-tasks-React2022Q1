@@ -1,35 +1,26 @@
 import MainPage from '../../pages/MainPage/MainPage';
 import SearchInput from './SearchInput';
 import { BrowserRouter } from 'react-router-dom';
-
+import { Provider } from 'react-redux';
 import { mockedResponse } from '../../mockedResponse';
-import { mockedStateStart } from '../../mockedState';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
-import { useReducer } from 'react';
+import { mockStoreStart } from '../../mockedStore';
+import { store } from '../../store';
 
 describe('SearchInput tests', () => {
-  /*
   afterEach(() => {
     fetchMock.restore();
   });
 
-  test('check search appearance', () => {
-    render(<MainPage />);
-    expect(screen.getByTestId('search-input')).toBeInTheDocument();
-  });
-
   test('check input work', async () => {
-    const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, mockedStateStart);
-      return (
-        <ContextApp.Provider value={{ state, dispatch }}>
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
           <SearchInput />
-        </ContextApp.Provider>
-      );
-    };
-
-    render(<Wrapper />);
+        </Provider>
+      </BrowserRouter>
+    );
     const search = screen.getByTestId('search-input') as HTMLInputElement;
     fireEvent.input(search, { target: { value: 'car' } });
     await waitFor(() => {
@@ -38,16 +29,13 @@ describe('SearchInput tests', () => {
   });
 
   test('check save value', async () => {
-    const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, mockedStateStart);
-      return (
-        <ContextApp.Provider value={{ state, dispatch }}>
+    const { unmount } = render(
+      <BrowserRouter>
+        <Provider store={store}>
           <SearchInput />
-        </ContextApp.Provider>
-      );
-    };
-
-    const { unmount } = render(<Wrapper />);
+        </Provider>
+      </BrowserRouter>
+    );
     const search = screen.getByTestId('search-input') as HTMLInputElement;
     fireEvent.input(search, { target: { value: 'car' } });
     await waitFor(() => {
@@ -75,19 +63,13 @@ describe('SearchInput tests', () => {
         status: 200,
       }
     );
-    const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, mockedStateStart);
-
-      return (
-        <BrowserRouter>
-          <ContextApp.Provider value={{ state, dispatch }}>
-            <MainPage />
-          </ContextApp.Provider>
-        </BrowserRouter>
-      );
-    };
-
-    render(<Wrapper />);
+    render(
+      <BrowserRouter>
+        <Provider store={mockStoreStart}>
+          <MainPage />
+        </Provider>
+      </BrowserRouter>
+    );
 
     const search = screen.getByTestId('search-input') as HTMLInputElement;
     await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
@@ -107,22 +89,16 @@ describe('SearchInput tests', () => {
       }
     );
 
-    const Wrapper = () => {
-      const [state, dispatch] = useReducer(reducer, mockedStateStart);
-
-      return (
-        <BrowserRouter>
-          <ContextApp.Provider value={{ state, dispatch }}>
-            <MainPage />
-          </ContextApp.Provider>
-        </BrowserRouter>
-      );
-    };
-
-    render(<Wrapper />);
+    render(
+      <BrowserRouter>
+        <Provider store={mockStoreStart}>
+          <MainPage />
+        </Provider>
+      </BrowserRouter>
+    );
     const search = screen.getByTestId('search-input') as HTMLInputElement;
     await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
     await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
     await waitFor(() => expect(screen.getByTestId('error-search')).toBeInTheDocument());
-  });*/
+  });
 });

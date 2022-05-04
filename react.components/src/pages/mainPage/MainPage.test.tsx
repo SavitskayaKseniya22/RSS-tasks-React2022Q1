@@ -1,24 +1,30 @@
 import App from '../../App';
 import MainPage from './MainPage';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
-import { mockedState } from '../../mockedState';
 import { render, screen, waitFor } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
+import { mockStore } from '../../mockedStore';
 
 describe('MainPage test', () => {
   test('check MainPage page appearance', () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <App />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <App />
+        </MemoryRouter>
+      </Provider>
     );
     expect(screen.getByTestId('main-page')).toBeInTheDocument();
   });
 
   test('check MainPage page appearance', async () => {
     render(
-      <BrowserRouter>
-        <MainPage />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <MainPage />
+        </BrowserRouter>
+      </Provider>
     );
 
     const mainPage = screen.getByTestId('main-page');
@@ -27,22 +33,15 @@ describe('MainPage test', () => {
   });
 
   test('check MainPage restore some data', async () => {
-    /*
     render(
       <BrowserRouter>
-        <ContextApp.Provider
-          value={{
-            state: mockedState,
-            dispatch: () => null,
-          }}
-        >
+        <Provider store={mockStore}>
           <MainPage />
-        </ContextApp.Provider>
+        </Provider>
       </BrowserRouter>
     );
 
     await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());
     await waitFor(() => expect(screen.getByTestId('search-form')).toBeInTheDocument());
-    await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());*/
   });
 });

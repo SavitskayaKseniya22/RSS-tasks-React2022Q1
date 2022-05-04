@@ -1,48 +1,40 @@
-import { BrowserRouter } from 'react-router-dom';
-
+import MainPage from '../../pages/MainPage/MainPage';
 import SearchResultList from './SearchResultList';
-import {
-  mockedStateLoading,
-  mockedStateError,
-  mockedStateEmpty,
-  mockedStateStart,
-  mockedState,
-} from '../../mockedState';
-import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { mockedState } from '../../mockedState';
+import { mockStore, mockStoreError, mockStoreStart } from '../../mockedStore';
 
 describe('SearchResults tests', () => {
-  /*
-  test('check SearchResultList page download', () => {
+  test('check SearchResultList page download', async () => {
     render(
       <BrowserRouter>
-        <ContextApp.Provider
-          value={{
-            state: mockedStateLoading,
-            dispatch: () => null,
-          }}
-        >
-          <SearchResultList />
-        </ContextApp.Provider>
+        <Provider store={mockStoreStart}>
+          <MainPage />
+        </Provider>
       </BrowserRouter>
     );
 
+    expect(screen.queryByText('search for something')).toBeInTheDocument();
+
+    await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
+
     expect(screen.getByTestId('active-search')).toBeInTheDocument();
-    expect(screen.queryByText('no images found')).not.toBeInTheDocument();
     expect(screen.queryByText('search for something')).not.toBeInTheDocument();
     expect(screen.queryByText('something went wrong')).not.toBeInTheDocument();
+
+    await waitFor(() => expect(screen.queryByText('no images found')).toBeInTheDocument());
+    expect(screen.queryByText('something went wrong')).not.toBeInTheDocument();
+    expect(screen.queryByText('active-search')).not.toBeInTheDocument();
   });
 
   test('check SearchResultList page error', () => {
     render(
       <BrowserRouter>
-        <ContextApp.Provider
-          value={{
-            state: mockedStateError,
-            dispatch: () => null,
-          }}
-        >
+        <Provider store={mockStoreError}>
           <SearchResultList />
-        </ContextApp.Provider>
+        </Provider>
       </BrowserRouter>
     );
     expect(screen.queryByText('something went wrong')).toBeInTheDocument();
@@ -50,60 +42,18 @@ describe('SearchResults tests', () => {
     expect(screen.queryByText('search for something')).not.toBeInTheDocument();
   });
 
-  test('check SearchResultList for empty search', () => {
-    render(
-      <BrowserRouter>
-        <ContextApp.Provider
-          value={{
-            state: mockedStateEmpty,
-            dispatch: () => null,
-          }}
-        >
-          <SearchResultList />
-        </ContextApp.Provider>
-      </BrowserRouter>
-    );
-
-    expect(screen.queryByText('no images found')).toBeInTheDocument();
-    expect(screen.queryByText('something went wrong')).not.toBeInTheDocument();
-    expect(screen.queryByText('search for something')).not.toBeInTheDocument();
-  });
-
-  test('check SearchResultList page empty', () => {
-    render(
-      <BrowserRouter>
-        <ContextApp.Provider
-          value={{
-            state: mockedStateStart,
-            dispatch: () => null,
-          }}
-        >
-          <SearchResultList />
-        </ContextApp.Provider>
-      </BrowserRouter>
-    );
-    expect(screen.queryByText('search for something')).toBeInTheDocument();
-    expect(screen.queryByText('no images found')).not.toBeInTheDocument();
-    expect(screen.queryByText('something went wrong')).not.toBeInTheDocument();
-  });
-
   test('check SearchResultList page full', () => {
     render(
       <BrowserRouter>
-        <ContextApp.Provider
-          value={{
-            state: mockedState,
-            dispatch: () => null,
-          }}
-        >
+        <Provider store={mockStore}>
           <SearchResultList />
-        </ContextApp.Provider>
+        </Provider>
       </BrowserRouter>
     );
     expect(screen.queryByText('search for something')).not.toBeInTheDocument();
     expect(screen.queryByText('no images found')).not.toBeInTheDocument();
     expect(screen.queryByText('something went wrong')).not.toBeInTheDocument();
     expect(screen.getByTestId('card-list')).toBeInTheDocument();
-    expect(screen.getAllByTestId('card-item').length).toEqual(mockedState.response.length);
-  });*/
+    expect(screen.getAllByTestId('card-item').length).toEqual(mockedState?.response?.length);
+  });
 });

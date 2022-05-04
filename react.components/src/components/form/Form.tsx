@@ -2,8 +2,9 @@ import { CardProps, GlobalTypes } from '../../interfaces';
 import { FormEvent, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { handleAdsForm, handleSavedCards } from '../../store';
+import { defaultValues, handleAdsForm, handleSavedCards } from '../../store';
 import './form.css';
+
 const Form = () => {
   const adsFormValues = useSelector((state: GlobalTypes) => state.adsFormValues, shallowEqual);
   const dispatch = useDispatch();
@@ -27,20 +28,6 @@ const Form = () => {
     };
   }, []);
 
-  const defaultValues = {
-    description: '',
-    title: '',
-    phone: '',
-    email: '',
-    img: '',
-    date: '',
-    price: '',
-    typeAdd: '',
-    isReady: false,
-    area: '',
-    currency: '$',
-  };
-
   function onSubmit(data: CardProps) {
     const object: CardProps = {
       title: data.title,
@@ -54,7 +41,6 @@ const Form = () => {
       isReady: data.isReady,
       currency: data.currency,
       img: data.img,
-      isFavorite: false,
       adCreationDate: Date.now(),
     };
 
@@ -259,6 +245,7 @@ const Form = () => {
           <h3 className={errors.typeAdd ? 'error-note' : undefined}>Type of ad:</h3>
 
           <input
+            data-testid="form__typeAd"
             type="radio"
             id="sale"
             value="sale"
@@ -272,6 +259,7 @@ const Form = () => {
           </label>
 
           <input
+            data-testid="form__typeAd"
             type="radio"
             id="rent"
             value="rent"

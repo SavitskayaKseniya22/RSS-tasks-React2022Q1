@@ -1,17 +1,17 @@
 export interface GlobalTypes {
-  value?: string;
-  response?: SearchItemDetailType[];
-  isLoading?: boolean;
-  isError?: boolean;
-  isSearchOver?: boolean;
+  value: string;
+  response: SearchItemDetailType[];
+  isLoading: boolean;
+  isError: boolean;
+  isSearchOver: boolean;
   activeCard?: SearchItemDetailType;
-  sort?: string;
-  itemsPerPage?: string;
-  pageNumber?: string;
-  maxPageNumber?: number;
-  shouldUpdate?: boolean;
-  savedCards?: CardProps[];
-  adsFormValues?: CardProps;
+  sort: string;
+  itemsPerPage: string;
+  pageNumber: string;
+  maxPageNumber: number;
+  shouldUpdate: boolean;
+  savedCards: CardProps[];
+  adsFormValues: CardProps;
 }
 
 export interface SearchItemDetailType {
@@ -25,12 +25,6 @@ export interface SearchItemDetailType {
   location: string | null;
   likes: number | null;
   unsplashLink: string | null;
-}
-
-export interface SearchInputProps {
-  value: string | undefined;
-  handleChange: (value: string) => void;
-  handleDownload: (response: SearchItemDetailType[], load: boolean, error?: boolean) => void;
 }
 
 export interface ResponseType {
@@ -125,7 +119,6 @@ export interface CardProps {
   isReady: boolean;
   currency: string;
   img: string;
-  isFavorite: boolean;
   adCreationDate: number;
 }
 
