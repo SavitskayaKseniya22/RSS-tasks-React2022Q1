@@ -1,5 +1,5 @@
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import { configureStore, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getShortData } from './components/SearchForm/SearchForm';
 import { CardProps, GlobalTypes, SearchItemDetailType } from './interfaces';
 
 export const defaultValues = {
@@ -35,6 +35,29 @@ export const initialState: GlobalTypes = {
   adsFormValues: defaultValues,
 };
 
+export const fetchImages = createAsyncThunk(
+  'fetchImages',
+  async ({
+    pageNumber,
+    itemsPerPage,
+    value,
+    sort,
+  }: {
+    pageNumber: string;
+    itemsPerPage: string;
+    value: string;
+    sort: string;
+  }) => {
+    const response = await fetch(
+      `https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=${pageNumber}&per_page=${itemsPerPage}&query=${value}&order_by=${sort}`
+    );
+    const responseJson = await response.json();
+    const data = getShortData(responseJson);
+    const totalPages = responseJson.total_pages;
+    return { data, totalPages };
+  }
+);
+
 export const mainReducer = createSlice({
   name: 'app',
   initialState,
@@ -63,28 +86,6 @@ export const mainReducer = createSlice({
       state.shouldUpdate = action.payload;
     },
 
-    handleLoadingStatus: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
-      state.isSearchOver = !action.payload;
-    },
-
-    handleDataAndUpdateStatus: (
-      state,
-      action: PayloadAction<{ data: SearchItemDetailType[]; totalPages: number }>
-    ) => {
-      state.isLoading = false;
-      state.isSearchOver = true;
-      state.shouldUpdate = false;
-      state.response = action.payload.data;
-      state.maxPageNumber = action.payload.totalPages;
-    },
-
-    handleError: (state) => {
-      state.isLoading = false;
-      state.shouldUpdate = false;
-      state.isError = true;
-    },
-
     handleActiveCard: (state, action: PayloadAction<SearchItemDetailType>) => {
       state.activeCard = action.payload;
     },
@@ -97,6 +98,24 @@ export const mainReducer = createSlice({
       state.adsFormValues = action.payload;
     },
   },
+
+  extraReducers: (builder) => {
+    builder.addCase(fetchImages.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchImages.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSearchOver = true;
+      state.shouldUpdate = false;
+      state.response = action.payload.data;
+      state.maxPageNumber = action.payload.totalPages;
+    });
+    builder.addCase(fetchImages.rejected, (state) => {
+      state.isLoading = false;
+      state.shouldUpdate = false;
+      state.isError = true;
+    });
+  },
 });
 
 export const store = configureStore(mainReducer);
@@ -107,9 +126,6 @@ export const {
   handleItemPerPage,
   handleShouldUpdateStatus,
   handleSort,
-  handleDataAndUpdateStatus,
-  handleLoadingStatus,
-  handleError,
   handleActiveCard,
   handleSavedCards,
   handleAdsForm,
