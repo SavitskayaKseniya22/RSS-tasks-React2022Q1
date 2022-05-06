@@ -8,6 +8,7 @@ import '../SearchForm/searchForm.css';
 const Pagination = () => {
   const pageNumber = useSelector((state: GlobalTypes) => state.pageNumber, shallowEqual);
   const maxPageNumber = useSelector((state: GlobalTypes) => state.maxPageNumber, shallowEqual);
+  const isSearchOver = useSelector((state: GlobalTypes) => state.isSearchOver, shallowEqual);
 
   const dispatch = useDispatch();
 
@@ -27,12 +28,17 @@ const Pagination = () => {
 
   return (
     <div className="pagination">
-      <button type="button" onClick={handleClick} data-testid="search-page-number-start">
+      <button
+        type="button"
+        onClick={handleClick}
+        data-testid="search-page-number-start"
+        disabled={isSearchOver ? false : true}
+      >
         1
       </button>
 
       {pageNumber && +pageNumber >= 3 ? (
-        <button type="button" onClick={handleClick}>
+        <button type="button" onClick={handleClick} disabled={isSearchOver ? false : true}>
           {+pageNumber - 2}
         </button>
       ) : (
@@ -40,7 +46,7 @@ const Pagination = () => {
       )}
 
       {pageNumber && +pageNumber >= 2 ? (
-        <button type="button" onClick={handleClick}>
+        <button type="button" onClick={handleClick} disabled={isSearchOver ? false : true}>
           {+pageNumber - 1}
         </button>
       ) : (
@@ -55,10 +61,11 @@ const Pagination = () => {
         onChange={handleChange}
         placeholder="go to"
         data-testid="search-page-number"
+        disabled={isSearchOver ? false : true}
       />
 
       {pageNumber && maxPageNumber && +pageNumber + 1 <= maxPageNumber ? (
-        <button type="button" onClick={handleClick}>
+        <button type="button" onClick={handleClick} disabled={isSearchOver ? false : true}>
           {+pageNumber + 1}
         </button>
       ) : (
@@ -66,14 +73,19 @@ const Pagination = () => {
       )}
 
       {pageNumber && maxPageNumber && +pageNumber + 2 <= maxPageNumber ? (
-        <button type="button" onClick={handleClick}>
+        <button type="button" onClick={handleClick} disabled={isSearchOver ? false : true}>
           {+pageNumber + 2}
         </button>
       ) : (
         <button type="button" disabled></button>
       )}
 
-      <button type="button" onClick={handleClick} data-testid="search-page-number-end">
+      <button
+        type="button"
+        onClick={handleClick}
+        data-testid="search-page-number-end"
+        disabled={isSearchOver ? false : true}
+      >
         {maxPageNumber}
       </button>
     </div>

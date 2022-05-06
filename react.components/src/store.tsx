@@ -65,6 +65,9 @@ export const getSlice = (initialState: GlobalTypes) => {
     reducers: {
       handleValueInSearchInput: (state, action: PayloadAction<string>) => {
         state.value = action.payload;
+        state.pageNumber = '1';
+        state.response = [];
+        state.isSearchOver = false;
       },
 
       handlePageNumber: (state, action: PayloadAction<string>) => {

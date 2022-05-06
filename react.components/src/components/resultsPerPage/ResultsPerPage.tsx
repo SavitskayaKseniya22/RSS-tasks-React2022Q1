@@ -6,6 +6,7 @@ import '../SearchForm/searchForm.css';
 
 const ResultsPerPage = () => {
   const itemsPerPage = useSelector((state: GlobalTypes) => state.itemsPerPage, shallowEqual);
+  const isSearchOver = useSelector((state: GlobalTypes) => state.isSearchOver, shallowEqual);
   const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +21,7 @@ const ResultsPerPage = () => {
       onInput={handleChange}
       placeholder="1-30"
       data-testid="search-per-page"
+      disabled={isSearchOver ? false : true}
       min="0"
       max="30"
     />

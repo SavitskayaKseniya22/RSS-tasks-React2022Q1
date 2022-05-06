@@ -6,6 +6,7 @@ import '../SearchForm/searchForm.css';
 
 const Sort = () => {
   const sort = useSelector((state: GlobalTypes) => state.sort, shallowEqual);
+  const isSearchOver = useSelector((state: GlobalTypes) => state.isSearchOver, shallowEqual);
   const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -18,6 +19,7 @@ const Sort = () => {
       className="search-sort"
       onChange={handleChange}
       value={sort}
+      disabled={isSearchOver ? false : true}
       data-testid="search-sort"
     >
       <option value="oldest">oldest</option>
