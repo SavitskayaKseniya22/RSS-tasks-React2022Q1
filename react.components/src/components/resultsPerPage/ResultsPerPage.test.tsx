@@ -39,8 +39,6 @@ describe('ResultsPerPage tests', () => {
       </BrowserRouter>
     );
 
-    await waitFor(() => expect(screen.queryByText('no images found')).toBeInTheDocument());
-
     const search = screen.getByTestId('search-input') as HTMLInputElement;
     await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
 

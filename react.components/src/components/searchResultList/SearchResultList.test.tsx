@@ -2,12 +2,10 @@ import MainPage from '../../pages/MainPage/MainPage';
 import SearchResultList from './SearchResultList';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { mockedState } from '../../mockedState';
 import { mockStore } from '../../mockedStore';
-
 import fetchMock from 'fetch-mock';
-import { mockedResponse } from '../../mockedResponse';
 import { store } from '../../store';
 
 describe('SearchResults tests', () => {
@@ -27,11 +25,7 @@ describe('SearchResults tests', () => {
         </Provider>
       </BrowserRouter>
     );
-
-    fetchMock.mock(
-      'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=20&query=&order_by=latest',
-      mockedResponse
-    );
+    expect(screen.queryByText('search for something')).toBeInTheDocument();
   });
 
   test('check SearchResultList page error', async () => {
@@ -48,6 +42,8 @@ describe('SearchResults tests', () => {
         </Provider>
       </BrowserRouter>
     );
+
+    await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
 
     await waitFor(() => expect(screen.queryByText('something went wrong')).toBeInTheDocument());
     expect(screen.queryByText('no images found')).not.toBeInTheDocument();
@@ -69,23 +65,3 @@ describe('SearchResults tests', () => {
     expect(screen.getAllByTestId('card-item').length).toEqual(mockedState?.response?.length);
   });
 });
-
-/*
-
-await waitFor(() => expect(screen.queryByText('no images found')).toBeInTheDocument());
-
-    const search = screen.getByTestId('search-input') as HTMLInputElement;
-    await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
-
-    fetchMock.mock(
-      'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=20&query=car&order_by=latest',
-      mockedResponse
-    );
-
-    await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
-    await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());
-
-    expect(screen.queryByText('search for something')).not.toBeInTheDocument();
-    expect(screen.queryByText('something went wrong')).not.toBeInTheDocument();
-
-*/

@@ -30,7 +30,7 @@ export const initialState: GlobalTypes = {
   itemsPerPage: '20',
   pageNumber: '1',
   maxPageNumber: 10,
-  shouldUpdate: true,
+  shouldUpdate: window.localStorage.getItem('searchValue') ? true : false,
   savedCards: [],
   adsFormValues: defaultValues,
 };

@@ -66,11 +66,6 @@ describe('SearchItem test', () => {
         </Provider>
       </MemoryRouter>
     );
-    fetchMock.mock(
-      'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=20&query=&order_by=latest',
-      mockedResponse
-    );
-    await waitFor(() => expect(screen.queryByText('no images found')).toBeInTheDocument());
 
     expect(screen.getByTestId('main-page__link')).toHaveClass('active-link');
     userEvent.click(screen.getByTestId('card__link'));
