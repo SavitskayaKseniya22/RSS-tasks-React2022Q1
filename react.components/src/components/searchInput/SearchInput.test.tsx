@@ -2,10 +2,10 @@ import MainPage from '../../pages/MainPage/MainPage';
 import SearchInput from './SearchInput';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { mockedResponse } from '../../mockedResponse';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
 import { store } from '../../store';
+import { mockedResponse } from '../../mockedResponse';
 
 describe('SearchInput tests', () => {
   afterEach(() => {

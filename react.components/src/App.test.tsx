@@ -1,8 +1,8 @@
 import App from './App';
 import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import { store } from './store';
-import { Provider } from 'react-redux';
 
 test('check 404 page', () => {
   render(

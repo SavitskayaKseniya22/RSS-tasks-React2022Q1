@@ -1,8 +1,8 @@
 import { BrowserRouter } from 'react-router-dom';
 import SearchItemDetails from './SearchItemDetails';
+import { Provider } from 'react-redux';
 import { mockedState } from '../../mockedState';
 import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { mockStore } from '../../mockedStore';
 
 describe('SearchItemDetails test', () => {

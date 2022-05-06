@@ -2,7 +2,7 @@ import MainPage from '../../pages/MainPage/MainPage';
 import SearchResultList from './SearchResultList';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { mockedState } from '../../mockedState';
 import { mockStore } from '../../mockedStore';
 

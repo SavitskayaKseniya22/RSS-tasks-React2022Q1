@@ -1,20 +1,16 @@
 import AdList from './AdList';
-import { mockedState } from '../../mockedState';
+import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
+import { mockedState } from '../../mockedState';
+import { mockStore } from '../../mockedStore';
 
 test('check AdList appearance', () => {
-  /*
   render(
-    <ContextApp.Provider
-      value={{
-        state: mockedState,
-        dispatch: () => null,
-      }}
-    >
+    <Provider store={mockStore}>
       <AdList />
-    </ContextApp.Provider>
+    </Provider>
   );
 
   const cards = screen.getAllByTestId('card-item');
-  expect(cards.length).toEqual(mockedState.savedCards.length);*/
+  expect(cards.length).toEqual(mockedState.savedCards.length);
 });

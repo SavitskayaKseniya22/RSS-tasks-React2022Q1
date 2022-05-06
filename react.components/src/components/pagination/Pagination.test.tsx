@@ -1,10 +1,10 @@
 import MainPage from '../../pages/MainPage/MainPage';
 import Pagination from './Pagination';
 import { BrowserRouter } from 'react-router-dom';
-import { mockedState } from '../../mockedState';
+import { Provider } from 'react-redux';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Provider } from 'react-redux';
+import { mockedState } from '../../mockedState';
 import { mockStore } from '../../mockedStore';
 
 describe('Pagination tests', () => {

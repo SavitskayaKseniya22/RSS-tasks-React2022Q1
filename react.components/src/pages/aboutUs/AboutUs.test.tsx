@@ -1,8 +1,8 @@
 import App from '../../App';
 import AboutUs from './AboutUs';
 import { MemoryRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { render, screen } from '@testing-library/react';
 import { store } from '../../store';
 
 describe('AboutUs test', () => {

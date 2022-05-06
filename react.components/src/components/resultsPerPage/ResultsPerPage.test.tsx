@@ -1,14 +1,12 @@
 import ResultsPerPage from './ResultsPerPage';
 import MainPage from '../../pages/MainPage/MainPage';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import { mockedState } from '../../mockedState';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import fetchMock from 'fetch-mock';
+import { mockedState } from '../../mockedState';
 import { mockStore } from '../../mockedStore';
 import { store } from '../../store';
-import fetchMock from 'fetch-mock';
 import { mockedResponse } from '../../mockedResponse';
 
 describe('ResultsPerPage tests', () => {

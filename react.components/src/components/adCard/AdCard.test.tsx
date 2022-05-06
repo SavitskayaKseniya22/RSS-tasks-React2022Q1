@@ -1,12 +1,6 @@
 import AdCard from './AdCard';
-import { data } from '../../mockedData';
-import { mockedState } from '../../mockedState';
-import { fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { useReducer } from 'react';
 import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { mockStore } from '../../mockedStore';
+import { data } from '../../mockedData';
 
 describe('check forming card with data', () => {
   test('check card appearance', () => {

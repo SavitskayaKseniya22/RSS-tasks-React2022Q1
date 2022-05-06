@@ -1,8 +1,8 @@
 import App from '../../App';
 import MainPage from './MainPage';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
-import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { render, screen, waitFor } from '@testing-library/react';
 import { store } from '../../store';
 import { mockStore } from '../../mockedStore';
 

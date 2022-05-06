@@ -8,7 +8,6 @@ import '../SearchForm/searchForm.css';
 const Pagination = () => {
   const pageNumber = useSelector((state: GlobalTypes) => state.pageNumber, shallowEqual);
   const maxPageNumber = useSelector((state: GlobalTypes) => state.maxPageNumber, shallowEqual);
-  const state = useSelector((state: GlobalTypes) => state, shallowEqual);
 
   const dispatch = useDispatch();
 

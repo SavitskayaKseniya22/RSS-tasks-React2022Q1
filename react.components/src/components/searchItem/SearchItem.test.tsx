@@ -1,14 +1,13 @@
 import SearchItem from './SearchItem';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import { mockedResponse, mockedResponseItem } from '../../mockedResponse';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { mockStore } from '../../mockedStore';
 import App from '../../App';
+import { Provider } from 'react-redux';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import { store } from '../../store';
 import fetchMock from 'fetch-mock';
-import { wait } from '@testing-library/user-event/dist/utils';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { mockStore } from '../../mockedStore';
+import { mockedResponse, mockedResponseItem } from '../../mockedResponse';
+import { store } from '../../store';
 
 describe('SearchItem test', () => {
   afterEach(() => {
