@@ -10,9 +10,7 @@ const SearchInput = () => {
 
   useEffect(() => {
     return () => {
-      if (value) {
-        window.localStorage.setItem('searchValue', value);
-      }
+      window.localStorage.setItem('searchValue', value);
     };
   });
 

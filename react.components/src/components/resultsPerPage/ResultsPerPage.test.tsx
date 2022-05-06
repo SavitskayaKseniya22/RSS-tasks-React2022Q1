@@ -4,8 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
-import { mockedState } from '../../mockedState';
-import { mockStore } from '../../mockedStore';
+import { mockStore, mockedState } from '../../mockedStore';
 import { store } from '../../store';
 import { mockedResponse } from '../../mockedResponse';
 

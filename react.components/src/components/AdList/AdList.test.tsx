@@ -1,8 +1,7 @@
 import AdList from './AdList';
 import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
-import { mockedState } from '../../mockedState';
-import { mockStore } from '../../mockedStore';
+import { mockStore, mockedState } from '../../mockedStore';
 
 test('check AdList appearance', () => {
   render(

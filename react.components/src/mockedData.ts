@@ -17,7 +17,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247080,
   },
   {
@@ -35,7 +34,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247081,
   },
   {
@@ -53,7 +51,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247084,
   },
   {
@@ -71,7 +68,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247067,
   },
   {
@@ -89,7 +85,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247088,
   },
   {
@@ -107,7 +102,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247080,
   },
   {
@@ -125,7 +119,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 165134224704,
   },
   {
@@ -143,7 +136,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247086,
   },
 
@@ -162,7 +154,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247055,
   },
   {
@@ -180,7 +171,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247123,
   },
   {
@@ -198,7 +188,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247089,
   },
   {
@@ -216,7 +205,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247010,
   },
   {
@@ -234,7 +222,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247079,
   },
   {
@@ -252,7 +239,6 @@ export const data: CardProps[] = [
     isReady: true,
     currency: '$',
     img: tempImgHouse,
-
     adCreationDate: 1651342247077,
   },
 ];

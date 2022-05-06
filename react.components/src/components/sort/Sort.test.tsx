@@ -1,12 +1,10 @@
 import Sort from './Sort';
 import MainPage from '../../pages/MainPage/MainPage';
 import { BrowserRouter } from 'react-router-dom';
-
-import { mockedState } from '../../mockedState';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
-import { mockStore } from '../../mockedStore';
+import { mockedState, mockStore } from '../../mockedStore';
 import fetchMock from 'fetch-mock';
 import { mockedResponse } from '../../mockedResponse';
 import { store } from '../../store';

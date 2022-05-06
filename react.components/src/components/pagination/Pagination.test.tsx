@@ -4,8 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockedState } from '../../mockedState';
-import { mockStore } from '../../mockedStore';
+import { mockStore, mockedState } from '../../mockedStore';
 
 describe('Pagination tests', () => {
   test('check Pagination appearance', async () => {
