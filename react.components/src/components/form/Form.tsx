@@ -24,7 +24,12 @@ const Form = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(handleAdsForm(getValues()));
+      const values = getValues();
+      if (values.img.length) {
+        values.img = URL.createObjectURL((values.img as unknown as FileList)[0]);
+      }
+
+      dispatch(handleAdsForm(values));
     };
   }, []);
 
@@ -44,7 +49,8 @@ const Form = () => {
       adCreationDate: Date.now(),
     };
 
-    if (data.img) {
+    if (data.img.length === 1) {
+      console.log(data.img);
       const file = data.img[0] as unknown as File;
       const fileReader = new FileReader();
 
@@ -53,6 +59,8 @@ const Form = () => {
         dispatch(handleSavedCards(object));
       };
       fileReader.readAsDataURL(file);
+    } else {
+      dispatch(handleSavedCards(object));
     }
 
     reset(defaultValues, {
