@@ -5,11 +5,14 @@ import { Provider } from 'react-redux';
 import { mockedResponse } from '../../mockedResponse';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
-import { mockStoreStart } from '../../mockedStore';
 import { store } from '../../store';
 
 describe('SearchInput tests', () => {
   afterEach(() => {
+    fetchMock.restore();
+  });
+
+  beforeEach(() => {
     fetchMock.restore();
   });
 
@@ -65,7 +68,7 @@ describe('SearchInput tests', () => {
     );
     render(
       <BrowserRouter>
-        <Provider store={mockStoreStart}>
+        <Provider store={store}>
           <MainPage />
         </Provider>
       </BrowserRouter>
@@ -73,8 +76,6 @@ describe('SearchInput tests', () => {
 
     const search = screen.getByTestId('search-input') as HTMLInputElement;
     await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
-
-    expect(screen.queryByText('search for something')).toBeInTheDocument();
     await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
 
     expect(screen.queryByText('search for something')).not.toBeInTheDocument();
@@ -91,11 +92,12 @@ describe('SearchInput tests', () => {
 
     render(
       <BrowserRouter>
-        <Provider store={mockStoreStart}>
+        <Provider store={store}>
           <MainPage />
         </Provider>
       </BrowserRouter>
     );
+
     const search = screen.getByTestId('search-input') as HTMLInputElement;
     await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
     await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));

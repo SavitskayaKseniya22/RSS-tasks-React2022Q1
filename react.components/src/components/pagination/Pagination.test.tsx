@@ -61,7 +61,7 @@ describe('Pagination tests', () => {
     await waitFor(() =>
       expect((screen.getByTestId('search-page-number') as HTMLInputElement).value).toEqual('1')
     );
-    expect(screen.getByText('Loading data')).toBeInTheDocument();
+
     await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());
     await waitFor(() => {
       expect(screen.queryByText('Loading data')).not.toBeInTheDocument();

@@ -58,67 +58,82 @@ export const fetchImages = createAsyncThunk(
   }
 );
 
-export const mainReducer = createSlice({
-  name: 'app',
-  initialState,
-  reducers: {
-    handleValueInSearchInput: (state, action: PayloadAction<string>) => {
-      state.value = action.payload;
+export const getStore = (initialState: GlobalTypes) => {
+  return createSlice({
+    name: 'app',
+    initialState,
+    reducers: {
+      handleValueInSearchInput: (state, action: PayloadAction<string>) => {
+        state.value = action.payload;
+      },
+
+      handlePageNumber: (state, action: PayloadAction<string>) => {
+        state.pageNumber = action.payload;
+        state.shouldUpdate = true;
+      },
+
+      handleItemPerPage: (state, action: PayloadAction<string>) => {
+        state.itemsPerPage = action.payload;
+        state.pageNumber = '1';
+        state.shouldUpdate = true;
+      },
+
+      handleSort: (state, action: PayloadAction<string>) => {
+        state.sort = action.payload;
+        state.shouldUpdate = true;
+      },
+
+      handleShouldUpdateStatus: (state, action: PayloadAction<boolean>) => {
+        state.shouldUpdate = action.payload;
+      },
+
+      handleActiveCard: (state, action: PayloadAction<SearchItemDetailType>) => {
+        state.activeCard = action.payload;
+      },
+
+      handleSavedCards: (state, action: PayloadAction<CardProps>) => {
+        state.savedCards?.push(action.payload);
+      },
+
+      handleAdsForm: (state, action: PayloadAction<CardProps>) => {
+        state.adsFormValues = action.payload;
+      },
     },
 
-    handlePageNumber: (state, action: PayloadAction<string>) => {
-      state.pageNumber = action.payload;
-      state.shouldUpdate = true;
+    extraReducers: (builder) => {
+      builder.addCase(fetchImages.pending, (state) => {
+        state.isLoading = true;
+        state.response = [];
+        state.isSearchOver = false;
+      });
+      builder.addCase(fetchImages.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSearchOver = true;
+        state.shouldUpdate = false;
+        state.response = action.payload.data;
+        state.maxPageNumber = action.payload.totalPages;
+      });
+      builder.addCase(fetchImages.rejected, (state) => {
+        state.isLoading = false;
+        state.shouldUpdate = false;
+        state.isError = true;
+      });
     },
+  });
+};
 
-    handleItemPerPage: (state, action: PayloadAction<string>) => {
-      state.itemsPerPage = action.payload;
-      state.pageNumber = '1';
-      state.shouldUpdate = true;
-    },
+export const store = configureStore(getStore(initialState));
 
-    handleSort: (state, action: PayloadAction<string>) => {
-      state.sort = action.payload;
-      state.shouldUpdate = true;
-    },
-
-    handleShouldUpdateStatus: (state, action: PayloadAction<boolean>) => {
-      state.shouldUpdate = action.payload;
-    },
-
-    handleActiveCard: (state, action: PayloadAction<SearchItemDetailType>) => {
-      state.activeCard = action.payload;
-    },
-
-    handleSavedCards: (state, action: PayloadAction<CardProps>) => {
-      state.savedCards?.push(action.payload);
-    },
-
-    handleAdsForm: (state, action: PayloadAction<CardProps>) => {
-      state.adsFormValues = action.payload;
-    },
+/*
+export const store = configureStore({
+  reducer: {
+    app: getStore(initialState).reducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }),
   },
-
-  extraReducers: (builder) => {
-    builder.addCase(fetchImages.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(fetchImages.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.isSearchOver = true;
-      state.shouldUpdate = false;
-      state.response = action.payload.data;
-      state.maxPageNumber = action.payload.totalPages;
-    });
-    builder.addCase(fetchImages.rejected, (state) => {
-      state.isLoading = false;
-      state.shouldUpdate = false;
-      state.isError = true;
-    });
-  },
-});
-
-export const store = configureStore(mainReducer);
+});*/
 
 export const {
   handleValueInSearchInput,
@@ -129,4 +144,4 @@ export const {
   handleActiveCard,
   handleSavedCards,
   handleAdsForm,
-} = mainReducer.actions;
+} = getStore(initialState).actions;

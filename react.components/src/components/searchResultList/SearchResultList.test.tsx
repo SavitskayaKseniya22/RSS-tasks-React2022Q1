@@ -4,40 +4,52 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { mockedState } from '../../mockedState';
-import { mockStore, mockStoreError, mockStoreStart } from '../../mockedStore';
+import { mockStore } from '../../mockedStore';
+
+import fetchMock from 'fetch-mock';
+import { mockedResponse } from '../../mockedResponse';
+import { store } from '../../store';
 
 describe('SearchResults tests', () => {
-  test('check SearchResultList page download', async () => {
+  afterEach(() => {
+    fetchMock.restore();
+  });
+
+  beforeEach(() => {
+    fetchMock.restore();
+  });
+
+  test('check SearchResultList page empty search', async () => {
     render(
       <BrowserRouter>
-        <Provider store={mockStoreStart}>
+        <Provider store={store}>
           <MainPage />
         </Provider>
       </BrowserRouter>
     );
 
-    expect(screen.queryByText('search for something')).toBeInTheDocument();
-
-    await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
-
-    expect(screen.getByTestId('active-search')).toBeInTheDocument();
-    expect(screen.queryByText('search for something')).not.toBeInTheDocument();
-    expect(screen.queryByText('something went wrong')).not.toBeInTheDocument();
-
-    await waitFor(() => expect(screen.queryByText('no images found')).toBeInTheDocument());
-    expect(screen.queryByText('something went wrong')).not.toBeInTheDocument();
-    expect(screen.queryByText('active-search')).not.toBeInTheDocument();
+    fetchMock.mock(
+      'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=20&query=&order_by=latest',
+      mockedResponse
+    );
   });
 
-  test('check SearchResultList page error', () => {
+  test('check SearchResultList page error', async () => {
+    fetchMock.get(
+      'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=20&query=&order_by=latest',
+      {
+        status: 403,
+      }
+    );
     render(
       <BrowserRouter>
-        <Provider store={mockStoreError}>
-          <SearchResultList />
+        <Provider store={store}>
+          <MainPage />
         </Provider>
       </BrowserRouter>
     );
-    expect(screen.queryByText('something went wrong')).toBeInTheDocument();
+
+    await waitFor(() => expect(screen.queryByText('something went wrong')).toBeInTheDocument());
     expect(screen.queryByText('no images found')).not.toBeInTheDocument();
     expect(screen.queryByText('search for something')).not.toBeInTheDocument();
   });
@@ -57,3 +69,23 @@ describe('SearchResults tests', () => {
     expect(screen.getAllByTestId('card-item').length).toEqual(mockedState?.response?.length);
   });
 });
+
+/*
+
+await waitFor(() => expect(screen.queryByText('no images found')).toBeInTheDocument());
+
+    const search = screen.getByTestId('search-input') as HTMLInputElement;
+    await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
+
+    fetchMock.mock(
+      'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=20&query=car&order_by=latest',
+      mockedResponse
+    );
+
+    await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
+    await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());
+
+    expect(screen.queryByText('search for something')).not.toBeInTheDocument();
+    expect(screen.queryByText('something went wrong')).not.toBeInTheDocument();
+
+*/

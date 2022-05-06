@@ -34,19 +34,3 @@ export const mockedState: GlobalTypes = {
   savedCards: data,
   adsFormValues: defaultValues,
 };
-
-export const mockedStateStart: GlobalTypes = {
-  value: '',
-  response: [],
-  isLoading: false,
-  isSearchOver: false,
-  isError: false,
-  activeCard: undefined,
-  sort: 'latest',
-  itemsPerPage: '20',
-  pageNumber: '1',
-  maxPageNumber: 10,
-  shouldUpdate: false,
-  savedCards: [],
-  adsFormValues: defaultValues,
-};

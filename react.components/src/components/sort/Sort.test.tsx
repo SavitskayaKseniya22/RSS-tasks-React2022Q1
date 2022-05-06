@@ -3,14 +3,22 @@ import MainPage from '../../pages/MainPage/MainPage';
 import { BrowserRouter } from 'react-router-dom';
 
 import { mockedState } from '../../mockedState';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useReducer } from 'react';
 import { Provider } from 'react-redux';
-import { store } from '../../store';
 import { mockStore } from '../../mockedStore';
+import fetchMock from 'fetch-mock';
+import { mockedResponse } from '../../mockedResponse';
+import { store } from '../../store';
 
 describe('Sort tests', () => {
+  afterEach(() => {
+    fetchMock.restore();
+  });
+
+  beforeEach(() => {
+    fetchMock.restore();
+  });
   test('check Sort appearance', async () => {
     render(
       <Provider store={mockStore}>
@@ -26,18 +34,35 @@ describe('Sort tests', () => {
 
   test('check Sort select new option', async () => {
     render(
-      <Provider store={mockStore}>
+      <Provider store={store}>
         <BrowserRouter>
           <MainPage />
         </BrowserRouter>
       </Provider>
+    );
+    await waitFor(() => expect(screen.queryByText('no images found')).toBeInTheDocument());
+
+    const search = screen.getByTestId('search-input') as HTMLInputElement;
+    await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
+
+    fetchMock.mock(
+      'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=20&query=car&order_by=latest',
+      mockedResponse
+    );
+
+    await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
+    await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());
+
+    fetchMock.mock(
+      'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=20&query=car&order_by=popular',
+      mockedResponse
     );
 
     await waitFor(() => userEvent.selectOptions(screen.getByTestId('search-sort'), ['popular']));
     await waitFor(() =>
       expect((screen.getByTestId('search-sort') as HTMLSelectElement).value).toEqual('popular')
     );
-    expect(screen.getByText('Loading data')).toBeInTheDocument();
+
     await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());
     await waitFor(() => {
       expect(screen.queryByText('Loading data')).not.toBeInTheDocument();

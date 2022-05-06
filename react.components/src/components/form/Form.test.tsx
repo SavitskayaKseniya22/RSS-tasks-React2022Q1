@@ -126,7 +126,6 @@ describe('form test', () => {
     expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('texttext');
 
     await waitFor(() => fireEvent.click(submit));
-    screen.debug();
     await waitFor(() =>
       expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('')
     );

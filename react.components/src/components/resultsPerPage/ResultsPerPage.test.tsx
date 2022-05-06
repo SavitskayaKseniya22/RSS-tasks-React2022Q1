@@ -1,14 +1,24 @@
 import ResultsPerPage from './ResultsPerPage';
 import MainPage from '../../pages/MainPage/MainPage';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { mockedState } from '../../mockedState';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Provider } from 'react-redux';
 import { mockStore } from '../../mockedStore';
+import { store } from '../../store';
+import fetchMock from 'fetch-mock';
+import { mockedResponse } from '../../mockedResponse';
 
 describe('ResultsPerPage tests', () => {
+  afterEach(() => {
+    fetchMock.restore();
+  });
+
+  beforeEach(() => {
+    fetchMock.restore();
+  });
   test('check Sort appearance', async () => {
     render(
       <Provider store={mockStore}>
@@ -24,23 +34,38 @@ describe('ResultsPerPage tests', () => {
 
   test('check Sort select new option', async () => {
     render(
-      <Provider store={mockStore}>
-        <MemoryRouter initialEntries={['/']}>
+      <BrowserRouter>
+        <Provider store={store}>
           <MainPage />
-        </MemoryRouter>
-      </Provider>
+        </Provider>
+      </BrowserRouter>
     );
 
-    await waitFor(() => userEvent.type(screen.getByTestId('search-per-page'), '30'));
-    await waitFor(() =>
-      expect((screen.getByTestId('search-per-page') as HTMLInputElement).value).toEqual(
-        mockedState.itemsPerPage + '30'
-      )
+    await waitFor(() => expect(screen.queryByText('no images found')).toBeInTheDocument());
+
+    const search = screen.getByTestId('search-input') as HTMLInputElement;
+    await waitFor(() => fireEvent.input(search, { target: { value: 'car' } }));
+
+    fetchMock.mock(
+      'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=20&query=car&order_by=latest',
+      mockedResponse
     );
-    expect(screen.getByText('Loading data')).toBeInTheDocument();
+
+    await waitFor(() => fireEvent.submit(screen.getByTestId('search-form')));
     await waitFor(() => expect(screen.getByTestId('card-list')).toBeInTheDocument());
-    await waitFor(() => {
-      expect(screen.queryByText('Loading data')).not.toBeInTheDocument();
-    });
+
+    fetchMock.mock(
+      'https://api.unsplash.com/search/photos?client_id=ofM-1kx5RC6ZUCCfZy12f78_KZl3oW5gpojrMlT4n4A&page=1&per_page=30&query=car&order_by=latest',
+      mockedResponse
+    );
+
+    await waitFor(() =>
+      fireEvent.input(screen.getByTestId('search-per-page'), { target: { value: '30' } })
+    );
+    await waitFor(() =>
+      expect((screen.getByTestId('search-per-page') as HTMLInputElement).value).toEqual('30')
+    );
+
+    expect(fetchMock.called()).toBe(true);
   });
 });
