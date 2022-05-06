@@ -1,12 +1,12 @@
 import Ads from '../../pages/Ads/Ads';
 import Form from './Form';
 import App from '../../App';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { mockStore } from '../../mockedStore';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { store } from '../../store';
+import { mockStore } from '../../mockedStore';
 
 describe('form test', () => {
   test('check form appearance', () => {
@@ -144,14 +144,11 @@ describe('form test', () => {
     );
 
     fireEvent.input(screen.getByTestId('form__title'), { target: { value: 'texttext' } });
+    expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('texttext');
+
     userEvent.selectOptions(screen.getByTestId('form__currency'), ['₽']);
     userEvent.click(screen.getByTestId('form__ready-chechbox'));
 
-    const file = new File(['img'], 'img.png', { type: 'image/png' });
-    const fileUploader = screen.getByTestId('form__file') as HTMLInputElement;
-    await waitFor(() => userEvent.upload(fileUploader, file));
-
-    expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('texttext');
     expect(screen.queryByText('Description:')).toBeInTheDocument();
 
     await waitFor(() => userEvent.click(screen.getByTestId('main-page__link')));
@@ -164,8 +161,5 @@ describe('form test', () => {
     expect((screen.getByTestId('form__title') as HTMLInputElement).value).toEqual('texttext');
     expect((screen.getByTestId('form__currency') as HTMLSelectElement).value).toEqual('₽');
     expect(screen.getByTestId('form__ready-chechbox')).toBeChecked();
-
-    expect(fileUploader.files?.[0]).toStrictEqual(file);
-    expect(fileUploader.files).toHaveLength(1);
   });
 });

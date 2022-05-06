@@ -58,7 +58,7 @@ export const fetchImages = createAsyncThunk(
   }
 );
 
-export const getStore = (initialState: GlobalTypes) => {
+export const getSlice = (initialState: GlobalTypes) => {
   return createSlice({
     name: 'app',
     initialState,
@@ -122,18 +122,9 @@ export const getStore = (initialState: GlobalTypes) => {
   });
 };
 
-export const store = configureStore(getStore(initialState));
+const slice = getSlice(initialState);
 
-/*
-export const store = configureStore({
-  reducer: {
-    app: getStore(initialState).reducer,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: false,
-      }),
-  },
-});*/
+export const store = configureStore(slice);
 
 export const {
   handleValueInSearchInput,
@@ -144,4 +135,4 @@ export const {
   handleActiveCard,
   handleSavedCards,
   handleAdsForm,
-} = getStore(initialState).actions;
+} = slice.actions;

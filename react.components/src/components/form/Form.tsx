@@ -26,10 +26,18 @@ const Form = () => {
     return () => {
       const values = getValues();
       if (values.img.length) {
-        values.img = URL.createObjectURL((values.img as unknown as FileList)[0]);
-      }
+        const file = (values.img as unknown as FileList)[0];
+        const fileReader = new FileReader();
 
-      dispatch(handleAdsForm(values));
+        fileReader.onloadend = () => {
+          values.img = fileReader.result as string;
+          dispatch(handleAdsForm(values));
+        };
+
+        fileReader.readAsDataURL(file);
+      } else {
+        dispatch(handleAdsForm(values));
+      }
     };
   }, []);
 
@@ -50,7 +58,6 @@ const Form = () => {
     };
 
     if (data.img.length === 1) {
-      console.log(data.img);
       const file = data.img[0] as unknown as File;
       const fileReader = new FileReader();
 

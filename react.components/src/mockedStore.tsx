@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { mockedState, mockedStateError } from './mockedState';
-import { getStore } from './store';
+import { getSlice } from './store';
+import { mockedState } from './mockedState';
 
-export const mockStore = configureStore(getStore(mockedState));
+export const mockStore = configureStore(getSlice(mockedState));
