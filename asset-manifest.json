@@ -1,19 +1,18 @@
 {
   "files": {
-    "main.css": "/savitskayakseniya22-REACT2022Q1/static/css/main.2bfceabd.css",
-    "main.js": "/savitskayakseniya22-REACT2022Q1/static/js/main.46838b13.js",
+    "main.css": "/savitskayakseniya22-REACT2022Q1/static/css/main.1416e9b2.css",
+    "main.js": "/savitskayakseniya22-REACT2022Q1/static/js/main.1625e28f.js",
     "static/media/rs-school-js.svg": "/savitskayakseniya22-REACT2022Q1/static/media/rs-school-js.ad178c0df28bc133be34b982d62f431d.svg",
     "static/media/phone.svg": "/savitskayakseniya22-REACT2022Q1/static/media/phone.9076a6248458b2fdc389657a61e4985e.svg",
     "static/media/forward-next-arrow.svg": "/savitskayakseniya22-REACT2022Q1/static/media/forward-next-arrow.9915da4da109ad9c743612c6ae196f9a.svg",
-    "static/media/like.svg": "/savitskayakseniya22-REACT2022Q1/static/media/like.c91248dece56e73e5446ded7077ab1eb.svg",
     "static/media/search.svg": "/savitskayakseniya22-REACT2022Q1/static/media/search.3823158d25f29157896e.svg",
     "static/media/mail.svg": "/savitskayakseniya22-REACT2022Q1/static/media/mail.6af286ccc1ec8c30c5e461f1e4d42440.svg",
     "index.html": "/savitskayakseniya22-REACT2022Q1/index.html",
-    "main.2bfceabd.css.map": "/savitskayakseniya22-REACT2022Q1/static/css/main.2bfceabd.css.map",
-    "main.46838b13.js.map": "/savitskayakseniya22-REACT2022Q1/static/js/main.46838b13.js.map"
+    "main.1416e9b2.css.map": "/savitskayakseniya22-REACT2022Q1/static/css/main.1416e9b2.css.map",
+    "main.1625e28f.js.map": "/savitskayakseniya22-REACT2022Q1/static/js/main.1625e28f.js.map"
   },
   "entrypoints": [
-    "static/css/main.2bfceabd.css",
-    "static/js/main.46838b13.js"
+    "static/css/main.1416e9b2.css",
+    "static/js/main.1625e28f.js"
   ]
 }
